@@ -15,7 +15,7 @@ docpadConfig = {
       salesforce:
         if process.env.NODE_ENV == 'production'
           clientId: '3MVG9A2kN3Bn17hv5Z.MnUUfJRTgrq0KwgysLOXrljNJ1JB6HijwsXoNi8Imxvwi3b6pknYch_sU771SM1lTh'
-          redirectUri: 'https://jsforce.github.io/callback.html'
+          redirectUri: 'https://jsforce-github-page.herokuapp.com/callback.html'
           proxyUrl: 'https://node-salesforce-proxy.herokuapp.com/proxy/'
         else
           clientId: '3MVG9A2kN3Bn17hv5Z.MnUUfJRR0vtFfsvtVhkKTHPSz5gt5t6rMBSfyic.6YCd2J9YQEJ17kRk2cNEEKYLyD'

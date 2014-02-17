@@ -7,16 +7,10 @@ stylesheets:
   - /css/top.css
 ---
 
-<div class="row">
-
-<div class="col-md-1"></div>
-
-<div class="col-md-10">
-
 <ul class="nav nav-tabs">
   <li class="active"><a href="#node-js" data-toggle="tab">Node.js</a></li>
-  <li><a href="#web-browser-vf" data-toggle="tab">Web Browser (Visualforce)</a></li>
-  <li><a href="#web-browser-oauth2" data-toggle="tab">Web Browser (Outer Website)</a></li>
+  <li><a href="#web-browser-oauth2" data-toggle="tab">Web Browser</a></li>
+  <li><a href="#web-browser-vf" data-toggle="tab">Visualforce</a></li>
   <li><a href="#cli" data-toggle="tab">Command Line Interface (CLI)</a></li>
 </ul>
 
@@ -39,26 +33,7 @@ conn.login('username@domain.com', 'password', function(err, res) {
 });</code></pre>
 </div>
 
-<!-- Web Browser (Visualforce) -->
-<div class="tab-pane" id="web-browser-vf">
-
-<h4>Run</h4>
-
-<pre><code class="lang-html">&lt;apex:page&gt;
-  &lt;apex:includeScript value="{!URLFOR($Resources.JSforce)}" /&gt;
-  &lt;script&gt;
-var conn = new jsforce.Connection({ accessToken: '{!$API.Session_Id}' });
-conn.query('SELECT Id, Name FROM Account', function(err, res) {
-  if (err) { return handleError(err); }
-  handleResult(res);
-});
-  &lt;/script&gt;
-&lt;/apex:page&gt;
-</code></pre>
-
-</div>
-
-<!--- Web Browser (Outer Website) -->
+<!--- Web Browser -->
 <div class="tab-pane" id="web-browser-oauth2">
 
 <h4>Run</h4>
@@ -78,6 +53,25 @@ jsforce.browser.on('connect', function(conn) {
 
 </div>
 
+<!-- Web Browser (Visualforce) -->
+<div class="tab-pane" id="web-browser-vf">
+
+<h4>Run</h4>
+
+<pre><code class="lang-html">&lt;apex:page&gt;
+  &lt;apex:includeScript value="{!URLFOR($Resources.JSforce)}" /&gt;
+  &lt;script&gt;
+var conn = new jsforce.Connection({ accessToken: '{!$API.Session_Id}' });
+conn.query('SELECT Id, Name FROM Account', function(err, res) {
+  if (err) { return handleError(err); }
+  handleResult(res);
+});
+  &lt;/script&gt;
+&lt;/apex:page&gt;
+</code></pre>
+
+</div>
+
 <!-- Command Line Interface (CLI) -->
 <div class="tab-pane" id="cli">
 
@@ -93,7 +87,4 @@ jsforce.browser.on('connect', function(conn) {
 </code></pre>
 </div>
 
-</div>
-
-</div>
-
+</div><!-- end of tab-content-->
