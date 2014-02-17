@@ -28,8 +28,11 @@ stylesheets:
 <pre><code class="lang-javascript">var jsforce = require('jsforce');
 var conn = new jsforce.Connection();
 conn.login('username@domain.com', 'password', function(err, res) {
-  if (err) { return handleError(err); }
-  handleResult(res);
+  if (err) { return console.error(err); }
+  conn.query('SELECT Id, Name FROM Account', function(err, res) {
+    if (err) { return console.error(err); }
+    console.log(res);
+  });
 });</code></pre>
 </div>
 
@@ -38,17 +41,27 @@ conn.login('username@domain.com', 'password', function(err, res) {
 
 <h4>Run</h4>
 
-<pre><code class="lang-html">&lt;script src="/path/to/jsforce.js"&gt;&lt;/script&gt;
-&lt;script&gt;
-jsforce.browser.init({ clientId: '[ your Salesforce OAuth2 ClientID is here ]' });
+<pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;script src="/path/to/jsforce.js"&gt;&lt;/script&gt;
+  &lt;script&gt;
+jsforce.browser.init({
+  clientId: '[ your Salesforce OAuth2 ClientID is here ]',
+  redirectUri: '[ your Salesforce registered redirect URI is here ]'
+});
 jsforce.browser.on('connect', function(conn) {
   conn.query('SELECT Id, Name FROM Account', function(err, res) {
-    if (err) { return handleError(err); }
-    handleResult(res);
+    if (err) { return console.error(err); }
+    console.log(res);
   });
 });
-&lt;/script&gt;
-&lt;button onclick="javascript:jsforce.browser.login();"&gt;Login&lt;/button&gt;
+  &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;button onclick="javascript:jsforce.browser.login();"&gt;Login&lt;/button&gt;
+&lt;/body&gt;
+&lt;/html&gt;
 </code></pre>
 
 </div>
@@ -58,13 +71,13 @@ jsforce.browser.on('connect', function(conn) {
 
 <h4>Run</h4>
 
-<pre><code class="lang-html">&lt;apex:page&gt;
+<pre><code class="lang-html">&lt;apex:page docType="html-5.0" showHeader="false"&gt;
   &lt;apex:includeScript value="{!URLFOR($Resources.JSforce)}" /&gt;
   &lt;script&gt;
 var conn = new jsforce.Connection({ accessToken: '{!$API.Session_Id}' });
 conn.query('SELECT Id, Name FROM Account', function(err, res) {
-  if (err) { return handleError(err); }
-  handleResult(res);
+  if (err) { return console.error(err); }
+  console.log(res);
 });
   &lt;/script&gt;
 &lt;/apex:page&gt;

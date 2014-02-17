@@ -1362,7 +1362,6 @@ Account.find({ CreatedDate: { $lt: jsforce.Date.LAST_YEAR }})
 And `Query#update(mapping)` can be expressed as following:
 
 ```javascript
-/* @interactive */
 //
 // This is much more complex version of Query#update().
 //
@@ -1407,7 +1406,8 @@ conn.sobject('Contact')
     })
     .stream().pipe(fs.createWriteStream("Contact.csv"));
 //
-// Write down Lead records to CSV file, eliminating duplicated entry with same email address.
+// Write down Lead records to CSV file,
+// eliminating duplicated entry with same email address.
 //
 var emails = {};
 conn.sobject('Lead')
@@ -1434,7 +1434,8 @@ conn.sobject('Contact')
     }))
     .stream().pipe(fs.createWriteStream("Contact.csv"));
 //
-// Write down Lead records to CSV file, eliminating duplicated entry with same email address.
+// Write down Lead records to CSV file,
+// eliminating duplicated entry with same email address.
 //
 var emails = {};
 conn.sobject('Lead')
