@@ -8,7 +8,7 @@ body, html {
 
 body {
   color: @text-color;
-  background-color: @clear-color;
+  background-color: @accent-color;
   font-size: 14px;
   line-height: 1.42857143;
 }
@@ -42,6 +42,7 @@ a {
 }
 
 #navigation {
+  background-color: @clear-color;
   margin-bottom: 0;
   color: rgba(255, 255, 255, 0.8);
   .box-shadow(rgba(27, 27, 27, 0.4) 1px 1px 10px);
@@ -62,6 +63,9 @@ a {
     .transition(all 400ms ease);
     color: @accent-color !important;
   }
+  .navbar-right li.profile {
+    img { width: 16px; height: 16px; }
+  }
 }
 
 #headline {
@@ -78,6 +82,7 @@ a {
 }
 
 #content {
+  color: @text-color;
   background-color: @clear-color;
   padding: 30px 0;
 }
