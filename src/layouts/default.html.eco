@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<%- @partial('head') %>
+</head>
+<body>
+
+<!-- header -->
+<%- @partial('header') %>
+
+<!-- headline -->
+<%- @partial(@document.headline or 'headline') %>
+
+<!-- content -->
+<div id="content">
+  <div class="container">
+<% if @document.sidebar? : %>
+    <div class="row">
+      <div class="col-md-9">
+<%- @content %>
+      </div>
+      <div class="col-md-3">
+<%- @partial(@document.sidebar) %>
+      </div>
+    </div>
+<% else : %>
+<%- @content %>
+<% end %>
+  </div>
+</div>
+
+<!-- footer -->
+<%- @partial('footer') %>
+
+<%- @getBlock('scripts').toHTML() %>
+
+</body>
+</html>

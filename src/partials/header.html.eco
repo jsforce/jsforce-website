@@ -1,0 +1,66 @@
+<div id="navigation" class="navbar navbar-invese navbar-static-top"> 
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-btn" data-toggle="jpanel-menu" data-target=".navbar-collapse"> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> </a> 
+      <a class="navbar-brand" href="/" title="Top"><%= @site.title %></a>
+    </div>
+    <!--everything within this div is collapsed on mobile-->
+    <div class="navbar-collapse collapse"> 
+      <!--main navigation-->
+      <ul class="nav navbar-nav navbar-right">
+        <% for menu in @navigations : %>
+          <% cls = if @document.category == menu.name then 'active' else '' %>
+          <% if menu.items? : %>
+          <li class="dropdown <%= cls %>">
+            <a href="<%= menu.url %>" class="dropdown-toggle menu-item" data-toggle="dropdown"><%= menu.title %></a>
+            <!-- Dropdown Menu -->
+            <ul class="dropdown-menu" role="menu" aria-labelledby="about-drop">
+              <% for menuItem in menu.items : %>
+              <li role="presentation"><a role="menuitem" href="<%= menuItem.url %>" tabindex="-1" class="menu-item"><%= menuItem.title %></a></li>
+              <% end %>
+            </ul>
+          <% else : %>
+          <li class="<%= cls %>">
+            <a href="<%= menu.url %>" class="menu-item">
+              <% if menu.icon? : %>
+              <span class="glyphicon glyphicon-<%= menu.icon %>"></span>
+              <% end %>
+              <%= menu.title %>
+            </a>
+          </li>
+          <% end %>
+        <% end %>
+      </ul>
+    </div>
+    <!--/.navbar-collapse --> 
+  </div>
+</div>
+
+<div id="oauth-dialog" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Connect to Salesforce</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal">
+          <div class="form-group">
+            <label class="control-label col-sm-3" for="oauth2-login-url">Connecting to:</label>
+            <div class="controls col-sm-9">
+              <select id="oauth2-login-url" class="form-control" name="loginUrl">
+                <option value="https://login.salesforce.com">Production (login.salesforce.com)</option>
+                <option value="https://test.salesforce.com">Sandbox (test.salesforce.com)</option>
+              </select>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary connect">Connect</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+

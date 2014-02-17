@@ -1,0 +1,15 @@
+<div id="headline">
+  <div class="container">
+    <p class="text-center">
+      <img class="logo" src="/images/jsforce-logo.png">
+    </div>
+    <p class="lead">
+      Develop Salesforce apps with JavaScript,<br>
+      whether it's running on server or web browser. 
+    </p>
+    <p class="lead">
+      <a class="btn btn-default btn-lg" href="/download/">Download</a>
+      <a class="btn btn-default btn-lg" href="https://github.com/jsforce/jsforce">View on GitHub</a>
+    </p>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+<div id="headline">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-11">
+        <h2><%= @document.title %></h2>
+        <p><%= @document.subtitle %></p>
+      </div>
+    </div>
+  </div>
+</div>

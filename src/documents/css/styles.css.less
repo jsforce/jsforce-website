@@ -1,0 +1,154 @@
+@import "mixins.less";
+@import "variables.less";
+@import "extra-variables.less";
+
+body, html {
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+body {
+  color: @text-color;
+  background-color: @clear-color;
+  font-size: 14px;
+  line-height: 1.42857143;
+}
+
+h1, h2, h3, h4 {
+  font-weight: bold;
+}
+
+a {
+  color: @accent-color;
+}
+
+.container {
+  @media (min-width: 1200px) {
+    width: 970px;
+  }
+}
+
+.btn-primary {
+  color: @clear-color;
+  background-color: @accent-color;
+  border-color: darken(@accent-color, 10%);
+}
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active {
+  color: @clear-color;
+  background-color: lighten(@accent-color, 10%);
+  border-color: @accent-color;
+}
+
+#navigation {
+  margin-bottom: 0;
+  color: rgba(255, 255, 255, 0.8);
+  .box-shadow(rgba(27, 27, 27, 0.4) 1px 1px 10px);
+  border: 0px none;
+  overflow: hidden;
+  .navbar-collapse {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .nav > li {
+    text-align: center;
+  }
+  .nav > li.active > a {
+    color: @accent-color !important;
+  }
+  .nav > li > a:hover, 
+  .nav > li > a:focus {
+    .transition(all 400ms ease);
+    color: @accent-color !important;
+  }
+}
+
+#headline {
+  min-height: 90px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  color: @clear-color;
+  #gradient > .vertical(@base-color, darken(@base-color, 2%));
+  border-bottom: 1px solid @base-color;
+  p {
+    color: fadeout(@clear-color, 30%);
+    font-size: 20px;
+  }
+}
+
+#content {
+  background-color: @clear-color;
+  padding: 30px 0;
+}
+
+#sidebar {
+  &.affix {
+    top: 20px;
+    width: 220px;
+  }
+  ul {
+    a {
+      display: inline-block;
+      width: 100%;
+      border-left: 4px solid transparent;
+    }
+    li.active > a {
+      border-left: 4px solid @accent-color;
+      font-weight: bold;
+    }
+    li > ul {
+      display: none;
+    }
+    li.active > ul {
+      display: block;
+      > li a {
+        padding: 5px 15px 5px 30px;
+        border-left-color: transparent;
+      }
+    }
+  }
+}
+
+#footer {
+  font-size: 11px;
+  background-color: @base-color;
+  padding: 30px 0;
+  min-height: initial;
+  color: rgb(255, 255, 255, 0.6);
+  border-top: 2px solid @accent-color;
+  a {
+    color: rgb(255, 255, 255, 0.6);
+    text-decoration: underline;
+  }
+  .footer-menu {
+    text-align: right;
+  }
+  .copyright {
+  }
+}
+
+
+.hljs {
+  background: transparent;
+}
+
+code.editing {
+  .box-shadow(0px 0px 2px inset);
+  background: white;
+}
+
+.code-controls {
+  margin-bottom: 15px;
+}
+
+.code-result {
+  margin: 12px 0;
+  .output {
+    pre {
+      max-height: 200px;
+    }
+  }
+}
+
+

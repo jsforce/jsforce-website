@@ -1,0 +1,28 @@
+<div id="sidebar" data-spy="affix" data-offset-top="160" data-offset-bottom="200">
+  <script>
+$(function() {
+  var ul = $('<ul class="nav">');
+  $('#content h2').each(function() {
+    var h2 = $(this);
+    var li = $('<li>').append($('<a>').attr('href', '#'+h2.attr('id')).text(h2.text()));
+    ul.append(li);
+    var cul = $('<ul class="nav">');
+    h2.nextAll('h2, h3').each(function() {
+      var ch3 = $(this);
+      if (ch3.get(0).tagName.toLowerCase() === 'h2') {
+        return false;
+      }
+      var cli = $('<li>').append($('<a>').attr('href', '#'+ch3.attr('id')).text(ch3.text()));
+      cul.append(cli);
+    });
+    if (cul.children().size()>0) {
+      li.append(cul);
+    }
+  });
+  ul.appendTo('#sidebar');
+
+  $('body').scrollspy({ target: '#sidebar' })
+
+});
+  </script>
+</div>
