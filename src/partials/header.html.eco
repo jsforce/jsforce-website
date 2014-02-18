@@ -1,11 +1,17 @@
-<div id="navigation" class="navbar navbar-invese navbar-static-top"> 
-  <div class="container">
+<div id="navigation" class="navbar navbar-static-top navbar-default" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
-      <a class="navbar-btn" data-toggle="jpanel-menu" data-target=".navbar-collapse"> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> <span class="bar"></span> </a> 
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#global-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
       <a class="navbar-brand" href="/" title="Top"><%= @site.title %></a>
     </div>
     <!--everything within this div is collapsed on mobile-->
-    <div class="navbar-collapse collapse"> 
+    <div class="collapse navbar-collapse" id="global-navbar"> 
       <!--main navigation-->
       <ul class="nav navbar-nav navbar-left">
         <% for menu in @navigations : %>

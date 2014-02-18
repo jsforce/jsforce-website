@@ -1,6 +1,6 @@
 ---
 layout: default
-category: tutorial
+category: api
 title: API Reference
 subtitle: JSforce API reference
 sidebar: menu
