@@ -1,7 +1,7 @@
 <div id="headline">
   <div class="container">
     <p class="text-center">
-      <img class="logo" src="/images/jsforce-logo.png">
+      <img class="logo" src="/images/jsforce-logo-trans.png">
     </div>
     <p class="lead">
       Develop Salesforce apps with JavaScript,<br>
