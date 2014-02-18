@@ -60,9 +60,6 @@ If you want to use JSforce in web browser JavaScript,
 
 When the script is loaded, `jsforce` object will be defined in global root.
 
-
-#### External Website
-
 If your app is located outside of Salesforce domain (that is, non-Visualforce app), 
 you need to register your app as "Connected App" in Salesforce setting.
 
@@ -107,7 +104,7 @@ jsforce.browser.on('connect', function(conn) {
 ```
 
 
-#### Visualforce
+### Visualforce
 
 If you are writing HTML5 apps on Visualforce, API access token is automatically obtained as session ID.
 You can just pass it to Connection constructor to initialize.
@@ -130,7 +127,7 @@ conn.query('SELECT Id, Name FROM Account', function(err, res) {
 </apex:page>
 ```
 
-#### Salesforce Canvas
+### Salesforce Canvas
 
 You can use JSforce in Salesforce Canvas app.
 In order to create authorized API connection, pass signed request JSON value to Connection constructor
