@@ -133,7 +133,7 @@ conn.query('SELECT Id, Name FROM Account', function(err, res) {
 #### Salesforce Canvas
 
 You can use JSforce in Salesforce Canvas app.
-Pass signed request to constructor to create authorized API connection.
+In order to create authorized API connection, pass signed request JSON value to Connection constructor
 
 Note that the signed request value must be validated in server-side before passing to JSforce.
 Also you have to load canvas JS SDK officially provided from Salesforce.
