@@ -2,7 +2,6 @@
 layout: default
 category: top
 headline: top-headline
-title: Getting Started
 stylesheets:
   - /css/top.css
 ---
