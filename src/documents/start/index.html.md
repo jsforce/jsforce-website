@@ -60,7 +60,8 @@ If you want to use JSforce in web browser JavaScript,
 
 When the script is loaded, `jsforce` object will be defined in global root.
 
-#### Outer Website
+
+#### External Website
 
 If your app is located outside of Salesforce domain (that is, non-Visualforce app), 
 you need to register your app as "Connected App" in Salesforce setting.
@@ -76,6 +77,9 @@ jsforce.browser.init({
   clientId: '[your OAuth2 client ID]',
   redirectUri: '[your OAuth2 redirect URI]' 
 });
+
+// ...
+
 </script>
 ```
 
@@ -118,8 +122,43 @@ conn.query('SELECT Id, Name FROM Account', function(err, res) {
   if (err) { return handleError(err); }
   handleResult(res);
 });
+
+// ...
+
   </script>
+
 </apex:page>
+```
+
+#### Salesforce Canvas
+
+You can use JSforce in Salesforce Canvas app.
+Pass signed request to constructor to create authorized API connection.
+
+Note that the signed request value must be validated in server-side before passing to JSforce.
+Also you have to load canvas JS SDK officially provided from Salesforce.
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <meta id="sf-canvas-signed-request" content="<%= verifiedSignedRequestJSON %>" />
+  <script src="https://login.salesforce.com/canvas/sdk/js/29.0/canvas-all.js"></script>
+  <script src="/js/jsforce.js"></script>
+  <script>
+var sr = document.getElementById('sf-canvas-signed-request').content;
+var conn = new jsforce.Connection({ signedRequest: sr });
+conn.query('SELECT Id, Name FROM Account', function(err, res) {
+  if (err) { return handleError(err); }
+  handleResult(res);
+});
+
+//...
+
+  </script>
+</head>
+<body></body>
+</html>
 ```
 
 
@@ -149,12 +188,18 @@ and almost all API calls return Promise object.
 So you can chain the promise result by `then()` to handle the async response.
 
 ```javascript
-conn.query("SELECT Id, Name FROM Account LIMIT 10")
+conn.query("SELECT Id, Name FROM Account LIMIT 1")
   .then(function(res) {
-    //...
+    // receive resolved result from the promise, 
+    // then return another promise for continuing API execution.
+    return conn.sobject('Account').create({ Name: 'Another Account' });
   })
-  .then(function() {
-    //...
+  .then(function(ret) { 
+    // handle final result of API execution
+    // ...
+  }, function(err) {
+    // catch any errors in execution
+    // ...
   });
 ```
 
