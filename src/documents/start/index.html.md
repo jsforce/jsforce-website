@@ -12,9 +12,11 @@ JSforce (f.k.a. Node-Salesforce) is a JavaScript Library of Salesforce API, whic
 
 It capsulates the access to various APIs provided by Salesforce in asynchronous JavaScript function calls.
 
-Unlike other Salesforce API libraries, it is intended to give integrated interface both server-side and client-side apps, so no need.
+Unlike other Salesforce API libraries, it is intended to give integrated interface both server-side and client-side apps, 
+so you don't have to rewrite similar logics with different libraries only for running in different environment.
 
-Additionally, it has useful command line interface (CLI) which gives interactive console (REPL), so you can learn the usage without hassle.
+Additionally, it has useful command line interface (CLI) which gives interactive console (REPL), 
+so you can learn the usage without hassle.
 
 ### Supported APIs
 
