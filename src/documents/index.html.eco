@@ -1,0 +1,44 @@
+---
+layout: default
+category: top
+headline: "top/headline"
+stylesheets:
+  - /css/top.css
+---
+
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#node-js" data-toggle="tab">Node.js</a></li>
+  <li><a href="#web-browser-oauth2" data-toggle="tab">Web Browser</a></li>
+  <li><a href="#web-browser-vf" data-toggle="tab">Visualforce</a></li>
+  <li><a href="#web-browser-canvas" data-toggle="tab">Canvas</a></li>
+  <li><a href="#cli" data-toggle="tab">Command Line</a></li>
+</ul>
+
+<div class="tab-content">
+
+<!-- Node.js -->
+<div class="tab-pane active" id="node-js">
+<%- @partial('top/node-example') %>
+</div>
+
+<!--- Web Browser -->
+<div class="tab-pane" id="web-browser-oauth2">
+<%- @partial('top/web-example') %>
+</div>
+
+<!-- Web Browser (Visualforce) -->
+<div class="tab-pane" id="web-browser-vf">
+<%- @partial('top/vf-example') %>
+</div>
+
+<!-- Web Browser (Canvas) -->
+<div class="tab-pane" id="web-browser-canvas">
+<%- @partial('top/canvas-example') %>
+</div>
+
+<!-- Command Line Interface (CLI) -->
+<div class="tab-pane" id="cli">
+<%- @partial('top/cli-example') %>
+</div>
+
+</div><!-- end of tab-content-->
