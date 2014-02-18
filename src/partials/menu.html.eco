@@ -1,4 +1,4 @@
-<div id="sidebar" data-spy="affix" data-offset-top="180" data-offset-bottom="200">
+<div id="sidebar" data-spy="affix" data-offset-top="130" data-offset-bottom="200">
   <script>
 $(function() {
   var ul = $('<ul class="nav">');
@@ -21,7 +21,14 @@ $(function() {
   });
   ul.appendTo('#sidebar');
 
-  $('body').scrollspy({ target: '#sidebar' })
+  $('#sidebar').on('click', 'li a', function(e) {
+    e.preventDefault();
+    var id = $(this).attr('href').substring(1);
+    var y = $('#'+id).offset().top - 70;
+    $('body').animate({ scrollTop: y }, 500);
+  });
+
+  $('body').scrollspy({ target: '#sidebar', offset: 90 })
 
 });
   </script>
