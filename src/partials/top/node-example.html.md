@@ -7,7 +7,7 @@
 $ npm install jsforce
 ```
 
-### Example Usage
+### Example
 
 ```javascript
 var jsforce = require('jsforce');

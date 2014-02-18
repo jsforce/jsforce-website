@@ -1,7 +1,7 @@
 ---
 ---
 
-### Example Usage
+### Example
 
 ```html
 <apex:page docType="html-5.0" showHeader="false">

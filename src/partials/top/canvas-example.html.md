@@ -1,7 +1,7 @@
 ---
 ---
 
-### Usage
+### Example
 
 ```erb
 <!DOCTYPE html>

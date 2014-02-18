@@ -1,7 +1,7 @@
 ---
 ---
 
-### Example Usage
+### Example
 
 ```html
 <!DOCTYPE html>

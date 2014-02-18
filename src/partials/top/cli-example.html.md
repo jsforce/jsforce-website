@@ -7,7 +7,7 @@
 $ npm install -g jsforce
 ```
 
-### Example Usage
+### Example
 
 ```shell
 $ jsforce -c username@salesforce.example.org -e "query('SELECT Id, Name FROM Account LIMIT 2')"
