@@ -63,12 +63,11 @@ When the script is loaded, `jsforce` object will be defined in global root.
 If your app is located outside of Salesforce domain (that is, non-Visualforce app), 
 you need to register your app as "Connected App" in Salesforce.
 
-So first you have to register your app as an OAuth2 client to get client ID.
-You must input callback URL (used as OAuth2 redirect URI) to get registered,
-and it must be in the same origin of your web app.
-
 Web app pages which use JSforce should be initialized with the application information.
-Following is an example HTML of JSforce initizalization.
+In following initizalization code, you can see it is passing OAuth2 client ID information,
+so first you have to register your app as an OAuth2 client to get client ID.
+You must provide callback URL information (used as OAuth2 redirect URI) in registration,
+which must be in the same origin of your web app.
 
 ```html
 <script src="/path/to/jsforce.js"></script>
@@ -83,7 +82,11 @@ jsforce.browser.init({
 </script>
 ```
 
-NOTE: You may need [jsforce-ajax-proxy](https://github.com/jsforce/jsforce-ajax-proxy) 
+Note that the page in callback URL also have to include JSforce initialization code.
+The content of callback page can be empty, because it will not be used except for API authorization.
+
+
+Additionally, you may need [jsforce-ajax-proxy](https://github.com/jsforce/jsforce-ajax-proxy) 
 if the app resides outside of Salesforce (that is, non-Visualforce environment).
 
 ```javascript
@@ -94,7 +97,6 @@ jsforce.browser.init({
 });
 ```
 
-Note that the page in callback URL also have to include JSforce initialization code.
 
 To enforce users to login, you can call `jsforce.browser.login()` to start OAuth2 authorization flow by popping up window.
 Afterward you can get authorized API connection by listening `connect` event on `jsforce.browser` object.
