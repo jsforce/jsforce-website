@@ -3,7 +3,10 @@
 
 ## Apex REST
 
-If you have a static Apex class in Salesforce and are exposing it using "Apex REST" feature, you can call it by using `Apex#get(path)`, `Apex#post(path, body)`, `Apex#put(path, body)`, `Apex#patch(path, body)`, and `Apex#del(path, body)` (or its synonym `Apex#delete(path, body)`) through `apex` API object in connection object.
+If you have a static Apex class in Salesforce and are exposing it using "Apex REST" feature,
+you can call it by using `Apex#get(path)`, `Apex#post(path, body)`, `Apex#put(path, body)`,
+`Apex#patch(path, body)`, and `Apex#del(path, body)` (or its synonym `Apex#delete(path, body)`)
+through `apex` API object in connection object.
 
 ```javascript
 /* @interactive */

@@ -3,9 +3,11 @@
 
 ## Streaming API
 
-You can subscribe topic and receive message from Salesforce Streaming API, by using `Streaming-Topic#subscribe(listener)`.
+You can subscribe topic and receive message from Salesforce Streaming API,
+by using `Streaming#Topic(topicName)` and `Streaming-Topic#subscribe(listener)`.
 
-Before the subscription, you should insert appropriate PushTopic record (in this example, "InvoiceStatementUpdates") as written in Streaming API guide.
+Before the subscription, you should insert appropriate PushTopic record 
+(in this example, "InvoiceStatementUpdates") as written in [Streaming API guide](http://www.salesforce.com/us/developer/docs/api_streaming/).
 
 ```javascript
 conn.streaming.topic("InvoiceStatementUpdates").subscribe(function(message) {
@@ -15,6 +17,5 @@ conn.streaming.topic("InvoiceStatementUpdates").subscribe(function(message) {
 });
 ```
 
-NOTE: Before version 0.6, there are `Connection#topic(topicName)` to access streaming topic object, and `Connection#subscribe(topicName, listener)` is used to subscribe altenatively. These methods are now obsolete and use `Streaming#topic(topicName)` and `Streaming#subscribe(topicName, listener)` through `streaming` API object in connection object instead.
 
 

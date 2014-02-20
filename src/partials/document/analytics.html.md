@@ -41,7 +41,9 @@ conn.analytics.report(reportId).describe(function(err, meta) {
 });
 ```
 
-### Execute Report (Sync)
+### Execute Report
+
+#### Execute Synchronously 
 
 By calling `Analytics-Report#execute(options)`, the report is exected in Salesforce, and returns executed result synchronously.
 Please refer to Analytics API document about the format of retruning result.
@@ -63,7 +65,7 @@ report.execute(function(err, result) {
 });
 ```
 
-#### Retrieve Detail Rows in Execution
+#### Include Detail Rows in Execution
 
 Setting `details` to true in `options`, it returns execution result with detail rows.
 
@@ -115,7 +117,7 @@ report.execute({ metadata : metadata }, function(err, result) {
 });
 ```
 
-### Execute Report (Async)
+#### Execute Asynchronously
 
 `Analytics-Report#executeAsync(options)` executes the report asynchronously in Salesforce,
 registering an instance to the report to lookup the executed result in future.
@@ -134,6 +136,9 @@ report.executeAsync({ details: true }, function(err, instance) {
   // ...
 });
 ```
+
+Afterward use `Analytics-Report#instance(instanceId)`
+and call `Analytics-ReportInstance#retrieve()` to get the executed result.
 
 ```javascript
 /* @interactive */

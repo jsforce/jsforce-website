@@ -7,9 +7,11 @@
 
 Record stream is a stream system which regards records in its stream, similar to Node.js's standard readable/writable streams.
 
-Query object - usually returned by `Connection#query(soql)` / `SObject#find(conditions, fields)` methods - is considered as `InputRecordStream` which emits event `record` when received record from server.
+Query object - usually returned by `Connection#query(soql)` / `SObject#find(conditions, fields)` methods -
+is considered as `InputRecordStream` which emits event `record` when received record from server.
 
-Batch object - usually returned by `Bulk-Job#createBatch()` / `Bulk#load(sobjectType, operation, input)` / `SObject#bulkload(operation, input)` methods - is considered as `OutputRecordStream` and have `send()` and `end()` method to accept incoming record.
+Batch object - usually returned by `Bulk-Job#createBatch()` / `Bulk#load(sobjectType, operation, input)` / `SObject#bulkload(operation, input)` methods -
+is considered as `OutputRecordStream` and have `send()` and `end()` method to accept incoming record.
 
 You can use `InputRecordStream#pipe(outputRecordStream)` to pipe record stream.
 
@@ -20,7 +22,8 @@ By default (and only currently) records are serialized to CSV string.
 
 #### Piping Query Record Stream to Batch Record Stream
 
-The idea of record stream pipeline is the base of bulk operation for queried record. For example, the same process of `Query#destroy()` can be expressed as following:
+The idea of record stream pipeline is the base of bulk operation for queried record.
+For example, the same process of `Query#destroy()` can be expressed as following:
 
 
 ```javascript
@@ -60,7 +63,8 @@ Opp.find({ "Account.Id" : accId },
    });
 ```
 
-Following is an example using `Query#stream()` (inherited `RecordStream#stream()`) to convert record stream to Node.js stream, in order to export all queried records to CSV file.
+Following is an example using `Query#stream()` (inherited `RecordStream#stream()`) to convert record stream to Node.js stream,
+in order to export all queried records to CSV file.
 
 ```javascript
 var csvFileOut = require('fs').createWriteStream('path/to/Account.csv');
@@ -72,7 +76,8 @@ conn.query("SELECT Id, Name, Type, BillingState, BillingCity, BillingStreet FROM
 #### Record Stream Filtering / Mapping
 
 You can also filter / map queried records to output record stream.
-Static functions like `InputRecordStream#map(mappingFn)` and `InputRecordStream#filter(filterFn)` create a record stream which accepts records from upstream and pass to downstream, applying given filtering / mapping function.
+Static functions like `InputRecordStream#map(mappingFn)` and `InputRecordStream#filter(filterFn)` create a record stream 
+which accepts records from upstream and pass to downstream, applying given filtering / mapping function.
 
 ```javascript
 //

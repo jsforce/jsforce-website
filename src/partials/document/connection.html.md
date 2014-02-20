@@ -5,7 +5,8 @@
 
 ### Username and Password Login
 
-When you have Salesforce username and password (and maybe security token if required), you can use `Connection#login(username, password)` to establish connection to Salesforce.
+When you have Salesforce username and password (and maybe security token if required),
+you can use `Connection#login(username, password)` to establish connection to Salesforce.
 
 By default, it uses SOAP login API (so no OAuth2 client information is required).
 
@@ -58,7 +59,8 @@ conn.login(username, password, function(err, userInfo) {
 
 ### Session ID
 
-If Salesforce session ID and its server URL information is passed from Salesforce (from 'Custom Link' or something), you can pass it to constructor.
+If Salesforce session ID and its server URL information is passed from Salesforce (from 'Custom Link' or something),
+you can pass it to constructor.
 
 
 ```javascript
@@ -71,7 +73,8 @@ var conn = new jsforce.Connection({
 
 ### Access Token
 
-After the login API call or OAuth2 authorization, you can get Salesforce access token and its instance URL. Next time you can use them to establish connection.
+After the login API call or OAuth2 authorization, you can get Salesforce access token and its instance URL.
+Next time you can use them to establish connection.
 
 ```javascript
 var jsforce = require('jsforce');
@@ -108,13 +111,14 @@ conn.on("refresh", function(accessToken, res) {
 
 ### Logout
 
-`Connection#logout()` to logout from server and invalidate current session. Currently this method only works for SOAP API session.
+`Connection#logout()` to logout from server and invalidate current session.
+Currently this method only works for SOAP API session.
 
 ```javascript
 var jsforce = require('jsforce');
 var conn = new jsforce.Connection({
   sessionId : '<session id to logout>',
-  serverUrl : '<your Salesforce Server url to logout is here>'
+  serverUrl : '<your Salesforce Server url to logout>'
 });
 conn.logout(function(err) {
   if (err) { return console.error(err); }

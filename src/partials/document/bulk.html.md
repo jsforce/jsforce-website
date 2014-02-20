@@ -3,10 +3,11 @@
 
 ## Bulk API
 
-JSforce package also supports Bulk API. It is not only mapping each Bulk API endpoint in low level, but also introducing utility interface in bulk load operations.
+JSforce package also supports Bulk API. It is not only mapping each Bulk API endpoint in low level,
+but also introducing utility interface in bulk load operations.
 
 
-### Loading From Records
+### Load From Records
 
 First, assume that you have record set in array object to insert into Salesforce.
 
@@ -22,9 +23,11 @@ var accounts = [
 ];
 ```
 
-You can use `SObject#create(record)`, but it consumes API quota per record, so not practical for large set of records. We can use bulk API interface to load them.
+You can use `SObject#create(record)`, but it consumes API quota per record,
+so not practical for large set of records. We can use bulk API interface to load them.
 
-Similar to Salesforce Bulk API, first create bulk job by `Bulk#createJob(sobjectType, operation)` through `bulk` API object in connection object.
+Similar to Salesforce Bulk API, first create bulk job by `Bulk#createJob(sobjectType, operation)`
+through `bulk` API object in connection object.
 
 Next, create a new batch in the job, by calling `Bulk-Job#createBatch()` through the job object created previously.
 
@@ -97,9 +100,10 @@ conn.sobject("Account").bulkload("insert").execute(accounts, function(err, rets)
 });
 ```
 
-### Loading From CSV File
+### Load From CSV File
 
-It also supports bulk loading from CSV file. Just use CSV file input stream as `input` argument in `Bulk#load(sobjectType, operation, input)`, instead of passing records in array.
+It also supports bulk loading from CSV file. Just use CSV file input stream as `input` argument 
+in `Bulk#load(sobjectType, operation, input)`, instead of passing records in array.
 
 ```javascript
 //
@@ -122,7 +126,8 @@ conn.bulk.load("Account", "insert", csvFileIn, function(err, rets) {
 });
 ```
 
-`Bulk-Batch#stream()` returns a Node.js standard writable stream which accepts batch input. You can pipe input stream to it afterward.
+`Bulk-Batch#stream()` returns a Node.js standard writable stream which accepts batch input.
+You can pipe input stream to it afterward.
 
 
 ```javascript
@@ -144,7 +149,7 @@ csvFileIn.pipe(batch.stream());
 ```
   
 
-### Updating / Deleting Queried Records
+### Update / Delete Queried Records
 
 If you want to update / delete records in Salesforce which match specified condition in bulk, 
 now you don't have to write a code which download & upload records information. 
@@ -212,7 +217,9 @@ conn.sobject('Task')
     });
 ```
 
-If you are creating query object from SOQL by using `Connection#query(soql)`, the bulk delete/update operation cannot be achieved because no sobject type information available initially. You can avoid it by passing optional argument `sobjectType` in `Query#destroy(sobjectType)` or `Query#update(mapping, sobjectType)`.
+If you are creating query object from SOQL by using `Connection#query(soql)`,
+the bulk delete/update operation cannot be achieved because no sobject type information available initially.
+You can avoid it by passing optional argument `sobjectType` in `Query#destroy(sobjectType)` or `Query#update(mapping, sobjectType)`.
 
 ```javascript
 /* @interactive */
