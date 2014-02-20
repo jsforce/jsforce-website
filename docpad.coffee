@@ -26,13 +26,17 @@ docpadConfig = {
       title: "Getting Started"
       url: "/start/"
     ,
-      name: "api"
-      title: "API Reference"
-      url: "/api/"
+      name: "document"
+      title: "Document"
+      url: "/document/"
     ,
       name: "download"
       title: "Download"
       url: "/download/"
+    ,
+      name: "api"
+      title: "API Reference"
+      url: "http://jsforce.github.io/jsforce/doc/"
     ,
       name: "github"
       title: "GitHub"

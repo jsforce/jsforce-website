@@ -1,8 +1,8 @@
 ---
 layout: default
-category: api
-title: API Reference
-subtitle: JSforce API reference
+category: document
+title: Document
+subtitle: JSforce library document with brief usage examples of each API
 sidebar: menu
 ---
 

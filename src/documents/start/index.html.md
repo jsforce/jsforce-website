@@ -20,14 +20,14 @@ so you can learn the usage without hassle.
 
 ### Supported APIs
 
-- REST API ([SOQL](/api/#query), [SOSL](/api/#search), [CRUD](/api/#crud), [describe](/api/#describe), etc.)
-- [Apex REST](/api/#apex-rest)
-- [Analytics API](/api/#analytics-api)
-- [Bulk API](/api/#bulk-api)
-- [Chatter API](/api/#chatter-api)
-- [Metadata API](/api/#metadata-api)
-- [Streaming API](/api/#streaming-api)
-- [Tooling API](/api/#tooling-api)
+- REST API ([SOQL](/document/#query), [SOSL](/document/#search), [CRUD](/document/#crud), [describe](/document/#describe), etc.)
+- [Apex REST](/document/#apex-rest)
+- [Analytics API](/document/#analytics-api)
+- [Bulk API](/document/#bulk-api)
+- [Chatter API](/document/#chatter-api)
+- [Metadata API](/document/#metadata-api)
+- [Streaming API](/document/#streaming-api)
+- [Tooling API](/document/#tooling-api)
 
 ## Setup
 
