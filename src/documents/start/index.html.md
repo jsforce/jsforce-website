@@ -67,7 +67,8 @@ So first you have to register your app as an OAuth2 client to get client ID.
 You must input callback URL (used as OAuth2 redirect URI) to get registered,
 and it must be in the same origin of your web app.
 
-Then add JSforce initialization code in your html to tell the OAuth2 application information obtained in previous step.
+Web app pages which use JSforce should be initialized with the application information.
+Following is an example HTML of JSforce initizalization.
 
 ```html
 <script src="/path/to/jsforce.js"></script>
@@ -92,6 +93,8 @@ jsforce.browser.init({
   proxyUrl: 'https://your-jsforce-proxy-server.herokuapp.com/proxy/'
 });
 ```
+
+Note that the page in callback URL also have to include JSforce initialization code.
 
 To enforce users to login, you can call `jsforce.browser.login()` to start OAuth2 authorization flow by popping up window.
 Afterward you can get authorized API connection by listening `connect` event on `jsforce.browser` object.
@@ -131,7 +134,7 @@ conn.query('SELECT Id, Name FROM Account', function(err, res) {
 
 ### Salesforce Canvas
 
-You can use JSforce in Salesforce Canvas app.
+You can also use JSforce in Salesforce Canvas app.
 In order to create authorized API connection, pass signed request JSON value to Connection constructor
 
 Note that the signed request value must be validated in server-side before passing to JSforce.
