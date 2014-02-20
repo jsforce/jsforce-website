@@ -21,6 +21,8 @@ $(function() {
   });
   ul.appendTo('#sidebar');
 
+  var scrolling = false;
+
   $('#sidebar').on('click', 'li a', function(e) {
     e.preventDefault();
     var id = $(this).attr('href').substring(1);
@@ -29,19 +31,24 @@ $(function() {
 
   $('body').scrollspy({ target: '#sidebar', offset: 90 })
 
-  var hash = location.hash;
-  if (hash) {
-    adjustScroll(hash.substring(1));
-  }
+  $(window).on('hashchange', function(e) {
+    if (!scrolling) { adjustScroll(); }
+  });
+
+  adjustScroll();
 
   function adjustScroll(id) {
+    id = id || (location.hash && location.hash.substring(1));
+    if (!id) { return; }
     var el = $(document).find('#'+id);
     if (el.size() === 0) { return; }
     var y = el.offset().top - 70;
+    scrolling = true;
     $('body').animate({ scrollTop: y }, 500, function() {
       var y = window.scrollY;
-      location.hash = '#'+id;
+      location.hash = '#' + id;
       window.scrollTo(0, y);
+      scrolling = false;
     });
   }
 
