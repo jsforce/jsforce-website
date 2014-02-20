@@ -769,7 +769,7 @@ conn.analytics.reports(function(err, reports) {
 ### Describe Report Metadata
 
 `Analytics#report(reportId)` gives a reference to the report object specified in `reportId`.
-By calling `Report#describe()`, you can get the report metadata defined in Salesforce without executing the report.
+By calling `Analytics-Report#describe()`, you can get the report metadata defined in Salesforce without executing the report.
 
 You should check [Analytics REST API Guide](http://www.salesforce.com/us/developer/docs/api_analytics/index.htm) to understand the structure of returned report metadata.
 
@@ -786,7 +786,7 @@ conn.analytics.report(reportId).describe(function(err, meta) {
 
 ### Execute Report (Sync)
 
-By calling `Report#execute(options)`, the report is exected in Salesforce, and returns executed result synchronously.
+By calling `Analytics-Report#execute(options)`, the report is exected in Salesforce, and returns executed result synchronously.
 Please refer to Analytics API document about the format of retruning result.
 
 ```javascript
@@ -860,7 +860,7 @@ report.execute({ metadata : metadata }, function(err, result) {
 
 ### Execute Report (Async)
 
-`Report#executeAsync(options)` executes the report asynchronously in Salesforce,
+`Analytics-Report#executeAsync(options)` executes the report asynchronously in Salesforce,
 registering an instance to the report to lookup the executed result in future.
 
 ```javascript
@@ -934,14 +934,14 @@ You can use `SObject#create(record)`, but it consumes API quota per record, so n
 
 Similar to Salesforce Bulk API, first create bulk job by `Bulk#createJob(sobjectType, operation)` through `bulk` API object in connection object.
 
-Next, create a new batch in the job, by calling `Job#createBatch()` through the job object created previously.
+Next, create a new batch in the job, by calling `Bulk-Job#createBatch()` through the job object created previously.
 
 ```javascript
 var job = conn.bulk.createJob("Account", "insert");
 var batch = job.createBatch();
 ```
 
-Then bulk load the records by calling `Batch#execute(input)` of created batch object, passing the records in `input` argument.
+Then bulk load the records by calling `Bulk-Batch#execute(input)` of created batch object, passing the records in `input` argument.
  
 When the batch is queued in Salesforce, it is notified by `queue` event, and you can get job ID and batch ID.
 
@@ -1030,7 +1030,7 @@ conn.bulk.load("Account", "insert", csvFileIn, function(err, rets) {
 });
 ```
 
-`Batch#stream()` returns a Node.js standard writable stream which accepts batch input. You can pipe input stream to it afterward.
+`Bulk-Batch#stream()` returns a Node.js standard writable stream which accepts batch input. You can pipe input stream to it afterward.
 
 
 ```javascript
@@ -1157,7 +1157,7 @@ Please check official [Chatter REST API Guide](http://www.salesforce.com/us/deve
 
 ### Get Resource Information
 
-If you want to retrieve the information for specified resource, `Resource#retrieve()` will get information of the resource.
+If you want to retrieve the information for specified resource, `Chatter-Resource#retrieve()` will get information of the resource.
 
 ```javascript
 /* @interactive */
@@ -1192,7 +1192,7 @@ conn.chatter.resource("/users", { q: "Suzuki" }).retrieve(function(err, result) 
 
 ### Post a Feed Item
 
-To post a feed item or a comment, use `Resource#create(data)` for collection resource.
+To post a feed item or a comment, use `Chatter-Resource#create(data)` for collection resource.
 
 ```javascript
 /* @interactive */
@@ -1292,7 +1292,7 @@ conn.chatter.batch([
 
 ## Streaming API
 
-You can subscribe topic and receive message from Salesforce Streaming API, by using `Topic#subscribe(listener)`.
+You can subscribe topic and receive message from Salesforce Streaming API, by using `Streaming-Topic#subscribe(listener)`.
 
 Before the subscription, you should insert appropriate PushTopic record (in this example, "InvoiceStatementUpdates") as written in Streaming API guide.
 
@@ -1332,7 +1332,7 @@ Record stream is a stream system which regards records in its stream, similar to
 
 Query object - usually returned by `Connection#query(soql)` / `SObject#find(conditions, fields)` methods - is considered as `InputRecordStream` which emits event `record` when received record from server.
 
-Batch object - usually returned by `Job#createBatch()` / `Bulk#load(sobjectType, operation, input)` / `SObject#bulkload(operation, input)` methods - is considered as `OutputRecordStream` and have `send()` and `end()` method to accept incoming record.
+Batch object - usually returned by `Bulk-Job#createBatch()` / `Bulk#load(sobjectType, operation, input)` / `SObject#bulkload(operation, input)` methods - is considered as `OutputRecordStream` and have `send()` and `end()` method to accept incoming record.
 
 You can use `InputRecordStream#pipe(outputRecordStream)` to pipe record stream.
 
