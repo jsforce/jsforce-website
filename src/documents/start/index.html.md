@@ -52,7 +52,7 @@ Details for establishing API connection are written in [API Reference](/api/#con
 ### Web Browser
 
 If you want to use JSforce in web browser JavaScript, 
-[download JSforce JS library](/download/) and put it on the path in your website :
+[download JSforce JS library](/download/) and put it on any path in your website, and include in `<script>` tag:
 
 ```html
 <script src="/path/to/jsforce.js"></script>
