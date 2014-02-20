@@ -4,6 +4,8 @@ category: document
 title: Document
 subtitle: JSforce library document with brief usage examples of each API
 sidebar: menu
+scripts:
+  - '/js/document.js'
 ---
 
 ## Connection
