@@ -61,11 +61,13 @@ If you want to use JSforce in web browser JavaScript,
 When the script is loaded, `jsforce` object will be defined in global root.
 
 If your app is located outside of Salesforce domain (that is, non-Visualforce app), 
-you need to register your app as "Connected App" in Salesforce setting.
+you need to register your app as "Connected App" in Salesforce.
 
-So first you have to register your app as OAuth2 client to the client ID.
+So first you have to register your app as an OAuth2 client to get client ID.
+You must input callback URL (used as OAuth2 redirect URI) to get registered,
+and it must be in the same origin of your web app.
 
-Then add JSforce initialization code in your html to tell the OAuth2 application information
+Then add JSforce initialization code in your html to tell the OAuth2 application information obtained in previous step.
 
 ```html
 <script src="/path/to/jsforce.js"></script>
