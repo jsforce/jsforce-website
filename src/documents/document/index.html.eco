@@ -1,0 +1,41 @@
+---
+layout: default
+category: document
+title: Document
+subtitle: JSforce library document with brief usage examples of each API
+sidebar: menu
+scripts:
+  - '/js/document.js'
+---
+
+<%- @partial('document/connection') %>
+
+<%- @partial('document/oauth2') %>
+
+<%- @partial('document/query') %>
+
+<%- @partial('document/search') %>
+
+<%- @partial('document/crud') %>
+
+<%- @partial('document/describe') %>
+
+<%- @partial('document/identity') %>
+
+<%- @partial('document/history') %>
+
+<%- @partial('document/analytics') %>
+
+<%- @partial('document/apex') %>
+
+<%- @partial('document/bulk') %>
+
+<%- @partial('document/chatter') %>
+
+<%- @partial('document/metadata') %>
+
+<%- @partial('document/streaming') %>
+
+<%- @partial('document/tooling') %>
+
+<%- @partial('document/advanced') %>
