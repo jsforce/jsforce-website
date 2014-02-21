@@ -119,7 +119,7 @@ Also you can use static resources to upload JSforce JavaScript file to include.
 
 ```html
 <apex:page docType="html-5.0" showHeader="false">
-  <apex:includeScript value="{!URLFOR($Resources.JSforce)}" />
+  <apex:includeScript value="{!URLFOR($Resource.JSforce)}" />
   <script>
 var conn = new jsforce.Connection({ accessToken: '{!$API.Session_Id}' });
 conn.query('SELECT Id, Name FROM Account', function(err, res) {
