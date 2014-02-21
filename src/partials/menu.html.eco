@@ -1,4 +1,4 @@
-<div id="sidebar" data-spy="affix" data-offset-top="130" data-offset-bottom="200">
+<div id="sidebar" data-spy="affix" data-offset-top="130" data-offset-bottom="0">
   <script>
 $(function() {
   var ul = $('<ul class="nav">');
