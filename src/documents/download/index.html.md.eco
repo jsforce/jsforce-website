@@ -21,3 +21,12 @@ To locally download these files, right-click the link and select "Save as..." fr
   - [SourceMap File](/download/jsforce.min.map)
 - [Edge Version (master)](https://raw.github.com/jsforce/jsforce/master/build/jsforce.js) - Unreleased, use at your own risk
 
+## Using CDN
+
+JSforce is available from CDN. You can include source directly from [cdnjs](http://cdnjs.com/) so download is not always necessary.
+
+To include the script, put following script tag :
+
+```
+<script src="//cdnjs.cloudflare.com/ajax/libs/jsforce/<%= @version %>/jsforce.min.js"></script>
+```
