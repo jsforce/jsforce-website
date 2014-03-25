@@ -58,6 +58,12 @@ If you want to use JSforce in web browser JavaScript,
 <script src="/path/to/jsforce.js"></script>
 ```
 
+Or you can use public CDN to include script directly to your web site.
+
+```html
+<script src="//cdnjs.cloudflare.com/ajax/libs/jsforce/1.1.2/jsforce.min.js"></script>
+```
+
 When the script is loaded, `jsforce` object will be defined in global root.
 
 If your app is located outside of Salesforce domain (that is, non-Visualforce app), 
