@@ -43,7 +43,7 @@ When you installed JSforce, you can import using `require('jsforce')` in your No
 
 ``` javascript
 var jsforce = require('jsforce');
-var conn = jsforce.Connection();
+var conn = new jsforce.Connection();
 ```
 
 Details for establishing API connection are written in [API Reference](/api/#connection).
