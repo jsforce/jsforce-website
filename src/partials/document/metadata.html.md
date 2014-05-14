@@ -3,9 +3,28 @@
 
 ## Metadata API
 
+
+### Read Metadata
+
+`Metadata#read(type, fullNames)` is the method to retrieve metadata information which are specified by given names.
+
+```javascript
+/* @interactive */
+var fullNames = [ 'Account', 'Contact' ];
+conn.metadata.read('CustomObject', fullNames, function(err, metadata) {
+  if (err) { console.error(err); }
+  for (var i=0; i < metadata.length; i++) {
+    var meta = metadata[i];
+    console.log("Full Name: " + meta.fullName);
+    console.log("Fields count: " + meta.fields.length);
+    console.log("Sharing Model: " + meta.sharingModel);
+  }
+});
+```
+
 ### Create Metadata
 
-To newly create metadata objects, use `Metadata#create(type, metadata)`.
+To newly create metadata objects, use `Metadata#createAsync(type, metadata)`.
 Metadata format for each metadata types are written in Metadata API document.
 
 By default it returns asynchronous result ids with current statuses,
@@ -38,7 +57,7 @@ var metadata = [{
 
 // request creating metadata and receive execution ids & statuses
 var asyncResultIds = [];
-conn.metadata.create('CustomObject', metadata, function(err, results) {
+conn.metadata.createAsync('CustomObject', metadata, function(err, results) {
   if (err) { console.err(err); }
   for (var i=0; i < results.length; i++) {
     var result = results[i];
@@ -69,19 +88,41 @@ conn.metadata.checkStatus(asyncResultIds).complete(function(err, results) {
 ```
 
 Or you can directly apply `Metadata-AsyncResultLocator#complete()` call for the locator object
-returned from `Metadata#create()` call.
+returned from `Metadata#createAsync()` call.
 
 ```javascript
 /* @interactive */
-conn.metadata.create('CustomObject', metadata).complete(function(err, results) {
+conn.metadata.createAsync('CustomObject', metadata).complete(function(err, results) {
   if (err) { console.err(err); }
   console.log(results); 
 });
 ````
 
+There is an alternative method to create metadata, in synchronous - `Metadata#createSync()`.
+
+This synchronous version is different from asynchronous one - it waits metadata request processing,
+in contrast to asynchronous one returns the queud status immediately to poll to get the result afterward.
+
+```javascript
+conn.metadata.createSync('CustomObject', metadata, function(err, results) {
+  if (err) { console.err(err); }
+  console.log(results); 
+});
+````
+
+
+NOTE: In previous version, `Metadata#create()` method was solely provided for metadata creation.
+
+The method still works for asynchronous metadata creation, but it is now marked as deprecated.
+
+Instead, use `Metadata#createAsync()` for asynchronous, `Metadata#createSync()` for synchronous.
+
+In future, `Metadat#create()` will be reused as a synonym of `Metadata#createSync()`.
+
+
 ### Update Metadata
 
-`Metadata#update(type, updateMetadata)` can be used for updating existing metadata objects.
+`Metadata#updateAsync(type, updateMetadata)` can be used for updating existing metadata objects.
 
 ```
 /* @interactive */
@@ -94,7 +135,7 @@ var updateMetadata = [{
     length: 50
   }
 }];
-conn.metadata.update('CustomField', updateMetadata).complete(function(err, results) {
+conn.metadata.updateAsync('CustomField', updateMetadata).complete(function(err, results) {
   if (err) { console.error(err); }
   for (var i=0; i < results.length; i++) {
     var result = results[i];
@@ -105,10 +146,18 @@ conn.metadata.update('CustomField', updateMetadata).complete(function(err, resul
 });
 ```
 
+NOTE: In previous version, `Metadata#update()` method was solely provided for metadata content update.
+
+The method still works for asynchronous metadata content update, but it is now marked as deprecated.
+
+Instead, use `Metadata#updateAsync()` for asynchronous, `Metadata#updateSync()` for synchronous.
+
+In future, `Metadat#update()` will be reused as a synonym of `Metadata#updateSync()`.
+
+
 ### Delete Metadata
 
-`Metadata#delete(type, updateMetadata)` (or its synonym of `Metadata#del()`)
-can be used for deleting existing metadata objects.
+`Metadata#deleteAsync(type, updateMetadata)` can be used for deleting existing metadata objects.
 
 ```javascript
 /* @interactive */
@@ -117,7 +166,7 @@ var metadata = [{
 }, {
   fullName: 'TestObject2__c',
 }];
-conn.metadata.delete('CustomObject', metadata).complete(function(err, results) {
+conn.metadata.deleteAsync('CustomObject', metadata).complete(function(err, results) {
   if (err) { console.error(err); }
   for (var i=0; i < results.length; i++) {
     var result = results[i];
@@ -127,6 +176,15 @@ conn.metadata.delete('CustomObject', metadata).complete(function(err, results) {
   }
 });
 ```
+
+NOTE: In previous version, `Metadata#delete()` method was solely provided to delete existing metadata.
+
+The method still works for asynchronous metadata deletion, but it is now marked as deprecated.
+
+Instead, use `Metadata#deleteAsync()` for asynchronous, `Metadata#deleteSync()` for synchronous.
+
+In future, `Metadat#delete()` will be reused as a synonym of `Metadata#deleteSync()`.
+
 
 ### Retrieve / Deploy Metadata (File-based)
 

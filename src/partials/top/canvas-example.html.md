@@ -8,8 +8,8 @@
 <html>
 <head>
   <meta id="sf-canvas-signed-request" content="<%= verifiedSignedRequestJSON %>" />
-  <script src="https://login.salesforce.com/canvas/sdk/js/29.0/canvas-all.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jsforce/1.1.2/jsforce.min.js"></script>
+  <script src="https://login.salesforce.com/canvas/sdk/js/30.0/canvas-all.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jsforce/1.2.0/jsforce.min.js"></script>
   <script>
 var sr = document.getElementById('sf-canvas-signed-request').content;
 var conn = new jsforce.Connection({ signedRequest: sr });
