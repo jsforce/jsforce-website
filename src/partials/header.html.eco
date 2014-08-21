@@ -39,10 +39,10 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li class="login">
-          <a href="javascript:$('#oauth-dialog').modal('show');">Login</a>
+          <a href="#" onclick="$('#oauth-dialog').modal('show');">Login</a>
         </li>
         <li class="profile dropdown" style="display:none;">
-          <a href="javascript:if(confirm('Logout ?'))jsforce.browser.logout()">
+          <a href="#" onclick="if(confirm('Logout ?'))jsforce.browser.logout()">
             <span class="profile-icon"></span>
             <span class="profile-name"></span>
           </a>
