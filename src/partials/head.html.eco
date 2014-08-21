@@ -20,6 +20,11 @@
 <link rel="stylesheet" href="/css/styles.css">
 <% for stylesheet in (@document.stylesheets or []) : %><link rel="stylesheet" href="<%= stylesheet %>">
 <% end %>
+<script>
+if (location.protocol === "http:" && location.hostname !== "localhost") {
+	location.href = location.href.replace(/^http:/, 'https:');
+}
+</script>
 <script src="/asset/jquery/jquery.min.js"></script>
 <script src="/asset/bootstrap/js/bootstrap.min.js"></script>
 <script src="/asset/highlight/highlight.pack.js"></script>
