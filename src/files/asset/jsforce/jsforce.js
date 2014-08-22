@@ -1,1 +1,1 @@
-../../../../../jsforce/build/jsforce.js
+../../../../../jsforce.publish/build/jsforce.js
