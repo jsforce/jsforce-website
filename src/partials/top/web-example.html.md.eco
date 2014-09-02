@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jsforce/1.2.0/jsforce.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jsforce/<%= @version %>/jsforce.min.js"></script>
   <script>
 jsforce.browser.init({
   clientId: '[ your Salesforce OAuth2 ClientID is here ]',
