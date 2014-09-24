@@ -66,6 +66,17 @@ Or you can use public CDN to include script directly to your web site.
 
 When the script is loaded, `jsforce` object will be defined in global root.
 
+As the `jsforce.js` file is all-in-one library, it includes all objects for each Salesforce APIs.
+You might prefer to use only core module and some specific API module to reduce total footprint size to load.
+You can use `jsforce-core.js` file which includes core function only, and include each API scripts to use in your app.
+
+```html
+<script src="/path/to/jsforce-core.min.js"></script>
+<script src="/path/to/jsforce-api-bulk.min.js"></script>
+<script src="/path/to/jsforce-api-chatter.min.js"></script>
+```
+
+
 If your app is located outside of Salesforce domain (that is, non-Visualforce app), 
 you need to register your app as "Connected App" in Salesforce.
 
