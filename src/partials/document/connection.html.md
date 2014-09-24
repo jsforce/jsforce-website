@@ -112,7 +112,7 @@ conn.on("refresh", function(accessToken, res) {
 ### Logout
 
 `Connection#logout()` to logout from server and invalidate current session.
-Currently this method only works for SOAP API session.
+It is valid for both SOAP API based sessions and OAuth2 based sessions.
 
 ```javascript
 var jsforce = require('jsforce');
