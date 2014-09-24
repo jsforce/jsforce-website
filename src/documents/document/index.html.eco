@@ -24,6 +24,8 @@ scripts:
 
 <%- @partial('document/history') %>
 
+<%- @partial('document/limit') %>
+
 <%- @partial('document/analytics') %>
 
 <%- @partial('document/apex') %>
