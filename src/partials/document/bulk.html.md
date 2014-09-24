@@ -247,7 +247,7 @@ Careful testing is recommended before applying the code to your production envir
 
 ### Bulk Query
 
-From ver. 1.3, it adds support for bulk query API. It fetcheds records in bulk in record stream, or CSV stream which can be piped out to CSV file.
+From ver. 1.3, it adds support for bulk query API. It fetches records in bulk in record stream, or CSV stream which can be piped out to CSV file.
 
 ```javascript
 /* @interactive */
