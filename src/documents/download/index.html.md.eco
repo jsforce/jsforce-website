@@ -16,10 +16,21 @@ The map file is not required for users to run JSforce, it just improves the deve
 To locally download these files, right-click the link and select "Save as..." from the menu.
 
 
-- [Development Version (v<%= @version %>)](/download/jsforce.js) - Full source, Uncompressed
-- [Production Version (v<%= @version %>)](/download/jsforce.min.js) - Compressed
-  - [SourceMap File](/download/jsforce.min.map)
+### All in One Library (jsforce.js)
+- [Development Version (v<%= @version %>)](//cdnjs.cloudflare.com/ajax/libs/jsforce/<%= @version %>/jsforce.js) - Full source, Uncompressed
+- [Production Version (v<%= @version %>)](//cdnjs.cloudflare.com/ajax/libs/jsforce/<%= @version %>/jsforce.min.js) - Compressed / [SourceMap](//cdnjs.cloudflare.com/ajax/libs/jsforce/<%= @version %>/jsforce.min.js.map)
 - [Edge Version (master)](https://raw.github.com/jsforce/jsforce/master/build/jsforce.js) - Unreleased, use at your own risk
+
+### Core (jsforce-core.js)
+- [Development Version (v<%= @version %>)](//cdnjs.cloudflare.com/ajax/libs/jsforce/<%= @version %>/jsforce-core.js) - Full source, Uncompressed
+- [Production Version (v<%= @version %>)](//cdnjs.cloudflare.com/ajax/libs/jsforce/<%= @version %>/jsforce-core.min.js) - Compressed / [SourceMap](//cdnjs.cloudflare.com/ajax/libs/jsforce/<%= @version %>/jsforce-core.min.js.map)
+
+<% for apiname in "analytics,apex,bulk,chatter,metadata,streaming,tooling".split(',') : %>
+### <%= apiname[0].toUpperCase() + apiname.substring(1) %> API (jsforce-api-<%= apiname %>.js)
+- [Development Version (v<%= @version %>)](//cdnjs.cloudflare.com/ajax/libs/jsforce/<%= @version %>/jsforce-api-<%= apiname %>.js) - Full source, Uncompressed
+- [Production Version (v<%= @version %>)](//cdnjs.cloudflare.com/ajax/libs/jsforce/<%= @version %>/jsforce-api-<%= apiname %>.min.js) - Compressed / [SourceMap](//cdnjs.cloudflare.com/ajax/libs/jsforce/<%= @version %>/jsforce-api-<%= apiname %>.min.js.map)
+<% end %>
+
 
 ## Using CDN
 

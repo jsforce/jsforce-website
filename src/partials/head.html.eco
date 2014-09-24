@@ -28,7 +28,7 @@ if (location.protocol === "http:" && location.hostname !== "localhost") {
 <script src="/asset/jquery/jquery.min.js"></script>
 <script src="/asset/bootstrap/js/bootstrap.min.js"></script>
 <script src="/asset/highlight/highlight.pack.js"></script>
-<script src="/asset/jsforce/jsforce.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jsforce/<%= @version %>/jsforce.min.js"></script>
 <script>
 jsforce.browser.init({
   clientId: '<%= @site.salesforce.clientId %>',
