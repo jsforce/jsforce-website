@@ -6,7 +6,7 @@
 docpadConfig = {
 
   templateData:
-    version: '1.2.1'
+    version: '1.3.0'
     apiVersion: "31.0"
     site:
       url: "http://jsforce.github.io"
