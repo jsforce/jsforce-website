@@ -64,6 +64,11 @@ conn.query("SELECT Id, Name FROM Account")
   .run({ autoFetch : true, maxFetch : 4000 }); // synonym of Query#execute();
 ```
 
+NOTE: When `maxFetch` option is not set, the default value (10,000) is applied. If you really want to fetch more records than the default value, you should explicitly set the maxFetch value in your query.
+
+NOTE: In ver. 1.2 or earlier, the callback style (or promise style) query invokation with `autoFetch` option only returns records in first fetch. From 1.3, it returns all records retrieved up to `maxFetch` value.
+
+
 ### Using Query Method-Chain
 
 #### Basic Method Chaining
