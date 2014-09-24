@@ -297,3 +297,21 @@ Input login URL (default is https://login.salesforce.com) :
 Client registered successfully.
 ```
 
+If you are connecting to sandbox instance or other environment with different login servers (e.g. pre-release environment), you can specify login server by `-l <loginServerUrl>`.
+
+```
+$ jsforce -l https://test.salesforce.com
+```
+
+If you are connecting to sandbox, you can also use following :
+
+```
+$ jsforce -l sandbox
+```
+
+or
+
+```
+$ jsforce --sandbox
+```
+
