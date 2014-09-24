@@ -245,3 +245,37 @@ NOTE: Be careful when using this feature not to break/lose existing data in Sale
 Careful testing is recommended before applying the code to your production environment.
 
 
+### Bulk Query
+
+From ver. 1.3, it adds support for bulk query API. It fetcheds records in bulk in record stream, or CSV stream which can be piped out to CSV file.
+
+```javascript
+/* @interactive */
+conn.bulk.query("SELECT Id, Name, NumberOfEmployees FROM Account")
+  .on('record', function(rec) { console.log(rec); })
+  .on('error', function(err) { console.error(err); });
+```
+
+```javascript
+var fs = require('fs');
+conn.bulk.query("SELECT Id, Name, NumberOfEmployees FROM Account")
+  .stream().pipe(fs.createWriteStream('./accounts.csv'));
+```
+
+If you already know the job id and batch id for the bulk query, you can get the batch result ids by calling `Batch#retrieve()`. Retrieval for each result is done by `Batch#result(resultId)`
+
+```javascript
+var fs = require('fs');
+var batch = conn.bulk.job(jobId).batch(batchId);
+batch.retrieve(function(err, results) {
+  if (err) { return console.error(err); }
+  for (var i=0; i < results.length; i++) {
+    var resultId = result[i].id;
+    batch.result(resultId).stream().pipe(fs.createWriteStream('./result'+i+'.csv'));
+  }
+});
+```
+
+
+
+
