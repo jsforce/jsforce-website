@@ -24,11 +24,8 @@ conn.metadata.read('CustomObject', fullNames, function(err, metadata) {
 
 ### Create Metadata
 
-To newly create metadata objects, use `Metadata#createAsync(type, metadata)`.
+To newly create metadata objects, use `Metadata#create(type, metadata)`.
 Metadata format for each metadata types are written in Metadata API document.
-
-By default it returns asynchronous result ids with current statuses,
-which can be used for later execution status query.
 
 ```javascript
 /* @interactive */
@@ -54,7 +51,22 @@ var metadata = [{
   deploymentStatus: 'InDevelopment',
   sharingModel: 'Private'
 }];
+conn.metadata.create('CustomObject', metadata, function(err, results) {
+  if (err) { console.err(err); }
+  for (var i=0; i < results.length; i++) {
+    var result = results[i];
+    console.log('success ? : ' + result.success);
+    console.log('fullName : ' + result.fullName);
+  }
+});
+````
 
+There is an alternative method to create metadata, in aynchronous - `Metadata#createAync()`.
+
+This asynchronous version is different from synchronous one - it returns asynchronous result ids with current statuses,
+which can be used for later execution status query.
+
+```javascript
 // request creating metadata and receive execution ids & statuses
 var asyncResultIds = [];
 conn.metadata.createAsync('CustomObject', metadata, function(err, results) {
@@ -64,7 +76,7 @@ conn.metadata.createAsync('CustomObject', metadata, function(err, results) {
     console.log('id: ' + result.id);
     console.log('done ? : ' + result.done);
     console.log('state : ' + result.state); console.log(results);
-    // save for later status check 
+    // save for later status check
     asyncResultIds.push(result.id);
   }
 });
@@ -75,7 +87,6 @@ And then you can check creation statuses by `Metadata#checkStatus(asyncResultIds
 and wait their completion by calling `Metadata-AsyncResultLocator#complete()` for returned object.
 
 ```javascript
-/* @interactive */
 conn.metadata.checkStatus(asyncResultIds).complete(function(err, results) {
   if (err) { console.error(err); }
   for (var i=0; i < results.length; i++) {
@@ -91,99 +102,125 @@ Or you can directly apply `Metadata-AsyncResultLocator#complete()` call for the 
 returned from `Metadata#createAsync()` call.
 
 ```javascript
-/* @interactive */
 conn.metadata.createAsync('CustomObject', metadata).complete(function(err, results) {
   if (err) { console.err(err); }
-  console.log(results); 
+  console.log(results);
 });
 ````
 
-There is an alternative method to create metadata, in synchronous - `Metadata#createSync()`.
+NOTE: In version 1.2.x, `Metadata#create()` method was an alias of `Metadata#createAsync()`.
 
-This synchronous version is different from asynchronous one - it waits metadata request processing,
-in contrast to asynchronous one returns the queud status immediately to poll to get the result afterward.
+From ver 1.3, the method has been changed to point to synchronous call `Metadata#createSync()` which is corresponding to the sync API newly introduced from API 30.0. This is due to the removal of asynchronous metadata call from API 31.0.
 
-```javascript
-conn.metadata.createSync('CustomObject', metadata, function(err, results) {
-  if (err) { console.err(err); }
-  console.log(results); 
-});
-````
-
-
-NOTE: In previous version, `Metadata#create()` method was solely provided for metadata creation.
-
-The method still works for asynchronous metadata creation, but it is now marked as deprecated.
-
-Instead, use `Metadata#createAsync()` for asynchronous, `Metadata#createSync()` for synchronous.
-
-In future, `Metadat#create()` will be reused as a synonym of `Metadata#createSync()`.
+Asynchronous method `Metadata#createAsync()` still works if API version is specified to less than 31.0, but not recommended for active usage.
 
 
 ### Update Metadata
 
-`Metadata#updateAsync(type, updateMetadata)` can be used for updating existing metadata objects.
+`Metadata#update(type, updateMetadata)` can be used for updating existing metadata objects.
 
 ```
 /* @interactive */
-var updateMetadata = [{
-  currentName: 'TestObject1__c.AutoNumberField__c',
-  metadata: {
-    type: 'Text',
-    fullName: 'TestObject2__c.AutoNumberField2__c',
-    label: 'Auto Number #2',
-    length: 50
-  }
-}];
-conn.metadata.updateAsync('CustomField', updateMetadata).complete(function(err, results) {
+var metadata = [{
+  fullName: 'TestObject1__c.AutoNumberField__c',
+  label: 'Auto Number #2',
+  length: 50
+}]
+conn.metadata.update('CustomField', metadata, function(err, results) {
   if (err) { console.error(err); }
   for (var i=0; i < results.length; i++) {
     var result = results[i];
-    console.log('id: ' + result.id);
-    console.log('done ? : ' + result.done);
-    console.log('state : ' + result.state);
+    console.log('success ? : ' + result.success);
+    console.log('fullName : ' + result.fullName);
   }
 });
 ```
 
-NOTE: In previous version, `Metadata#update()` method was solely provided for metadata content update.
+NOTE: In version 1.2.x, `Metadata#update()` method was an alias of `Metadata#updateAsync()`.
 
-The method still works for asynchronous metadata content update, but it is now marked as deprecated.
+From ver 1.3, the method has been changed to point to synchronous call `Metadata#updateSync()` which is corresponding to the sync API newly introduced from API 30.0. This is due to the removal of asynchronous metadata call from API 31.0.
 
-Instead, use `Metadata#updateAsync()` for asynchronous, `Metadata#updateSync()` for synchronous.
-
-In future, `Metadat#update()` will be reused as a synonym of `Metadata#updateSync()`.
+Asynchronous method `Metadata#updateAsync()` still works if API version is specified to less than 31.0, but not recommended for active usage.
 
 
-### Delete Metadata
+### Upsert Metadata
 
-`Metadata#deleteAsync(type, updateMetadata)` can be used for deleting existing metadata objects.
+`Metadata#upsert(type, metadata)` is used for upserting metadata - insert new metadata when it is not available, otherwise update it.
 
 ```javascript
 /* @interactive */
 var metadata = [{
-  fullName: 'TestObject1__c',
-}, {
   fullName: 'TestObject2__c',
+  label: 'Upserted Object 2',
+  pluralLabel: 'Upserted Object 2',
+  nameField: {
+    type: 'Text',
+    label: 'Test Object Name'
+  },
+  deploymentStatus: 'Deployed',
+  sharingModel: 'ReadWrite'
+}, {
+  fullName: 'TestObject__c',
+  label: 'Upserted Object 3',
+  pluralLabel: 'Upserted Object 3',
+  nameField: {
+    type: 'Text',
+    label: 'Test Object Name'
+  },
+  deploymentStatus: 'Deployed',
+  sharingModel: 'ReadWrite'
 }];
-conn.metadata.deleteAsync('CustomObject', metadata).complete(function(err, results) {
+conn.metadata.upsert('CustomObject', metadata, function(err, results) {
   if (err) { console.error(err); }
   for (var i=0; i < results.length; i++) {
     var result = results[i];
-    console.log('id: ' + result.id);
-    console.log('done ? : ' + result.done);
-    console.log('state : ' + result.state);
+    console.log('success ? : ' + result.success);
+    console.log('created ? : ' + result.created);
+    console.log('fullName : ' + result.fullName);
   }
 });
 ```
 
-NOTE: In previous version, `Metadata#delete()` method was solely provided to delete existing metadata.
 
-The method still works for asynchronous metadata deletion, but it is now marked as deprecated.
+### Rename Metadata
 
-Instead, use `Metadata#deleteAsync()` for asynchronous, `Metadata#deleteSync()` for synchronous.
+`Metadata#rename(type, oldFullName, newFullName)` is used for renaming metadata.
 
-In future, `Metadat#delete()` will be reused as a synonym of `Metadata#deleteSync()`.
+```javascript
+/* @interactive */
+conn.metadata.rename('CustomObject', 'TestObject3__c', 'UpdatedTestObject3__c', function(err, result) {
+  if (err) { console.error(err); }
+  for (var i=0; i < results.length; i++) {
+    var result = results[i];
+    console.log('success ? : ' + result.success);
+    console.log('fullName : ' + result.fullName);
+  }
+});
+```
+
+
+### Delete Metadata
+
+`Metadata#delete(type, metadata)` can be used for deleting existing metadata objects.
+
+```javascript
+/* @interactive */
+var fullNames = ['TestObject1__c', 'TestObject2__c'];
+conn.metadata.delete('CustomObject', fullNames, function(err, results) {
+  if (err) { console.error(err); }
+  for (var i=0; i < results.length; i++) {
+    var result = results[i];
+    console.log('success ? : ' + result.success);
+    console.log('fullName : ' + result.fullName);
+  }
+});
+```
+
+NOTE: In version 1.2.x, `Metadata#delete()` method was an alias of `Metadata#deleteAsync()`.
+
+From ver 1.3, the method has been changed to point to synchronous call `Metadata#deleteSync()` which is corresponding to the sync API newly introduced from API 30.0. This is due to the removal of asynchronous metadata call from API 31.0.
+
+Asynchronous method `Metadata#deleteAsync()` still works if API version is specified to less than 31.0, but not recommended for active usage.
 
 
 ### Retrieve / Deploy Metadata (File-based)
@@ -191,14 +228,17 @@ In future, `Metadat#delete()` will be reused as a synonym of `Metadata#deleteSyn
 You can retrieve metadata information which is currently registered in Salesforce,
 `Metadata#retrieve(options)` command can be used.
 
+The structure of hash object argument `options` is same to the message object defined in Salesforce Metadata API.
+
 ```javascript
 var fs = require('fs');
 conn.metadata.retrieve({ packageNames: [ 'My Test Package' ] })
              .stream().pipe(fs.createWriteStream("./path/to/MyPackage.zip"));
 ```
 
-If you have metadata definition files in your file system, create zip file from them 
+If you have metadata definition files in your file system, create zip file from them
 and call `Metadata#deploy(zipIn, options)` to deploy all of them.
+
 
 ```javascript
 var fs = require('fs');
