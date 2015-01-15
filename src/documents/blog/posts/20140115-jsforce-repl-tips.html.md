@@ -37,7 +37,7 @@ To be authorized in JSforce via OAuth2, use `.authorize` command instead of `.co
 
 The command will pop up a browser window to prompt OAuth authorization.
 
-Before using `.authorize` command, you should first register an OAuth client for JSforce REPL in Connected Apps on your developer organization, which does not have to be the organization you’re going to connect. When registering a Connected App for JSforce, the callback URL should be start with `http://localhost:<any_available_port_number>/`.
+Before using `.authorize` command, you should first register an OAuth client for JSforce REPL in Connected Apps on your developer organization, which does not have to be the organization you’re going to connect. When registering a Connected App for JSforce, the callback URL should be starting with `http://localhost:<any_available_port_number>/`.
 
 Then use `.register` command in JSforce to start interactive wizard to register client information in configuration.
 
@@ -51,7 +51,7 @@ Client registered successfully.
 >
 ```
 
-Once OAuth2 authorization has been accomplished, connection will automatically refreshed even if the session has been expired. You can use `.connect` command with authorized Salesforce username. It will connect automatically without password prompt.
+Once OAuth2 authorization has been accomplished, the connection will automatically be refreshed even after session expiry. You can use `.connect` command with authorized Salesforce username, then connect automatically without password prompt.
 
 ```
 > .connect username@example.org
@@ -60,12 +60,12 @@ Logged in as : username@example.org
 >
 ```
 
-The `.authorize` and `.register` command accepts an argument which specifies client name. So you can switch multiple OAuth2 clients for sandbox, prerelease, or private login server hosted under My Domain.
+The `.authorize` and `.register` command accepts an optional argument which can specify client name. So you can switch multiple OAuth2 clients for sandbox, prerelease, or private login server hosted under My Domain.
 
 
 ### 2. Use "Tab" Key to Complete Everything
 
-As the JSforce REPL is an extension of Node.js REPL, it comletes methods and properties defined in JSforce APIs. For example, when you want to try `describeGlobal()` API in the REPL, type `desc` and press "Tab" key. It automatically completes the word to `describe` and show candidates in screen.
+As the JSforce REPL is an extension of Node.js REPL, it can complete method names or properties defined in JSforce APIs. For example, when you want to try `describeGlobal()` API in the REPL, type `desc` and press "Tab" key. It automatically completes the word to `describe` and show possible candidates in your screen.
 
 ```
 > desc[TAB]
@@ -74,7 +74,7 @@ describe          describe$         describeGlobal    describeGlobal$   describe
 > describe
 ```
 
-Not only methods or properties in REPL context, it also completes REPL command arguments. For example, `.connect` command accepts Salesforce username in its first argument. If you have already established connection information in configuration, it will automatically completes from registered username.
+Not only methods or properties in REPL context, it also completes REPL command arguments. For example, `.connect` command accepts Salesforce username in its first argument. If you have connections you have established ever, it will automatically complete and show candidate list of usernames.
 
 ```
 > .connect adm[TAB]
@@ -98,7 +98,7 @@ undefined
 
 However, specifing callback function for each time to call out the API is a little cumbersome.
 
-In JSforce REPL, it adds support of "Promise Auto Evaluation" - if the returned value to REPL has promise A+ interface (thennable) it will be automatically evaluated and wait display output untill promise evaluation is completed. This feature brings the experience as if REPL users are making synchronous API calls.
+In JSforce REPL, it adds support of "Promise Auto Evaluation" - if the value returned to REPL has promise A+ interface (thenable) it will be automatically evaluated and waits display output untill promise evaluation is completed. This feature brings an experience as if REPL users are making synchronous API call.
 
 ```
 > sobject('Account').create({ Name: 'My Test Account' });
@@ -110,7 +110,7 @@ In JSforce REPL, it adds support of "Promise Auto Evaluation" - if the returned 
 
 ### 4. Utilize "_" Variable to Access the Latest Evaluated Result
 
-As same as Node.js REPL, JSforce REPL has special variable _ (underscore), which contains the result of the last expression. In addition to normal Node.js REPL behavior, it keeps evaluated promise value in it if the last expression leads to promise auto evaluation.
+Same as Node.js REPL, JSforce REPL has special variable _ (underscore), which contains the result of the last expression. In addition to normal Node.js REPL behavior, it also keeps evaluated value of the promise if the last expression returns a promise value.
 
 ```
 > query("SELECT Id, Name FROM Account WHERE Name LIKE 'P%'");
@@ -125,7 +125,7 @@ As same as Node.js REPL, JSforce REPL has special variable _ (underscore), which
 >
 ```
 
-Please be aware that variable _ (underscore) is overwritten in each REPL evaluation. So if you want to use the returned value in several times in REPL, you should first evacuate the value to another variable.
+Please be aware that variable _ (underscore) is overwritten in each REPL evaluation. So if you want to use the value in several times in REPL, you should first evacuate it to another variable.
 
 ```
 > query("SELECT Id, Name FROM Account WHERE Name LIKE 'P%'");
@@ -152,16 +152,16 @@ true
 
 ### 5. Use CoffeScript REPL to Reduce Typing Effort
 
-JavaScript sometime tends to be verbose in description, such as writing parens or function declaration. In REPL, you may prefer CoffeeScript to keep the typing minimal.
+Some people may think JavaScript is verbose in description, especially writing parens or function declaration. You may prefer CoffeeScript because of its simple and minimal description.
 
-When you set `--coffee` in booting JSforce REPL, it use CoffeeScript REPL instead of Node.js REPL.
+When you set `--coffee` option when booting JSforce REPL, it use CoffeeScript REPL instead of Node.js REPL.
 
 ```
 $ jsforce --coffee
 coffee>
 ```
 
-If you try to execute a simple SOQL, just type as follows. You will see no parens are required to type.
+To execute a simple SOQL, just type as follows. You can see no parens are required.
 
 ```
 coffee> query "SELECT Id, Name FROM Account"
@@ -179,7 +179,6 @@ coffee> query "SELECT Id, Name FROM Account"
        Name: 'Grand Hotels & Resorts Ltd' },
        ...
 ```
-
 
 
 
