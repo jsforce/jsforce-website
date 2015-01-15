@@ -1,22 +1,28 @@
 ---
 layout: default
 category: blog
-title: JSforce Blog
+headline: blog/headline
+title: Blog
+stylesheets:
+  - /css/blog.css
 isPaged: true
 pagedCollection: posts
-pageSize: 5
+pageSize: 2
 pagePathPrefix: page
 ---
 
-<% for document in @getCollection('posts').toJSON()[@document.page.startIdx...@document.page.endIdx]: %>
-  <%- @partial('blog/post', {title: document.title, url: document.url, tags: document.tags, date: document.date, content: document.contentRenderedWithoutLayouts }) %>
+<% for document, i in @getCollection('posts').toJSON()[@document.page.startIdx...@document.page.endIdx]: %>
+  <% if i > 0: %>
+  <hr />
+  <% end %>
+  <%- @partial('blog/post', @extend(@extend({}, document), isInIndex: true, content: document.contentRenderedWithoutLayouts)) %>
 <% end %>
 
 <div class="page-nav">
   <% if @hasNextPage(): %>
-  <a class="page-nav-older" href="<%= @getNextPage() %>"><span class="icon icon-arrow-left-2"></span> Older</a>
+  <a class="page-nav-older" href="<%= @getNextPage() %>"><span class="icon icon-arrow-left-2"></span> &laquo; Older</a>
   <% end %>
   <% if @hasPrevPage(): %>
-  <a class="page-nav-newer" href="<%= @getPrevPage() %>">Newer <span class="icon icon-arrow-right-2"></span></a>
+  <a class="page-nav-newer" href="<%= @getPrevPage() %>">Newer &raquo; <span class="icon icon-arrow-right-2"></span></a>
   <% end %>
 </div>

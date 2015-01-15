@@ -17,15 +17,14 @@
 <% if @document.sidebar? : %>
     <div class="row">
       <div class="col-md-9">
-<%- @content %>
+<%- if @document.contentTemplate? then @partial @document.contentTemplate, @extend(@extend({}, @document), content: @content) else @content %>
       </div>
       <div class="col-md-3 hidden-xs hidden-sm hidden-print">
 <%- @partial(@document.sidebar) %>
       </div>
     </div>
 <% else : %>
-<%- @content %>
-<% end %>
+<%- if @document.contentTemplate? then @partial @document.contentTemplate, @extend(@extend({}, @document), content: @content) else @content %>
   </div>
 </div>
 

@@ -35,6 +35,10 @@ docpadConfig = {
       title: "Download"
       url: "/download/"
     ,
+      name: "blog"
+      title: "Blog"
+      url: "/blog/"
+    ,
       name: "api"
       title: "API Reference"
       url: "http://jsforce.github.io/jsforce/doc/"
@@ -51,6 +55,8 @@ docpadConfig = {
   	# helper functions
 
     moment: require("moment")
+
+    extend: require("underscore").extend
 
   collections:
     posts: ->

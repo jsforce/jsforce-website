@@ -3,12 +3,15 @@ cacheable: false
 ---
 <article id="post" class="post">
   <div class="post-date"><%=  @moment(@date).format('MMM Do, YYYY') %></div>
-  <% if @individualPost: %>
-  <h2><%= @title %></h2>
-  <% else: %>
   <h2><a href='<%= @url %>'><%= @title %></a></h2>
-  <% end %>
   <div class="post-content">
-     <%- @content %>
+    <% if @isInIndex && @content?.indexOf("</p>", 500) > 0 : %>
+      <%- @content.substring(0, @content.indexOf("</p>", 500) + 4) %>
+      <div class="post-readmore">
+        <a href='<%= @url %>'>Read More</a>
+      </div>
+    <% else: %>
+      <%- @content %>
+    <% end %>
   </div>
 </article>
