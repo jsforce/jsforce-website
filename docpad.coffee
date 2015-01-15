@@ -47,7 +47,14 @@ docpadConfig = {
       title: "Home"
       url: "/"
     ]
-	# ...
+
+  	# helper functions
+
+    moment: require("moment")
+
+  collections:
+    posts: ->
+      @getCollection('documents').findAllLive({ relativeOutDirPath: 'blog/posts' }, [ date: -1 ])
 
 }
 
