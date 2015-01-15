@@ -4,7 +4,7 @@ headline: blog/headline
 contentTemplate: blog/post
 category: blog
 title: 5 Tips You Should Know When Using JSforce REPL 
-date: 2015-01-16
+date: 2015-01-15
 ---
 
 If you are already using JSforce, you may be aware of its REPL. If not, you are definitely losing time in learning APIs.
