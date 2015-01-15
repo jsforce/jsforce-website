@@ -1,4 +1,5 @@
 #!/bin/sh
+echo "Releasing built result to GitHub Page"
 git checkout -b release
 git add out/
 git commit -am "Generate Website from docpad"
@@ -10,4 +11,5 @@ git remote add pages ${GITHUB_PAGES_GIT_URL}
 git push pages `git subtree split --prefix out release`:master --force
 git remote remove pages
 git checkout master
+echo "Release completed."
 
