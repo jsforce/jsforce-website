@@ -7,15 +7,15 @@ title: 5 Tips You Should Know When Using JSforce REPL
 date: 2015-01-15
 ---
 
-If you are already using JSforce, you may be aware of its REPL. If not, you are definitely losing time in learning APIs.
+If you are already using JSforce, you may be aware of its REPL. If not, you are definitely spending time and spending in learning APIs.
 
-JSforce REPL is an extension of Node.js REPL (Read-Eval-Print Loop), which enables you to try and execute Salesforce APIs (REST, Bulk, Chatter, Metadata, and so on) in interactive manner.  
+JSforce REPL is an extension of Node.js REPL (Read-Eval-Print Loop), which enables you to try and execute Salesforce APIs (REST, Bulk, Chatter, Metadata, and so on) in interactive manner.
 
 I recently noticed that people are not fully utilizing features in the REPL. Here I would like to pick up some tips in JSforce REPL which I really think very useful.
 
 ### 1. Use ".authorize" Command to Create Persisting Connection
 
-When you are connectiong to Salesforce in JSforce, you may be using `.connect` command with username/password.
+When you are connecting to Salesforce in JSforce, you may be using `.connect` command with username/password.
 
 ```
 $ jsforce
@@ -27,7 +27,7 @@ Logged in as: username@example.org
 
 But inputting password to establish connection for each time is sometime considered to be a painful work.
 
-JSforce supports OAuth2 authorization to establish connection. OAuth2 has a mechanism to refresh access token after the session expiration, which is called refresh token flow. JSforce REPL has built-in ability to initiate OAuth flow, obtain refesh token, and keep it securely in OS filesystem. So you don't have to worry about handling it.
+JSforce supports OAuth2 authorization to establish connection. OAuth2 has a mechanism to refresh access token after the session expiration, which is called refresh token flow. JSforce REPL has built-in ability to initiate OAuth flow, obtain refresh token, and keep it securely in OS file system. So you don't have to worry about handling it.
 
 To be authorized in JSforce via OAuth2, use `.authorize` command instead of `.connect`.
 
@@ -98,7 +98,7 @@ undefined
 
 However, specifing callback function for each time to call out the API is a little cumbersome.
 
-In JSforce REPL, it adds support of "Promise Auto Evaluation" - if the value returned to REPL has promise A+ interface (thenable) it will be automatically evaluated and waits display output untill promise evaluation is completed. This feature brings an experience as if REPL users are making synchronous API call.
+In JSforce REPL, it adds support of "Promise Auto Evaluation" - if the value returned to REPL has promise A+ interface (thenable) it will be automatically evaluated and waits display output until promise evaluation is completed. This feature brings an experience as if REPL users are making synchronous API call.
 
 ```
 > sobject('Account').create({ Name: 'My Test Account' });
@@ -152,7 +152,7 @@ true
 
 ### 5. Use CoffeScript REPL to Reduce Typing Effort
 
-Some people may think JavaScript is verbose in description, especially writing parens or function declaration. You may prefer CoffeeScript because of its simple and minimal description.
+Some people may think JavaScript is verbose in description, especially writing parentheses or function declaration. You may prefer CoffeeScript because of its simple and minimal description.
 
 When you set `--coffee` option when booting JSforce REPL, it use CoffeeScript REPL instead of Node.js REPL.
 
@@ -161,7 +161,7 @@ $ jsforce --coffee
 coffee>
 ```
 
-To execute a simple SOQL, just type as follows. You can see no parens are required.
+To execute a simple SOQL, just type as follows. You can see no parentheses are required.
 
 ```
 coffee> query "SELECT Id, Name FROM Account"
