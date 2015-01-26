@@ -3,7 +3,7 @@ layout: default
 headline: blog/headline
 contentTemplate: blog/post
 category: blog
-title: Deploying package to Salesforce using JSforce and Gulp.js
+title: Deploying Package to Salesforce using JSforce and Gulp.js
 date: 2015-01-26
 ---
 
