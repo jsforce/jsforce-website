@@ -58,7 +58,6 @@ var job = conn.bulk.job(jobId);
 var batch = job.batch(batchId);
 batch.poll(1000 /* interval(ms) */, 20000 /* timeout(ms) */); // start polling
 batch.on("response", function(rets) { // fired when batch finished and result retrieved
-  if (err) { return console.error(err); }
   for (var i=0; i < rets.length; i++) {
     if (rets[i].success) {
       console.log("#" + (i+1) + " loaded successfully, id = " + rets[i].id);
