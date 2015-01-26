@@ -44,7 +44,7 @@ The `gulpfile.coffee` is the script which describes building and deploying tasks
 
 ## Building Static Files
 
-Likewise other frontend development, you can build JavaScript or CSS files in gulp tasks. In this example we compile CoffeeScript source code to JavaScript, bundle it with all dependencies using browserify, and uglify it to minify the content. For CSS, we compile from LESS stylesheets. Other static files like HTML or images are just copied to temporary build directory.
+Likewise other general frontend development, you can build JavaScript or CSS files in gulp tasks. In this example we compile CoffeeScript source code to JavaScript, bundle it with all dependencies using browserify, and uglify it to minify the content. For CSS, we compile from LESS stylesheets. Other static files like HTML or images are just copied to temporary build directory.
 
 When all static files are built, they will be zipped as a static resource file in `pkg/staticresources` directory.
 
