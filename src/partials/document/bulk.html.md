@@ -132,7 +132,6 @@ You can pipe input stream to it afterward.
 ```javascript
 var batch = conn.bulk.load("Account", "insert");
 batch.on("response", function(rets) { // fired when batch finished and result retrieved
-  if (err) { return console.error(err); }
   for (var i=0; i < rets.length; i++) {
     if (rets[i].success) {
       console.log("#" + (i+1) + " loaded successfully, id = " + rets[i].id);
