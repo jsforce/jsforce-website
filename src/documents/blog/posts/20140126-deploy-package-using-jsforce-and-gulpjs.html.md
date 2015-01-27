@@ -13,6 +13,8 @@ As gulp.js is running on Node.js, various Node.js-based packages - including JSf
 
 In this article, we'll show how to deploy a force.com package using gulp, which can contain Force.com metadata objects like custom object/field definitions, Apex classes, Visualforce pages, or CSS/JavaScript/image files as static resource archive.
 
+(All files including build script and source codes of this article is available from [here](https://github.com/jsforce/example-gulp-jsforce))
+
 ## Example
 
 First, we assume a project with following directory structure :
@@ -166,7 +168,6 @@ $ foreman run gulp watch
 
 ```
 
-(All the source code of this project is available from [here](https://github.com/jsforce/example-gulp-jsforce))
 
 
 
