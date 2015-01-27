@@ -48,6 +48,30 @@ a {
   .box-shadow(rgba(27, 27, 27, 0.4) 1px 1px 10px);
   border: 0px none;
   overflow: hidden;
+  .navbar-brand {
+    display: inline-block;
+    margin: 2px 10px 2px 2px;
+    background-image: url(../images/jsforce-logo-invert-trans.png);
+    background-repeat: no-repeat;
+    background-size: 65px 45px;
+    width: 65px;
+    height: 45px;
+    text-indent: -10000px;
+  }
+  .navbar-nav {
+    .menu-item {
+@media (max-width: 992px) {
+      padding-left: 10px;
+      padding-right: 10px;
+}
+      height: 50px;
+      line-height: 16px;
+      .menu-icon {
+        line-height: 16px;
+        vertical-align: bottom;
+      }
+    }
+  }
   .navbar-collapse {
     padding-left: 0;
     padding-right: 0;

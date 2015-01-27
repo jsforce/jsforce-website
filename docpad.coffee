@@ -45,6 +45,7 @@ docpadConfig = {
     ,
       name: "github"
       title: "GitHub"
+      icon: "github"
       url: "https://github.com/jsforce/jsforce"
     ]
     footerNavigations: [

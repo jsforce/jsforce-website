@@ -16,6 +16,7 @@
 <!--
 <link rel="stylesheet" href="/asset/bootstrap/css/bootstrap-theme.min.css">
 -->
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="/asset/highlight/styles/default.css">
 <link rel="stylesheet" href="/css/styles.css">
 <% for stylesheet in (@document.stylesheets or []) : %><link rel="stylesheet" href="<%= stylesheet %>">

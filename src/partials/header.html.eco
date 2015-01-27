@@ -27,11 +27,12 @@
             </ul>
           <% else : %>
           <li class="<%= cls %>">
-            <a href="<%= menu.url %>" class="menu-item">
+            <a href="<%= menu.url %>" class="menu-item" title="<%= menu.title %>">
               <% if menu.icon? : %>
-              <span class="glyphicon glyphicon-<%= menu.icon %>"></span>
-              <% end %>
+              <i class="menu-icon fa fa-2x fa-<%= menu.icon %>"></i>
+              <% else : %>
               <%= menu.title %>
+              <% end %>
             </a>
           </li>
           <% end %>
