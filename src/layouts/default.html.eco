@@ -3,7 +3,7 @@
 <head>
 <%- @partial('head') %>
 </head>
-<body>
+<body class="<%= @document.category || '' %>">
 
 <!-- header -->
 <%- @partial('header') %>

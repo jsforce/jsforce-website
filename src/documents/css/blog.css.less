@@ -1,24 +1,33 @@
 @import "extra-variables.less";
 
-.post {
-  position: relative;
-  .post-readmore {
-    @startColor: rgba(255, 255, 255, 0);
-    @endColor: rgba(255, 255, 255, 1);
-    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, @startColor), color-stop(0.5, @endColor), color-stop(1, @endColor));
-    background-image: -webkit-linear-gradient(top, @startColor 0%, @endColor 50%, @endColor 100%);
-    background-image: -moz-linear-gradient(top, @startColor 0%, @endColor 50%, @endColor 100%);
-    background-image: -ms-linear-gradient(top, @startColor 0%, @endColor 50%, @endColor 100%);
-    background-image: -o-linear-gradient(top, @startColor 0%, @endColor 50%, @endColor 100%);
-    background-image: linear-gradient(to bottom, @startColor 0%, @endColor 50%, @endColor 100%);
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 40px 0 0;
-    text-align: center;
+body.blog {
+  .post {
+    position: relative;
+    .post-meta {
+      margin: 10px 0 20px;
+      font-size: 14px;
+    }
+    .post-readmore {
+      @startColor: rgba(255, 255, 255, 0);
+      @endColor: rgba(255, 255, 255, 1);
+      background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, @startColor), color-stop(0.5, @endColor), color-stop(1, @endColor));
+      background-image: -webkit-linear-gradient(top, @startColor 0%, @endColor 50%, @endColor 100%);
+      background-image: -moz-linear-gradient(top, @startColor 0%, @endColor 50%, @endColor 100%);
+      background-image: -ms-linear-gradient(top, @startColor 0%, @endColor 50%, @endColor 100%);
+      background-image: -o-linear-gradient(top, @startColor 0%, @endColor 50%, @endColor 100%);
+      background-image: linear-gradient(to bottom, @startColor 0%, @endColor 50%, @endColor 100%);
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 40px 0 0;
+      text-align: center;
+    }
+    .post-comments {
+      margin-top: 40px;
+    }
   }
-}
-.page-nav {
-  padding: 40px 0;
+  .page-nav {
+    padding: 40px 0;
+  }
 }

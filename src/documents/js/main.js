@@ -1,6 +1,6 @@
 /*global jsforce, hljs*/
 $(function() {
-  hljs.configure({ languages: ['javascript', 'shell', 'html'] });
+  hljs.configure({ languages: ['javascript', 'shell', 'coffeescript', 'html'] });
   $('pre code').each(function(i, elem) {
     if ($(elem).hasClass('lang-javascript')) {
       var codeEl = $(elem);

@@ -5,6 +5,9 @@ contentTemplate: blog/post
 category: blog
 title: 5 Tips You Should Know When Using JSforce REPL 
 date: 2015-01-15
+author:
+  name: Shinichi Tomita
+  url: https://github.com/stomita
 ---
 
 If you are already using JSforce, you may be aware of its REPL. If not, you are definitely spending time and spending in learning APIs.

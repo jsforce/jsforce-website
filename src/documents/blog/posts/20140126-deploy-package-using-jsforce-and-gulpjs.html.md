@@ -5,6 +5,9 @@ contentTemplate: blog/post
 category: blog
 title: Deploying Package to Salesforce using JSforce and Gulp.js
 date: 2015-01-26
+author:
+  name: Shinichi Tomita
+  url: https://github.com/stomita
 ---
 
 [Gulp.js](http://gulpjs.com) is a simple task/build runner to process front-end stuff, which utilizes pipes for streaming data that needs to be processed. 

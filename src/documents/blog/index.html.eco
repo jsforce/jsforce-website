@@ -3,11 +3,9 @@ layout: default
 category: blog
 headline: blog/headline
 title: Blog
-stylesheets:
-  - /css/blog.css
 isPaged: true
 pagedCollection: posts
-pageSize: 2
+pageSize: 5
 pagePathPrefix: page
 ---
 
