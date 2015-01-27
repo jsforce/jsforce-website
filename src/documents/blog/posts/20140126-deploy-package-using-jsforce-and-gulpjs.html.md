@@ -50,6 +50,15 @@ When all static files are built, they will be zipped as a static resource file i
 
 
 ```coffee
+gulp = require "gulp"
+zip = require "gulp-zip"
+less = require "gulp-less"
+streamify = require "gulp-streamify"
+uglify = require "gulp-uglify"
+minify = require "gulp-minify-css"
+browserify = require "browserify"
+source = require "vinyl-source-stream"
+
 # Building CSS files from LESS source
 gulp.task "css", ->
   gulp.src "./src/styles/main.less"
@@ -90,6 +99,9 @@ The deploy task first zips package directory, pipe it to `forceDeploy` stream wh
 pass it to JSforce `Metadata#deploy()` API call.
 
 ```coffee
+through2 = require "through2"
+jsforce = require "jsforce"
+
 ###
 # Returns a stream pipe for deploying zipped package to Salesforce
 ###
@@ -138,7 +150,6 @@ $ foreman run gulp
 Of course you can combine `gulp.watch` to watch file changes and automatically deploy to Salesforce when a change happens.
 
 ```
-#
 gulp.task "watch", ->
   gulp.watch "./src/**/*", [ "build" ]
   gulp.watch "./pkg/**/*", [ "deploy" ]
@@ -155,7 +166,7 @@ $ foreman run gulp watch
 
 ```
 
-All the source code of this project is available from [here](https://github.com/jsforce/example-gulp-jsforce).
+(All the source code of this project is available from [here](https://github.com/jsforce/example-gulp-jsforce))
 
 
 
