@@ -42,7 +42,7 @@ $ bower install jsforce
 You'll get the JSforce script files in `bower_components` directory, so write a tag in HTML to include the file.
 
 ```html
-<script src="./bower_components/build/jsforce.min.js"></script>
+<script src="./bower_components/jsforce/build/jsforce.min.js"></script>
 ```
 
 ## Using CDN
