@@ -31,6 +31,19 @@ To locally download these files, right-click the link and select "Save as..." fr
 - [Production Version (v<%= @version %>)](//cdnjs.cloudflare.com/ajax/libs/jsforce/<%= @version %>/jsforce-api-<%= apiname %>.min.js) - Compressed / [SourceMap](//cdnjs.cloudflare.com/ajax/libs/jsforce/<%= @version %>/jsforce-api-<%= apiname %>.min.js.map)
 <% end %>
 
+## Using Bower
+
+[Bower](http://bower.io/) is a package manager for web application front-end libraries. JSforce is also available in bower. To install JSforce via bower, type following in your project root:
+
+```
+$ bower install jsforce
+```
+
+You'll get the JSforce script files in `bower_components` directory, so write a tag in HTML to include the file.
+
+```html
+<script src="./bower_components/build/jsforce.min.js"></script>
+```
 
 ## Using CDN
 
