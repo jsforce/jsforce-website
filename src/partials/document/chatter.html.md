@@ -15,7 +15,7 @@ If you want to retrieve the information for specified resource, `Chatter-Resourc
 
 ```javascript
 /* @interactive */
-conn.chatter.resource("/users/me").retrieve(function(err, res) {
+conn.chatter.resource('/users/me').retrieve(function(err, res) {
   if (err) { return console.error(err); }
   console.log("username: "+ res.username);
   console.log("email: "+ res.email);
@@ -30,7 +30,7 @@ All acceptable query parameters are written in Chatter REST API manual.
 
 ```javascript
 /* @interactive */
-conn.chatter.resource("/users", { q: "Suzuki" }).retrieve(function(err, result) {
+conn.chatter.resource('/users', { q: 'Suzuki' }).retrieve(function(err, result) {
   if (err) { return console.error(err); }
   console.log("current page URL: " + result.currentPageUrl);
   console.log("next page URL: " + result.nextPageUrl);
@@ -50,19 +50,21 @@ To post a feed item or a comment, use `Chatter-Resource#create(data)` for collec
 
 ```javascript
 /* @interactive */
-conn.chatter.resource("/feeds/news/me/feed-items").create({
+conn.chatter.resource('/feed-elements').create({
   body: {
     messageSegments: [{
       type: 'Text',
       text: 'This is new post'
     }]
-  }
+  },
+  feedElementType : 'FeedItem',
+  subjectId: 'me'
 }, function(err, result) {
   if (err) { return console.error(err); }
   console.log("Id: " + result.id);
   console.log("URL: " + result.url);
   console.log("Body: " + result.body.messageSegments[0].text);
-  console.log("Comments URL: " + result.comments.currentPageUrl);
+  console.log("Comments URL: " + result.capabilities.comments.page.currentPageUrl);
 });
 ```
 
@@ -72,7 +74,7 @@ You can add a comment by posting message to feed item's comments URL:
 
 ```javascript
 /* @interactive */
-var commentsUrl = '/feed-items/0D580000015VaONCA0/comments';
+var commentsUrl = '/feed-elements/0D55000001j5qn8CAA/capabilities/comments/items';
 conn.chatter.resource(commentsUrl).create({
   body: {
     messageSegments: [{
@@ -94,7 +96,7 @@ You can add likes to feed items/comments by posting empty string to like URL:
 
 ```javascript
 /* @interactive */
-var itemLikesUrl = '/services/data/v29.0/chatter/feed-items/0D580000015VaiHCAS/likes';
+var itemLikesUrl = '/feed-elements/0D55000001j5r2rCAA/capabilities/chatter-likes/items';
 conn.chatter.resource(itemLikesUrl).create("", function(err, result) {
   if (err) { return console.error(err); }
   console.log("URL: " + result.url);
@@ -111,23 +113,27 @@ Requests should be CRUD operations for Chatter API resource.
 ```javascript
 /* @interactive */
 conn.chatter.batch([
-  conn.chatter.resource('/feeds/news/me/feed-items').create({
+  conn.chatter.resource('/feed-elements').create({
     body: {
       messageSegments: [{
         type: 'Text',
         text: 'This is a post text'
       }]
-    }
+    },
+    feedElementType: 'FeedItem',
+    subjectId: 'me'
   }),
-  conn.chatter.resource('/feeds/news/me/feed-items').create({
+  conn.chatter.resource('/feed-elements').create({
     body: {
       messageSegments: [{
         type: 'Text',
         text: 'This is another post text, following to previous.'
       }]
-    }
+    },
+    feedElementType: 'FeedItem',
+    subjectId: 'me'
   }),
-  conn.chatter.resource('/feeds/news/me/feed-items', { pageSize: 2, sort: "CreatedDateDesc" }),
+  conn.chatter.resource('/feeds/news/me/feed-elements', { pageSize: 2, sort: "CreatedDateDesc" }),
 ], function(err, res) {
   if (err) { return console.error(err); }
   console.log("Error? " + res.hasErrors);
