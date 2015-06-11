@@ -39,6 +39,5 @@ jsforce.browser.init({
 </script>
 <script src="/js/main.js"></script>
 
-</script>
 <% for script in (@document.scripts or []) : %><script src="<%= script %>"></script>
 <% end %>
