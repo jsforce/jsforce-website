@@ -191,7 +191,7 @@ In `Query#update(mapping)`, you can include simple templating notation in mappin
 //
 conn.sobject('Task')
     .find({ ActivityDate : jsforce.Date.TODAY })
-    .update({ Descritpion: '${Subject}  ${Status}' }, function(err, rets) {
+    .update({ Description: '${Subject}  ${Status}' }, function(err, rets) {
       if (err) { return console.error(err); }
       console.log(rets);
       // ...
@@ -206,7 +206,7 @@ conn.sobject('Task')
     .find({ ActivityDate : jsforce.Date.TODAY })
     .update(function(rec) {
       return {
-        Descritpion: rec.Subject + ' ' + rec.Status
+        Description: rec.Subject + ' ' + rec.Status
       }
     }, function(err, rets) {
       if (err) { return console.error(err); }
@@ -232,7 +232,7 @@ conn.query("SELECT Id FROM Account WHERE CreatedDate = TODAY")
 ```javascript
 /* @interactive */
 conn.query("SELECT Id FROM Task WHERE ActivityDate = TODAY")
-    .update({ Descritpion: '${Subject}  ${Status}' }, 'Task', function(err, rets) {
+    .update({ Description: '${Subject}  ${Status}' }, 'Task', function(err, rets) {
       if (err) { return console.error(err); }
       console.log(rets);
       // ...
@@ -273,7 +273,6 @@ batch.retrieve(function(err, results) {
   }
 });
 ```
-
 
 
 

@@ -45,7 +45,7 @@ $(function() {
     var y = el.offset().top - 70;
     scrolling = true;
     $('body').animate({ scrollTop: y }, speed || 500, function() {
-      var y = window.scrollY;
+      // var y = window.scrollY;
       location.hash = '#' + id;
       window.scrollTo(0, y);
       scrolling = false;

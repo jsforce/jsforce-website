@@ -25,6 +25,7 @@
     </div>
 <% else : %>
 <%- if @document.contentTemplate? then @partial @document.contentTemplate, @extend(@extend({}, @document), content: @content) else @content %>
+<% end %>
   </div>
 </div>
 
