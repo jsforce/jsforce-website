@@ -85,13 +85,27 @@ a {
   .nav > li.active > a {
     color: @base-color !important;
   }
-  .nav > li > a:hover, 
+  .nav > li > a:hover,
   .nav > li > a:focus {
     .transition(all 400ms ease);
     color: @accent-color !important;
   }
   .navbar-right li.profile {
-    img { width: 16px; height: 16px; }
+    img {
+      width: 16px;
+      height: 16px;
+    }
+    .profile-name {
+      display: inline-block;
+@media (max-width: 992px) {
+      display: none;
+}
+      max-width: 200px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      vertical-align: middle;
+    }
   }
 }
 
@@ -190,4 +204,3 @@ code.editing {
  * Blog
  */
 @import "blog.css.less";
-
