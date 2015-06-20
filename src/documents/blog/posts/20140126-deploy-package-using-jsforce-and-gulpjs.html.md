@@ -3,14 +3,14 @@ layout: default
 headline: blog/headline
 contentTemplate: blog/post
 category: blog
-title: Deploying Package to Salesforce using JSforce and Gulp.js
+title: Deploying Package to Salesforce Using JSforce and Gulp.js
 date: 2015-01-26
 author:
   name: Shinichi Tomita
   url: https://github.com/stomita
 ---
 
-[Gulp.js](http://gulpjs.com) is a simple task/build runner to process front-end stuff, which utilizes pipes for streaming data that needs to be processed. 
+[Gulp.js](http://gulpjs.com) is a simple task/build runner to process front-end stuff, which utilizes pipes for streaming data that needs to be processed.
 
 As gulp.js is running on Node.js, various Node.js-based packages - including JSforce - can be used in build scripts.
 
@@ -42,7 +42,7 @@ First, we assume a project with following directory structure :
         └── main.less
 ```
 
-In this project it has the `pkg/` directory - a package of Force.com metadata objects for example Apex classes or Visualforce pages. 
+In this project it has the `pkg/` directory - a package of Force.com metadata objects for example Apex classes or Visualforce pages.
 The `src/` directory includes all static files to be built and archived to a zipped static resource file by gulp.
 
 The `gulpfile.coffee` is the script which describes building and deploying tasks in CoffeeScript (you can use normal JavaScript if you like, of course).
@@ -170,8 +170,3 @@ $ foreman run gulp watch
 [20:57:49] Finished 'watch' after 44 ms
 
 ```
-
-
-
-
-
