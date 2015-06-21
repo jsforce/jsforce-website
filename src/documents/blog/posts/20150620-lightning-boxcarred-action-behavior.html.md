@@ -135,9 +135,9 @@ It took almost 17 secs elapsed for all requests even though each requests were s
 What has been happened here ?
 
 We can understand the part that each of the request ceased in the same timing -
-they are sharing one HTTP request so all the callbacks will be callbacked when the actual HTTP response has been arrived.
+they are sharing one HTTP request so all the callbacks would be callbacked when the actual HTTP response has arrived.
 However, even if that case, we usually expect the timing will be around 5 secs - the maximum elapse time of the requests.
-What a terrible result we didn't expected.
+What a terrible result we didn't expect.
 
 After the confusion about the result, we may encounter a hypothetical explanation for the symptom - that is, the requests are processed sequentially.
 If so, the result of 17 secs is understandable because the sum of 1, 2, 3, 4, 5 is 15.
@@ -264,7 +264,7 @@ Then consider the situation where many components are displayed at once - for ex
 This is mainly accessed by PC (or maybe tablets), which will be the area covered by the desktop version of Lightning.
 In PC, the network environment tends to be rather better than the mobile devices - so boxcarring is not required so eagerly.
 
-* * * 
+* * *
 
 I think the boxcarring is not a bad idea, but it should be accompanied with parallel processing in server-side. As currently not, it is useless.
 If the boxcarring continues to be processed sequentially, it is easily predicted that the more the user put components into the page the worse initial rendering speed become - which won't benefit to the user.
