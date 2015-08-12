@@ -25,7 +25,7 @@ To locally download these files, right-click the link and select "Save as..." fr
 - [Development Version (v<%= @version %>)](//cdnjs.cloudflare.com/ajax/libs/jsforce/<%= @version %>/jsforce-core.js) - Full source, Uncompressed
 - [Production Version (v<%= @version %>)](//cdnjs.cloudflare.com/ajax/libs/jsforce/<%= @version %>/jsforce-core.min.js) - Compressed / [SourceMap](//cdnjs.cloudflare.com/ajax/libs/jsforce/<%= @version %>/jsforce-core.min.js.map)
 
-<% for apiname in "analytics,apex,bulk,chatter,metadata,streaming,tooling".split(',') : %>
+<% for apiname in "analytics,apex,bulk,chatter,metadata,soap,streaming,tooling".split(',') : %>
 ### <%= apiname[0].toUpperCase() + apiname.substring(1) %> API (jsforce-api-<%= apiname %>.js)
 - [Development Version (v<%= @version %>)](//cdnjs.cloudflare.com/ajax/libs/jsforce/<%= @version %>/jsforce-api-<%= apiname %>.js) - Full source, Uncompressed
 - [Production Version (v<%= @version %>)](//cdnjs.cloudflare.com/ajax/libs/jsforce/<%= @version %>/jsforce-api-<%= apiname %>.min.js) - Compressed / [SourceMap](//cdnjs.cloudflare.com/ajax/libs/jsforce/<%= @version %>/jsforce-api-<%= apiname %>.min.js.map)
