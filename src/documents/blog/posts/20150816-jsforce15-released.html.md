@@ -10,7 +10,7 @@ author:
   url: https://github.com/stomita
 ---
 
-We recently released JSforce version 1.5. which includes several important updates.
+JSforce version 1.5 has been released which includes several important updates.
 The release of 1.5 had been planned to be just after the release of Summer '15, but delayed almost 2 months
 because I couldn't share the time to check all issues related to the release.
 Sorry for the delay to everyone who longly anticipated.
