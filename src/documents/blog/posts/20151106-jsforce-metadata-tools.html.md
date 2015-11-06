@@ -220,6 +220,12 @@ If there are already fetched metadata files, it will overwrite them by fetched m
 $ jsforce-retrieve -c username@example.org -P ./package/package.xml -D ./retrieved_package
 ```
 
+When you don't want to extract the retrieved metadata files and keep them as a archived file (zip), you can specify the output zip file path in `-Z` (`--zipFile`) option instead of specifying `--directory` option.
+
+```
+$ jsforce-retrieve -c username@example.org -P ./package/package.xml -Z ./retrieved_package.zip
+```
+
 If you want to access all metadata files registered in Salesforce packages, you can specify their names in `--packageNames` options.
 
 ```
