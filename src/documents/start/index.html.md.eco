@@ -12,10 +12,10 @@ JSforce (f.k.a. Node-Salesforce) is a isomorphic JavaScript Library utilizing Sa
 
 It capsulates the access to various APIs provided by Salesforce in asynchronous JavaScript function calls.
 
-Unlike other Salesforce API libraries, it is intended to give integrated interface both server-side and client-side apps, 
+Unlike other Salesforce API libraries, it is intended to give integrated interface both server-side and client-side apps,
 so you don't have to rewrite similar logics with different libraries only for running in different environment.
 
-Additionally, it has useful command line interface (CLI) which gives interactive console (REPL), 
+Additionally, it has useful command line interface (CLI) which gives interactive console (REPL),
 so you can learn the usage without hassle.
 
 ### Supported APIs
@@ -46,12 +46,12 @@ var jsforce = require('jsforce');
 var conn = new jsforce.Connection();
 ```
 
-Details for establishing API connection are written in [API Reference](/api/#connection).
+Details for establishing API connection are written in the [document](/document/#connection) and options are in [API reference](/jsforce/doc/Connection.html).
 
 
 ### Web Browser
 
-If you want to use JSforce in web browser JavaScript, 
+If you want to use JSforce in web browser JavaScript,
 [download JSforce JS library](/download/) and put it on any path in your website, and include in `<script>` tag:
 
 ```html
@@ -77,7 +77,7 @@ You can use `jsforce-core.js` file which includes core function only, and includ
 ```
 
 
-If your app is located outside of Salesforce domain (that is, non-Visualforce app), 
+If your app is located outside of Salesforce domain (that is, non-Visualforce app),
 you need to register your app as "Connected App" in Salesforce.
 
 Web app pages which use JSforce should be initialized with the application information.
@@ -91,7 +91,7 @@ which must be in the same origin of your web app.
 <script>
 jsforce.browser.init({
   clientId: '[your OAuth2 client ID]',
-  redirectUri: '[your OAuth2 redirect URI]' 
+  redirectUri: '[your OAuth2 redirect URI]'
 });
 
 // ...
@@ -103,7 +103,7 @@ Note that the page in callback URL also have to include JSforce initialization c
 The content of callback page can be empty, because it will not be used except for API authorization.
 
 
-Additionally, you may need [jsforce-ajax-proxy](https://github.com/jsforce/jsforce-ajax-proxy) 
+Additionally, you may need [jsforce-ajax-proxy](https://github.com/jsforce/jsforce-ajax-proxy)
 if the app resides outside of Salesforce (that is, non-Visualforce environment).
 
 ```javascript
@@ -211,11 +211,11 @@ So you can chain the promise result by `then()` to handle the async response.
 ```javascript
 conn.query("SELECT Id, Name FROM Account LIMIT 1")
   .then(function(res) {
-    // receive resolved result from the promise, 
+    // receive resolved result from the promise,
     // then return another promise for continuing API execution.
     return conn.sobject('Account').create({ Name: 'Another Account' });
   })
-  .then(function(ret) { 
+  .then(function(ret) {
     // handle final result of API execution
     // ...
   }, function(err) {
@@ -260,7 +260,7 @@ $ jsforce
 { id: '00550000000vwsFAAQ',
   organizationId: '00D500000006xKGEAY',
   url: 'https://login.salesforce.com/id/00D500000006xKGEAY/00550000000vwsFAAQ' }
-> 
+>
 ```
 
 To login to Salesforce, type `.connect` with username.
@@ -269,16 +269,16 @@ To login to Salesforce, type `.connect` with username.
 > .connect user@example.org
 Password: ********
 Logged in as : username@example.org
-> 
+>
 ```
 
-The established session information is stored in `~/.jsforce/config.json` file, 
+The established session information is stored in `~/.jsforce/config.json` file,
 so you can connect without password while the session is valid.
 
 ```
 $ jsforce -c user@example.org
 Logged in as : user@example.org
-> 
+>
 ```
 
 By passing a script in `-e` option, it automatically evaluate the script and returns result in JSON.
@@ -304,7 +304,7 @@ In order to accomplish authorization flow successfully, the redirect URL of regi
 Input client ID (consumer key) : <your client id>
 Input client secret (consumer secret) : <your client secret>
 Input redirect URI : <your client redirect uri>
-Input login URL (default is https://login.salesforce.com) : 
+Input login URL (default is https://login.salesforce.com) :
 Client registered successfully.
 ```
 
@@ -325,4 +325,3 @@ or
 ```
 $ jsforce --sandbox
 ```
-
