@@ -50,11 +50,11 @@ When query is completed, `end` event will be fired. The `error` event occurs som
 ```javascript
 /* @interactive */
 var records = [];
-conn.query("SELECT Id, Name FROM Account")
+var query = conn.query("SELECT Id, Name FROM Account")
   .on("record", function(record) {
     records.push(record);
   })
-  .on("end", function(query) {
+  .on("end", function() {
     console.log("total in database : " + query.totalSize);
     console.log("total fetched : " + query.totalFetched);
   })
