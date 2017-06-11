@@ -47,6 +47,7 @@ app.get('/oauth2/callback', function(req, res) {
     console.log("User ID: " + userInfo.id);
     console.log("Org ID: " + userInfo.organizationId);
     // ...
+    res.send('success'); // or your desired response
   });
 });
 ```
