@@ -11,7 +11,7 @@ var jsforce = require('jsforce');
 //
 // OAuth2 client information can be shared with multiple connections.
 //
-var oauth2 = new sf.OAuth2({
+var oauth2 = new jsforce.OAuth2({
   // you can change loginUrl to connect to sandbox or prerelease env.
   // loginUrl : 'https://test.salesforce.com',
   clientId : '<your Salesforce OAuth2 client ID is here>',
@@ -35,7 +35,7 @@ After the acceptance of authorization request, your app is callbacked from Sales
 // Pass received authz code and get access token
 //
 app.get('/oauth2/callback', function(req, res) {
-  var conn = new sf.Connection({ oauth2 : oauth2 });
+  var conn = new jsforce.Connection({ oauth2 : oauth2 });
   var code = req.param('code');
   conn.authorize(code, function(err, userInfo) {
     if (err) { return console.error(err); }
