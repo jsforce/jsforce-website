@@ -19,7 +19,7 @@ var oauth2 = new sf.OAuth2({
   redirectUri : '<callback URI is here>'
 });
 //
-// Get authz url and redirect to it.
+// Get authorization url and redirect to it.
 //
 app.get('/oauth2/auth', function(req, res) {
   res.redirect(oauth2.getAuthorizationUrl({ scope : 'api id web' }));
@@ -30,9 +30,12 @@ app.get('/oauth2/auth', function(req, res) {
 
 After the acceptance of authorization request, your app is callbacked from Salesforce with authorization code in URL parameter. Pass the code to `Connection#authorize(code)` and get access token.
 
+For the refresh token to be returned from Salesforce, make sure that the following Scope is included in the Connected App `Perform requests on your behalf at any time (refresh_token, offline_access)`
+and `refresh_token` is included in the call to `getAuthorizationUrl()`.
+
 ```javascript
 //
-// Pass received authz code and get access token
+// Pass received authorization code and get access token
 //
 app.get('/oauth2/callback', function(req, res) {
   var conn = new sf.Connection({ oauth2 : oauth2 });

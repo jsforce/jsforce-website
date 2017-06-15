@@ -3,6 +3,48 @@
 
 ## Metadata API
 
+### Describe Metadata
+
+`Metadata#describe(version)` is the method to list all metadata in an org.
+
+```javascript
+/* @interactive */
+conn.metadata.describe('39.0', function(err, metadata) {
+  if (err) { return console.error('err', err); }
+  for (var i=0; i < metadata.length; i++) {
+    var meta = metadata[i];
+    console.log("organizationNamespace: " + meta.organizationNamespace);
+    console.log("partialSaveAllowed: " + meta.partialSaveAllowed);
+    console.log("testRequired: " + meta.testRequired);
+    console.log("metadataObjects count: " + metadataObjects.length);
+  }
+});
+```
+### List Metadata
+
+`Metadata#list(typs, version)` is the method to list summary information for all metadata types.
+
+```javascript
+/* @interactive */
+var types = [{type: 'CustomObject', folder: null}];
+conn.metadata.list(types, '39.0', function(err, metadata) {
+  if (err) { return console.error('err', err); }
+    var meta = metadata[0];
+    console.log('metadata count: ' + metadata.length);
+    console.log('createdById: ' + meta.createdById);
+    console.log('createdByName: ' + meta.createdByName);
+    console.log('createdDate: ' + meta.createdDate);
+    console.log('fileName: ' + meta.fileName);
+    console.log('fullName: ' + meta.fullName);
+    console.log('id: ' + meta.id);
+    console.log('lastModifiedById: ' + meta.lastModifiedById);
+    console.log('lastModifiedByName: ' + meta.lastModifiedByName);
+    console.log('lastModifiedDate: ' + meta.lastModifiedDate);
+    console.log('manageableState: ' + meta.manageableState);
+    console.log('namespacePrefix: ' + meta.namespacePrefix);
+    console.log('type: ' + meta.type);
+});
+```
 
 ### Read Metadata
 
@@ -22,10 +64,12 @@ conn.metadata.read('CustomObject', fullNames, function(err, metadata) {
 });
 ```
 
+
+
 ### Create Metadata
 
-To newly create metadata objects, use `Metadata#create(type, metadata)`.
-Metadata format for each metadata types are written in Metadata API document.
+To create new metadata objects, use `Metadata#create(type, metadata)`.
+Metadata format for each metadata types are written in the Salesforce Metadata API document.
 
 ```javascript
 /* @interactive */
@@ -59,12 +103,14 @@ conn.metadata.create('CustomObject', metadata, function(err, results) {
     console.log('fullName : ' + result.fullName);
   }
 });
-````
+```
 
 There is an alternative method to create metadata, in aynchronous - `Metadata#createAync()`.
 
 This asynchronous version is different from synchronous one - it returns asynchronous result ids with current statuses,
 which can be used for later execution status query.
+
+NOTE: This API is depricated from Salesforce as of API version 31.0 in favor of the synchronous version of the call
 
 ```javascript
 // request creating metadata and receive execution ids & statuses
