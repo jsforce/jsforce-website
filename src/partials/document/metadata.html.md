@@ -22,7 +22,7 @@ conn.metadata.describe('39.0', function(err, metadata) {
 ```
 ### List Metadata
 
-`Metadata#list(typs, version)` is the method to list summary information for all metadata types.
+`Metadata#list(types, version)` is the method to list summary information for all metadata types.
 
 ```javascript
 /* @interactive */
