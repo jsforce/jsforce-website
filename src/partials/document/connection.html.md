@@ -5,8 +5,8 @@
 
 ### Username and Password Login
 
-When you have Salesforce username and password (and maybe security token if required),
-you can use `Connection#login(username, password)` to establish connection to Salesforce.
+When you have a Salesforce username and password (and maybe security token, if required),
+you can use `Connection#login(username, password)` to establish a connection to Salesforce.
 
 By default, it uses SOAP login API (so no OAuth2 client information is required).
 
@@ -60,7 +60,7 @@ conn.login(username, password, function(err, userInfo) {
 ### Session ID
 
 If Salesforce session ID and its server URL information is passed from Salesforce (from 'Custom Link' or something),
-you can pass it to constructor.
+you can pass it to the constructor.
 
 
 ```javascript
@@ -73,8 +73,8 @@ var conn = new jsforce.Connection({
 
 ### Access Token
 
-After the login API call or OAuth2 authorization, you can get Salesforce access token and its instance URL.
-Next time you can use them to establish connection.
+After the login API call or OAuth2 authorization, you can get the Salesforce access token and its instance URL.
+Next time you can use them to establish a connection.
 
 ```javascript
 var jsforce = require('jsforce');
@@ -86,7 +86,7 @@ var conn = new jsforce.Connection({
 
 ### Access Token with Refresh Token
 
-If refresh token is given in constructor, the connection will automatically refresh access token when it has expired 
+If a refresh token is provided in the constructor, the connection will automatically refresh the access token when it has expired.
 
 NOTE: Refresh token is only available for OAuth2 authorization code flow.
 
@@ -106,12 +106,18 @@ conn.on("refresh", function(accessToken, res) {
   // Refresh event will be fired when renewed access token
   // to store it in your storage for next request
 });
+
+// Alternatively, you can use the callback style request to fetch the refresh token
+conn.oauth2.refreshToken(refreshToken, (err, results) => {
+  if (err) return reject(err);
+  resolve(results);
+});
 ```
 
 
 ### Logout
 
-`Connection#logout()` to logout from server and invalidate current session.
+Call `Connection#logout()` to logout from the server and invalidate current session.
 It is valid for both SOAP API based sessions and OAuth2 based sessions.
 
 ```javascript

@@ -166,7 +166,7 @@ Query can also be represented in more SQL-like verbs - `SObject#select(fields)`,
 ```javascript
 /* @interactive */
 conn.sobject("Contact")
-  .select('*, Account.*') // asterisk means all fields in specified level are target.
+  .select('*, Account.*') // asterisk means all fields in specified level are targeted.
   .where("CreatedDate = TODAY") // conditions in raw SOQL where clause.
   .limit(10)
   .offset(20) // synonym of "skip"
