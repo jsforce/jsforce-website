@@ -4,5 +4,5 @@ node_js:
 branches:
   only:
   - master
-script: ./bin/build.sh
-after_success: ./bin/release.sh
+script: npm run build
+after_success: npm run release
