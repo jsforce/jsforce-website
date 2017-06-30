@@ -31,7 +31,7 @@ conn.login(username, password, function(err, userInfo) {
 
 ### Username and Password Login (OAuth2 Resource Owner Password Credential)
 
-When OAuth2 client information is given, `Connection#login(username, password)` uses OAuth2 Resource Owner Password Credential flow to login to Salesforce.
+When OAuth2 client information is given, `Connection#login(username, password + security_token)` uses OAuth2 Resource Owner Password Credential flow to login to Salesforce.
 
 ```javascript
 var jsforce = require('jsforce');
