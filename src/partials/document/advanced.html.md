@@ -85,7 +85,7 @@ which accepts records from upstream and pass to downstream, applying given filte
 //
 conn.sobject('Contact')
     .find({}, { Id: 1, Name: 1 })
-    .map(function() {
+    .map(function(r) {
       return { ID: r.Id, FULL_NAME: r.Name };
     })
     .stream().pipe(fs.createWriteStream("Contact.csv"));
