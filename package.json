@@ -9,7 +9,7 @@
   "scripts": {
     "start": "node_modules/docpad/bin/docpad-server",
     "build": "bin/build.sh",
-    "deploy": "bin/release.sh"
+    "release": "bin/release.sh"
   },
   "devDependencies": {
     "docpad-plugin-eco": "^2.1.0",
