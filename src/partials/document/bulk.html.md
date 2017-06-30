@@ -16,9 +16,9 @@ First, assume that you have record set in array object to insert into Salesforce
 // Records to insert in bulk.
 //
 var accounts = [
-{ Name : 'Account #1', ... }, 
-{ Name : 'Account #2', ... }, 
-{ Name : 'Account #3', ... }, 
+{ Name : 'Account #1', ... },
+{ Name : 'Account #2', ... },
+{ Name : 'Account #3', ... },
 ...
 ];
 ```
@@ -37,7 +37,7 @@ var batch = job.createBatch();
 ```
 
 Then bulk load the records by calling `Bulk-Batch#execute(input)` of created batch object, passing the records in `input` argument.
- 
+
 When the batch is queued in Salesforce, it is notified by `queue` event, and you can get job ID and batch ID.
 
 ```javascript
@@ -70,14 +70,14 @@ batch.on("response", function(rets) { // fired when batch is finished and result
 });
 ```
 
-Below is an example of the full batch flow.
+Below is an example of the full bulk loading flow from scratch.
 
 ```javascript
 /* @interactive */
 // Provide records
 var accounts = [
-  { Name : 'Account #1' }, 
-  { Name : 'Account #2' }, 
+  { Name : 'Account #1' },
+  { Name : 'Account #2' },
   { Name : 'Account #3' },
 ];
 // Create job and batch
@@ -108,7 +108,7 @@ batch.on("response", function(rets) { // fired when batch finished and result re
 
 Alternatively, you can use `Bulk#load(sobjectType, operation, input)` interface to achieve the above process in one method call.
 
-NOTE: In some cases for large data sets, a polling timeout can occur.  If loading large data sets, consider using the one of the calls above with the built in `batch.poll()` or polling manually.
+NOTE: In some cases for large data sets, a polling timeout can occur. When loading large data sets, consider changing `Bulk#pollTimeout` and `Bulk#pollInterval` property value, or using the one of the calls above with the built in `batch.poll()` or polling manually.
 
 ```javascript
 conn.bulk.pollTimeout = 25000; // Bulk timeout can be specified globally on the connection object
@@ -151,7 +151,7 @@ conn.bulk.job(jobId).batch(batchId).check((err, results) => {
 
 ### Load From CSV File
 
-It also supports bulk loading from CSV file. Just use CSV file input stream as `input` argument 
+It also supports bulk loading from CSV file. Just use CSV file input stream as `input` argument
 in `Bulk#load(sobjectType, operation, input)`, instead of passing records in array.
 
 ```javascript
@@ -217,12 +217,12 @@ batch.on("response", function(rets) { // fired when batch finished and result re
 //
 csvFileIn.pipe(batch.stream());
 ```
-  
+
 
 ### Update / Delete Queried Records
 
-If you want to update / delete records in Salesforce which match specified condition in bulk, 
-now you don't have to write a code which download & upload records information. 
+If you want to update / delete records in Salesforce which match specified condition in bulk,
+now you don't have to write a code which download & upload records information.
 `Query#update(mapping)` / `Query#destroy()` will directly manipulate records.
 
 
@@ -240,7 +240,7 @@ conn.sobject('Account')
 
 ```javascript
 /* @interactive */
-// UPDATE Opportunity 
+// UPDATE Opportunity
 // SET CloseDate = '2013-08-31'
 // WHERE Account.Name = 'Salesforce.com'
 conn.sobject('Opportunity')
@@ -257,7 +257,7 @@ In `Query#update(mapping)`, you can include simple templating notation in mappin
 ```javascript
 /* @interactive */
 //
-// UPDATE Task 
+// UPDATE Task
 // SET Description = CONCATENATE(Subject || ' ' || Status)
 // WHERE ActivityDate = TODAY
 //
@@ -345,6 +345,3 @@ batch.retrieve(function(err, results) {
   }
 });
 ```
-
-
-
