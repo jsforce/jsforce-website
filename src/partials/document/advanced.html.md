@@ -50,7 +50,7 @@ And `Query#update(mapping)` can be expressed as following:
 var Opp = conn.sobject('Opportunity');
 Opp.find({ "Account.Id" : accId },
          { Id: 1, Name: 1, "Account.Name": 1 })
-   .pipe(sf.RecordStream.map(function(r) {
+   .pipe(jsforce.RecordStream.map(function(r) {
      return { Id: r.Id,
               Name: r.Account.Name + ' - ' + r.Name };
    }))
@@ -76,7 +76,7 @@ conn.query("SELECT Id, Name, Type, BillingState, BillingCity, BillingStreet FROM
 #### Record Stream Filtering / Mapping
 
 You can also filter / map queried records to output record stream.
-Static functions like `InputRecordStream#map(mappingFn)` and `InputRecordStream#filter(filterFn)` create a record stream 
+Static functions like `InputRecordStream#map(mappingFn)` and `InputRecordStream#filter(filterFn)` create a record stream
 which accepts records from upstream and pass to downstream, applying given filtering / mapping function.
 
 ```javascript
@@ -113,7 +113,7 @@ Here is much lower level code to achieve the same result using `InputRecordStrea
 //
 conn.sobject('Contact')
     .find({}, { Id: 1, Name: 1 })
-    .pipe(sf.RecordStream.map(function(r) {
+    .pipe(jsforce.RecordStream.map(function(r) {
       return { ID: r.Id, FULL_NAME: r.Name };
     }))
     .stream().pipe(fs.createWriteStream("Contact.csv"));
@@ -124,7 +124,7 @@ conn.sobject('Contact')
 var emails = {};
 conn.sobject('Lead')
     .find({}, { Id: 1, Name: 1, Company: 1, Email: 1 })
-    .pipe(sf.RecordStream.filter(function(r) {
+    .pipe(jsforce.RecordStream.filter(function(r) {
       var dup = emails[r.Email];
       if (!dup) { emails[r.Email] = true; }
       return !dup;
@@ -140,13 +140,13 @@ By using record stream pipeline, you can achieve data migration in a simple code
 //
 // Connection for org which migrating data from
 //
-var conn1 = new sf.Connection({
+var conn1 = new jsforce.Connection({
   // ...
 });
 //
 // Connection for org which migrating data to
 //
-var conn2 = new sf.Connection({
+var conn2 = new jsforce.Connection({
   // ...
 });
 //
@@ -163,4 +163,3 @@ batch.on('queue', function() {
   //...
 })
 ```
-
