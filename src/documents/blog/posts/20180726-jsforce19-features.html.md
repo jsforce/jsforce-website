@@ -10,8 +10,6 @@ author:
   url: https://github.com/stomita
 ---
 
-## Multi-Record CRUD using SObject Collection
-
 JSforce version 1.9.0 is now released, which includes several enhancements, but the most big one is the enhancement of multi-record CRUD operation.
 
 Even in prior versions you can of course create/retrieve/update/delete multiple records in one call, using `SObject#create(records)`, `SObject#retrieve(ids)`, `SObject#update(records)`, or `SObject#destroy(ids)`.
@@ -26,7 +24,7 @@ That is, you cannot get the result so quick, even when the num of the records is
 In API ver 42.0, [composite resources for SObject collection](https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/resources_composite_sobjects_collections.htm) is introduced.
 This API enables you to create/update/delete multiple records in one network call.
 
-Now JSforce 1.9 supports this feature by existing `create()`/`Connection#update()`/`Connection#delete()` calls, replacing the previous parallel API requests.
+Now JSforce 1.9 supports this feature by replacing existing `create()`/`retrieve()`/`update()`/`delete()` calls from previous parallel API requests.
 
 
 ## Changes
