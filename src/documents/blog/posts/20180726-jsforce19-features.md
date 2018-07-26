@@ -3,14 +3,14 @@ layout: default
 headline: blog/headline
 contentTemplate: blog/post
 category: blog
-title: JSforce 1.9 and its change on multi-record CRUD operation
+title: JSforce 1.9 and Its Change on Multi-Record CRUD Operation
 date: 2018-07-26
 author:
   name: Shinichi Tomita
   url: https://github.com/stomita
 ---
 
-## Multi-record CRUD using SObject Collection
+## Multi-Record CRUD using SObject Collection
 
 JSforce version 1.9.0 is now released, which includes several enhancements, but the most big one is the enhancement of multi-record CRUD operation.
 
