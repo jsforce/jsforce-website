@@ -227,8 +227,8 @@ In order to enable this you have to pass the option `allowRecursive` to the CRUD
 /* @interactive */
 // Create 1000 accounts, more than SObject Collection limit (200)
 var accounts = [];
-for (var i = 0; i < 1000; i++) {
-  accounts.push({ Name: 'Account #' + String(i+1) }),
+for (var i=0; i<1000; i++) {
+  accounts.push({ Name: 'Account #' + (i+1) });
 }
 // Internally dividing records in chunks,
 // and recursively sending requests to SObject Collection API
@@ -242,7 +242,6 @@ conn.sobject('Account')
     }
   );
 ```
-
 
 ### Update / Delete Queried Records
 
