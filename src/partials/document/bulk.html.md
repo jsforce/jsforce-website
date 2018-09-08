@@ -218,102 +218,29 @@ batch.on("response", function(rets) { // fired when batch finished and result re
 csvFileIn.pipe(batch.stream());
 ```
 
+### Query-and-Update/Destroy using Bulk API
 
-### Update / Delete Queried Records
+When performing [update/delete queried records](#update-delete-queried-records),
+JSforce hybridly uses [CRUD Operation for Multiple-Records](#operation-for-multiple-records) and Bulk API.
 
-If you want to update / delete records in Salesforce which match specified condition in bulk,
-now you don't have to write a code which download & upload records information.
-`Query#update(mapping)` / `Query#destroy()` will directly manipulate records.
-
+It uses SObject Collection API for small amount of records, and when the queried result exceeds an threshold, switches to Bulk API.
+These behavior can be modified by passing options like `allowBulk` or `bulkThreshold`.
 
 ```javascript
 /* @interactive */
-// DELETE FROM Account WHERE CreatedDate = TODAY
 conn.sobject('Account')
-    .find({ CreatedDate : jsforce.Date.TODAY })
-    .destroy(function(err, rets) {
-      if (err) { return console.error(err); }
-      console.log(rets);
-      // ...
-    });
+  .find({ CreatedDate: jsforce.Date.TODAY })
+  .destroy({
+    allowBulk: true, // allow using bulk API
+    bulkThreshold: 200, // when the num of queried records exceeds this threshold, switch to Bulk API
+  }, function(err, rets) {
+    if (err) { return console.error(err); }
+    // destroyed results are returned
+    for (const ret of rets) {
+      console.log('id: ' + ret.id + ', success: ' + ret.success);
+    }
+  });
 ```
-
-```javascript
-/* @interactive */
-// UPDATE Opportunity
-// SET CloseDate = '2013-08-31'
-// WHERE Account.Name = 'Salesforce.com'
-conn.sobject('Opportunity')
-    .find({ 'Account.Name' : 'Salesforce.com' })
-    .update({ CloseDate: '2013-08-31' }, function(err, rets) {
-      if (err) { return console.error(err); }
-      console.log(rets);
-      // ...
-    });
-```
-
-In `Query#update(mapping)`, you can include simple templating notation in mapping record.
-
-```javascript
-/* @interactive */
-//
-// UPDATE Task
-// SET Description = CONCATENATE(Subject || ' ' || Status)
-// WHERE ActivityDate = TODAY
-//
-conn.sobject('Task')
-    .find({ ActivityDate : jsforce.Date.TODAY })
-    .update({ Description: '${Subject}  ${Status}' }, function(err, rets) {
-      if (err) { return console.error(err); }
-      console.log(rets);
-      // ...
-    });
-```
-
-To achieve further complex mapping, `Query#update(mapping)` accepts mapping function in `mapping` argument.
-
-```javascript
-/* @interactive */
-conn.sobject('Task')
-    .find({ ActivityDate : jsforce.Date.TODAY })
-    .update(function(rec) {
-      return {
-        Description: rec.Subject + ' ' + rec.Status
-      }
-    }, function(err, rets) {
-      if (err) { return console.error(err); }
-      console.log(rets);
-      // ...
-    });
-```
-
-If you are creating query object from SOQL by using `Connection#query(soql)`,
-the bulk delete/update operation cannot be achieved because no sobject type information available initially.
-You can avoid it by passing optional argument `sobjectType` in `Query#destroy(sobjectType)` or `Query#update(mapping, sobjectType)`.
-
-```javascript
-/* @interactive */
-conn.query("SELECT Id FROM Account WHERE CreatedDate = TODAY")
-    .destroy('Account', function(err, rets) {
-      if (err) { return console.error(err); }
-      console.log(rets);
-      // ...
-    });
-```
-
-```javascript
-/* @interactive */
-conn.query("SELECT Id FROM Task WHERE ActivityDate = TODAY")
-    .update({ Description: '${Subject}  ${Status}' }, 'Task', function(err, rets) {
-      if (err) { return console.error(err); }
-      console.log(rets);
-      // ...
-    });
-```
-
-NOTE: Be careful when using this feature not to break/lose existing data in Salesforce.
-Careful testing is recommended before applying the code to your production environment.
-
 
 ### Bulk Query
 
