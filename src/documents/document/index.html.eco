@@ -40,4 +40,6 @@ scripts:
 
 <%- @partial('document/tooling') %>
 
+<%- @partial('document/request') %>
+
 <%- @partial('document/advanced') %>
