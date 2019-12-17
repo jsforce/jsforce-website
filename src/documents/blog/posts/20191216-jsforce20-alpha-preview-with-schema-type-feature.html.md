@@ -10,8 +10,6 @@ author:
   url: https://github.com/stomita
 ---
 
-## JSforce 2.0 alpha and Schema Type feature
-
 We've recently published the first alpha version of JSforce 2.0. You can simply access to the latest alpha by following command.
 
 ```
@@ -28,6 +26,8 @@ With the feature you can write code safely by checking object/field value types,
 Please check the following GIF to see how the completion works.
 
 ![jsforce2-autocomplete-demo](./images/20191216/jsforce-2-autocomplete-demo.gif)
+
+## How to use Schema Type in your code
 
 Here is an example code to use the schema type feature in TypeScript.
 
@@ -52,8 +52,6 @@ async function main() {
 }
 main();
 ```
-
-## How to use Schema Type in your code
 
 You may noticed that it is passing `StandardSchema` type when creating `Connection` instance.
 By passing a Schema Type in the type variable of the constructor, the connection can aware the Organization's object/field schema and use it in its type checking and inference.
