@@ -54,7 +54,7 @@ main();
 ```
 
 You may have noticed that it is passing `StandardSchema` type when creating `Connection` instance.
-By passing a Schema Type in the type variable of the constructor, the connection can aware the Organization's object/field schema and use it in its type checking and inference.
+By passing a Schema Type in the type variable of the constructor, the connection can aware the organization's object/field schema and use it in its type checking and inference.
 The `StandardSchema` is a built-in Schema Type which has only standard Salesforce objects and fields information in the type definition.
 If you are using custom objects or fields in your app, you can generate custom Schema Type definition by using `jsforce-gen-schema` command.
 
@@ -98,7 +98,7 @@ import { MySchema } from './myschema';
 const conn = new Connection<MySchema>();
 ```
 
-If you give a schema type in the connection, the API calls like `SObject#find()` query or CRUD operations are to be statically checked according to the corresponding field definitions in the schema.
+If you give a schema type in the connection, API calls like `SObject#find()` query or CRUD operations are to be statically checked according to the corresponding field definitions in the schema.
 Although available fields are surely typed according to their field definitions in the Salesforce organization, fields which are not defined in the schema are currently typed to `any` - this behavior might be changed in the production release.
 
 ```typescript
