@@ -53,7 +53,7 @@ async function main() {
 main();
 ```
 
-You may noticed that it is passing `StandardSchema` type when creating `Connection` instance.
+You may have noticed that it is passing `StandardSchema` type when creating `Connection` instance.
 By passing a Schema Type in the type variable of the constructor, the connection can aware the Organization's object/field schema and use it in its type checking and inference.
 The `StandardSchema` is a built-in Schema Type which has only standard Salesforce objects and fields information in the type definition.
 If you are using custom objects or fields in your app, you can generate custom Schema Type definition by using `jsforce-gen-schema` command.
