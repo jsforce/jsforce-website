@@ -80,7 +80,7 @@ Next time you can use them to establish a connection.
 var jsforce = require('jsforce');
 var conn = new jsforce.Connection({
   instanceUrl : '<your Salesforce server URL (e.g. https://na1.salesforce.com) is here>',
-  accessToken : '<your Salesforrce OAuth2 access token is here>'
+  accessToken : '<your Salesforce OAuth2 access token is here>'
 });
 ```
 
@@ -99,7 +99,7 @@ var conn = new jsforce.Connection({
     redirectUri : '<your Salesforce OAuth2 redirect URI is here>'
   },
   instanceUrl : '<your Salesforce server URL (e.g. https://na1.salesforce.com) is here>',
-  accessToken : '<your Salesforrce OAuth2 access token is here>',
+  accessToken : '<your Salesforce OAuth2 access token is here>',
   refreshToken : '<your Salesforce OAuth2 refresh token is here>'
 });
 conn.on("refresh", function(accessToken, res) {
