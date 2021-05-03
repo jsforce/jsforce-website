@@ -46,7 +46,7 @@ conn.sobject('Account').updated('2014-02-01', '2014-02-15', function(err, res) {
 /* @interactive */
 conn.sobject('Account').deleted('2014-02-01', '2014-02-15', function(err, res) {
   if (err) { return console.error(err); }
-  console.log("Ealiest date available: " + res.earliestDateAvailable);
+  console.log("Earliest date available: " + res.earliestDateAvailable);
   console.log("Latest date covered: " + res.latestDateCovered);
   console.log("Deleted records : " + res.deletedRecords.length);
 });
