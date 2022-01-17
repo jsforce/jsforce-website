@@ -29,6 +29,8 @@ so not practical for large set of records. We can use bulk API interface to load
 Similar to Salesforce Bulk API, first create bulk job by `Bulk#createJob(sobjectType, operation)`
 through `bulk` API object in connection object.
 
+**Warning** that when using the Bulk API, **all objects must have alike keys**. _Additional keys added to objects after the first are discarded_, so it may be best to review and normalize your objects' keys.
+
 Next, create a new batch in the job, by calling `Bulk-Job#createBatch()` through the job object created previously.
 
 ```javascript
