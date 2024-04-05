@@ -3,7 +3,7 @@
 
 ## Search
 
-`Connection#search` enables you to search records with SOSL in multiple objects.
+`Connection.search` enables you to search records with SOSL in multiple objects.
 
 ```javascript
 /* @interactive */

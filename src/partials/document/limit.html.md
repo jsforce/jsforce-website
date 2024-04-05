@@ -3,7 +3,7 @@
 
 ## API Limit and Usage
 
-`Connection#limitInfo` is a property which stores the latest API usage information.
+`Connection.limitInfo` is a property which stores the latest API usage information.
 
 ```javascript
 /* @interactive */

@@ -5,11 +5,11 @@
 
 ### Using SOQL
 
-By using `Connection#query(soql)`, you can achieve very basic SOQL query to fetch Salesforce records.
+By using `Connection.query(soql)`, you can achieve very basic SOQL query to fetch Salesforce records.
 
 ```javascript
 /* @interactive */
-var records = [];
+const records = [];
 conn.query("SELECT Id, Name FROM Account", function(err, result) {
   if (err) { return console.error(err); }
   console.log("total : " + result.totalSize);
@@ -25,7 +25,7 @@ As we have seen above, our package provides widely-used callback style API call 
 
 ```javascript
 /* @interactive */
-var records = [];
+const records = [];
 conn.query("SELECT Id, Name FROM Account", function(err, result) {
   if (err) { return console.error(err); }
   console.log("total : " + result.totalSize);
@@ -33,7 +33,7 @@ conn.query("SELECT Id, Name FROM Account", function(err, result) {
   console.log("done ? : " + result.done);
   if (!result.done) {
     // you can use the locator to fetch next records set.
-    // Connection#queryMore()
+    // Connection.queryMore()
     console.log("next records URL : " + result.nextRecordsUrl);
   }
 });
@@ -49,8 +49,8 @@ When query is completed, `end` event will be fired. The `error` event occurs som
 
 ```javascript
 /* @interactive */
-var records = [];
-var query = conn.query("SELECT Id, Name FROM Account")
+const records = [];
+const query = conn.query("SELECT Id, Name FROM Account")
   .on("record", function(record) {
     records.push(record);
   })
@@ -61,7 +61,7 @@ var query = conn.query("SELECT Id, Name FROM Account")
   .on("error", function(err) {
     console.error(err);
   })
-  .run({ autoFetch : true, maxFetch : 4000 }); // synonym of Query#execute();
+  .run({ autoFetch : true, maxFetch : 4000 }); // synonym of Query.execute();
 ```
 
 NOTE: When `maxFetch` option is not set, the default value (10,000) is applied. If you really want to fetch more records than the default value, you should explicitly set the maxFetch value in your query.
@@ -73,7 +73,7 @@ NOTE: In ver. 1.2 or earlier, the callback style (or promise style) query invoka
 
 #### Basic Method Chaining
 
-By using `SObject#find(conditions, fields)`, you can do query in JSON-based condition expression (like MongoDB). By chaining other query construction methods, you can create a query programatically.
+By using `SObject.find(conditions, fields)`, you can do query in JSON-based condition expression (like MongoDB). By chaining other query construction methods, you can create a query programatically.
 
 ```javascript
 /* @interactive */
@@ -124,8 +124,8 @@ conn.sobject("Contact")
   .execute(function(err, records) {
     if (err) { return console.error(err); }
     console.log("record length = " + records.length);
-    for (var i=0; i<records.length; i++) {
-      var record = records[i];
+    for (const i=0; i < records.length; i++) {
+      const record = records[i];
       console.log("Name: " + record.Name);
       console.log("Created Date: " + record.CreatedDate);
     }
@@ -171,8 +171,8 @@ conn.sobject("Contact")
   .limit(10)
   .offset(20) // synonym of "skip"
   .execute(function(err, records) {
-    for (var i=0; i<records.length; i++) {
-      var record = records[i];
+    for (const i=0; i<records.length; i++) {
+      const record = records[i];
       console.log("First Name: " + record.FirstName);
       console.log("Last Name: " + record.LastName);
       // fields in Account relationship are fetched
@@ -215,8 +215,8 @@ conn.sobject("Contact")
   .execute(function(err, records) {
     if (err) { return console.error(err); }
     console.log('records length = ' + records.length);
-    for (var i=0; i<records.length; i++) {
-      var record = records[i];
+    for (const i=0; i < records.length; i++) {
+      const record = records[i];
       console.log("First Name: " + record.FirstName);
       console.log("Last Name: " + record.LastName);
       // fields in Account relationship are fetched

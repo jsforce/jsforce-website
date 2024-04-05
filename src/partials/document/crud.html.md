@@ -9,7 +9,7 @@ It also supports multiple record manipulation in one API call.
 
 ### Retrieve
 
-`SObject#retrieve(id)` fetches a record or records specified by id(s) in first argument.
+`SObject.retrieve(id)` fetches a record or records specified by id(s) in first argument.
 
 ```javascript
 /* @interactive */
@@ -29,7 +29,7 @@ conn.sobject("Account").retrieve([
   "0017000000iKOZTAA4"
 ], function(err, accounts) {
   if (err) { return console.error(err); }
-  for (var i=0; i < accounts.length; i++) {
+  for (const i=0; i < accounts.length; i++) {
     console.log("Name : " + accounts[i].Name);
   }
   // ...
@@ -38,7 +38,7 @@ conn.sobject("Account").retrieve([
 
 ### Create 
 
-`SObject#create(record)` (or its synonym `SObject#insert(record)`) creates a record or records given in first argument.
+`SObject.create(record)` (or its synonym `SObject.insert(record)`) creates a record or records given in first argument.
 
 ```javascript
 /* @interactive */
@@ -59,7 +59,7 @@ conn.sobject("Account").create([
 ],
 function(err, rets) {
   if (err) { return console.error(err); }
-  for (var i=0; i < rets.length; i++) {
+  for (const i=0; i < rets.length; i++) {
     if (rets[i].success) {
       console.log("Created record id : " + rets[i].id);
     }
@@ -70,7 +70,7 @@ function(err, rets) {
 
 ### Update
 
-`SObject#update(record)` updates a record or records given in first argument.
+`SObject.update(record)` updates a record or records given in first argument.
 
 ```javascript
 /* @interactive */
@@ -94,7 +94,7 @@ conn.sobject("Account").update([
 ],
 function(err, rets) {
   if (err) { return console.error(err); }
-  for (var i=0; i < rets.length; i++) {
+  for (const i=0; i < rets.length; i++) {
     if (rets[i].success) {
       console.log("Updated Successfully : " + rets[i].id);
     }
@@ -104,7 +104,7 @@ function(err, rets) {
 
 ### Delete
 
-`SObject#destroy(id)` (or its synonym `SObject#del(id)`, `SObject#delete(id)`) deletes a record or records given in first argument.
+`SObject.destroy(id)` (or its synonym `SObject.del(id)`, `SObject.delete(id)`) deletes a record or records given in first argument.
 
 ```javascript
 /* @interactive */
@@ -128,7 +128,7 @@ conn.sobject("Account").del([ // synonym of "destroy"
 ], 
 function(err, rets) {
   if (err) { return console.error(err); }
-  for (var i=0; i < rets.length; i++) {
+  for (const i=0; i < rets.length; i++) {
     if (rets[i].success) {
       console.log("Deleted Successfully : " + rets[i].id);
     }
@@ -138,7 +138,7 @@ function(err, rets) {
 
 ### Upsert
 
-`SObject#upsert(record, extIdField)` will upsert a record or records given in first argument. External ID field name must be specified in second argument.
+`SObject.upsert(record, extIdField)` will upsert a record or records given in first argument. External ID field name must be specified in second argument.
 
 
 ```javascript
@@ -167,7 +167,7 @@ conn.sobject("UpsertTable__c").upsert([
 { allOrNone: true },
 function(err, rets) {
   if (err) { return console.error(err); }
-  for (var i=0; i < rets.length; i++) {
+  for (const i=0; i < rets.length; i++) {
     if (rets[i].success) {
       console.log("Upserted Successfully");
     }
@@ -202,7 +202,7 @@ conn.sobject("Account").update([
 { allOrNone: true },
 function(err, rets) {
   if (err) { return console.error(err); } // all record update error will be cached here
-  for (var i=0; i < rets.length; i++) {
+  for (const i=0; i < rets.length; i++) {
     if (rets[i].success) {
       console.log("Updated Successfully : " + rets[i].id);
     }
@@ -226,8 +226,8 @@ In order to enable this you have to pass the option `allowRecursive` to the CRUD
 ```javascript
 /* @interactive */
 // Create 1000 accounts, more than SObject Collection limit (200)
-var accounts = [];
-for (var i=0; i<1000; i++) {
+const accounts = [];
+for (const i=0; i<1000; i++) {
   accounts.push({ Name: 'Account #' + (i+1) });
 }
 // Internally dividing records in chunks,
@@ -247,7 +247,7 @@ conn.sobject('Account')
 
 If you want to update / delete records in Salesforce which match specified condition in bulk,
 now you don't have to write a code which download & upload records information.
-`Query#update(mapping)` / `Query#destroy()` will directly manipulate records.
+`Query.update(mapping)` / `Query.destroy()` will directly manipulate records.
 
 ```javascript
 /* @interactive */
@@ -275,7 +275,7 @@ conn.sobject('Opportunity')
     });
 ```
 
-In `Query#update(mapping)`, you can include simple templating notation in mapping record.
+In `Query.update(mapping)`, you can include simple templating notation in mapping record.
 
 ```javascript
 /* @interactive */
@@ -293,7 +293,7 @@ conn.sobject('Task')
     });
 ```
 
-To achieve further complex mapping, `Query#update(mapping)` accepts mapping function in `mapping` argument.
+To achieve further complex mapping, `Query.update(mapping)` accepts mapping function in `mapping` argument.
 
 ```javascript
 /* @interactive */
@@ -310,9 +310,9 @@ conn.sobject('Task')
     });
 ```
 
-If you are creating query object from SOQL by using `Connection#query(soql)`,
+If you are creating query object from SOQL by using `Connection.query(soql)`,
 the bulk delete/update operation cannot be achieved because no sobject type information available initially.
-You can avoid it by passing optional argument `sobjectType` in `Query#destroy(sobjectType)` or `Query#update(mapping, sobjectType)`.
+You can avoid it by passing optional argument `sobjectType` in `Query.destroy(sobjectType)` or `Query.update(mapping, sobjectType)`.
 
 ```javascript
 /* @interactive */

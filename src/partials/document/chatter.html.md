@@ -3,15 +3,15 @@
 
 ## Chatter API
 
-Chatter API resources can be accessed via `Chatter#resource(path)`.
+Chatter API resources can be accessed via `Chatter.resource(path)`.
 The path for the resource can be a relative path from `/services/data/vX.X/chatter/`, `/services/data/`, or site-root relative path,
 otherwise absolute URI.
 
-Please check official [Chatter REST API Guide](http://www.salesforce.com/us/developer/docs/chatterapi/) to understand resource paths for chatter objects.
+Please check the official [Chatter REST API Guide](http://www.salesforce.com/us/developer/docs/chatterapi/) to understand resource paths for chatter objects.
 
 ### Get Resource Information
 
-If you want to retrieve the information for specified resource, `Chatter-Resource#retrieve()` will get information of the resource.
+If you want to retrieve the information for specified resource, `Chatter-Resource.retrieve()` will get information of the resource.
 
 ```javascript
 /* @interactive */
@@ -46,7 +46,7 @@ conn.chatter.resource('/users', { q: 'Suzuki' }).retrieve(function(err, result) 
 
 ### Post a Feed Item
 
-To post a feed item or a comment, use `Chatter-Resource#create(data)` for collection resource.
+To post a feed item or a comment, use `Chatter-Resource.create(data)` for collection resource.
 
 ```javascript
 /* @interactive */
@@ -74,7 +74,7 @@ You can add a comment by posting message to feed item's comments URL:
 
 ```javascript
 /* @interactive */
-var commentsUrl = '/feed-elements/0D55000001j5qn8CAA/capabilities/comments/items';
+const commentsUrl = '/feed-elements/0D55000001j5qn8CAA/capabilities/comments/items';
 conn.chatter.resource(commentsUrl).create({
   body: {
     messageSegments: [{
@@ -96,7 +96,7 @@ You can add likes to feed items/comments by posting empty string to like URL:
 
 ```javascript
 /* @interactive */
-var itemLikesUrl = '/feed-elements/0D55000001j5r2rCAA/capabilities/chatter-likes/items';
+const itemLikesUrl = '/feed-elements/0D55000001j5r2rCAA/capabilities/chatter-likes/items';
 conn.chatter.resource(itemLikesUrl).create("", function(err, result) {
   if (err) { return console.error(err); }
   console.log("URL: " + result.url);
@@ -107,7 +107,7 @@ conn.chatter.resource(itemLikesUrl).create("", function(err, result) {
 
 ### Batch Operation
 
-Using `Chatter#batch(requests)`, you can execute multiple Chatter resource requests in one API call.
+Using `Chatter.batch(requests)`, you can execute multiple Chatter resource requests in one API call.
 Requests should be CRUD operations for Chatter API resource.
 
 ```javascript
@@ -137,7 +137,7 @@ conn.chatter.batch([
 ], function(err, res) {
   if (err) { return console.error(err); }
   console.log("Error? " + res.hasErrors);
-  var results = res.results;
+  const results = res.results;
   console.log("batch request executed: " + results.length);
   console.log("request #1 - status code: " + results[0].statusCode);
   console.log("request #1 - result URL: " + results[0].result.url);

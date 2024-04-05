@@ -15,7 +15,7 @@ First, assume that you have record set in array object to insert into Salesforce
 //
 // Records to insert in bulk.
 //
-var accounts = [
+const accounts = [
 { Name : 'Account #1', ... },
 { Name : 'Account #2', ... },
 { Name : 'Account #3', ... },
@@ -23,17 +23,17 @@ var accounts = [
 ];
 ```
 
-You can use `SObject#create(record)`, but it consumes API quota per record,
+You can use `SObject.create(record)`, but it consumes API quota per record,
 so not practical for large set of records. We can use bulk API interface to load them.
 
-Similar to Salesforce Bulk API, first create bulk job by `Bulk#createJob(sobjectType, operation)`
+Similar to Salesforce Bulk API, first create bulk job by `Bulk.createJob(sobjectType, operation)`
 through `bulk` API object in connection object.
 
-Next, create a new batch in the job, by calling `Bulk-Job#createBatch()` through the job object created previously.
+Next, create a new batch in the job, by calling `Bulk-Job.createBatch()` through the job object created previously.
 
 ```javascript
-var job = conn.bulk.createJob("Account", "insert");
-var batch = job.createBatch();
+const job = conn.bulk.createJob("Account", "insert");
+const batch = job.createBatch();
 ```
 
 Then bulk load the records by calling `Bulk-Batch#execute(input)` of created batch object, passing the records in `input` argument.
@@ -55,11 +55,11 @@ After the batch is queued and job / batch ID is created, wait the batch completi
 When the batch process in Salesforce has been completed, it is notified by `response` event with batch result information.
 
 ```javascript
-var job = conn.bulk.job(jobId);
-var batch = job.batch(batchId);
+const job = conn.bulk.job(jobId);
+const batch = job.batch(batchId);
 batch.poll(1000 /* interval(ms) */, 20000 /* timeout(ms) */); // start polling
 batch.on("response", function(rets) { // fired when batch is finished and result retrieved
-  for (var i=0; i < rets.length; i++) {
+  for (const i=0; i < rets.length; i++) {
     if (rets[i].success) {
       console.log("#" + (i+1) + " loaded successfully, id = " + rets[i].id);
     } else {
@@ -75,14 +75,14 @@ Below is an example of the full bulk loading flow from scratch.
 ```javascript
 /* @interactive */
 // Provide records
-var accounts = [
+const accounts = [
   { Name : 'Account #1' },
   { Name : 'Account #2' },
   { Name : 'Account #3' },
 ];
 // Create job and batch
-var job = conn.bulk.createJob("Account", "insert");
-var batch = job.createBatch();
+const job = conn.bulk.createJob("Account", "insert");
+const batch = job.createBatch();
 // start job
 batch.execute(accounts);
 // listen for events
@@ -94,7 +94,7 @@ batch.on("queue", function(batchInfo) { // fired when batch request is queued in
   batch.poll(1000 /* interval(ms) */, 20000 /* timeout(ms) */); // start polling - Do not poll until the batch has started
 });
 batch.on("response", function(rets) { // fired when batch finished and result retrieved
-  for (var i=0; i < rets.length; i++) {
+  for (const i=0; i < rets.length; i++) {
     if (rets[i].success) {
       console.log("#" + (i+1) + " loaded successfully, id = " + rets[i].id);
     } else {
@@ -114,7 +114,7 @@ NOTE: In some cases for large data sets, a polling timeout can occur. When loadi
 conn.bulk.pollTimeout = 25000; // Bulk timeout can be specified globally on the connection object
 conn.bulk.load("Account", "insert", accounts, function(err, rets) {
   if (err) { return console.error(err); }
-  for (var i=0; i < rets.length; i++) {
+  for (const i=0; i < rets.length; i++) {
     if (rets[i].success) {
       console.log("#" + (i+1) + " loaded successfully, id = " + rets[i].id);
     } else {
@@ -158,13 +158,13 @@ in `Bulk#load(sobjectType, operation, input)`, instead of passing records in arr
 //
 // Create readable stream for CSV file to upload
 //
-var csvFileIn = require('fs').createReadStream("path/to/Account.csv");
+const csvFileIn = require('fs').createReadStream("path/to/Account.csv");
 //
 // Call Bulk#load(sobjectType, operation, input) - use CSV file stream as "input" argument
 //
 conn.bulk.load("Account", "insert", csvFileIn, function(err, rets) {
   if (err) { return console.error(err); }
-  for (var i=0; i < rets.length; i++) {
+  for (const i=0; i < rets.length; i++) {
     if (rets[i].success) {
       console.log("#" + (i+1) + " loaded successfully, id = " + rets[i].id);
     } else {
@@ -178,12 +178,12 @@ conn.bulk.load("Account", "insert", csvFileIn, function(err, rets) {
 Alternatively, if you have a CSV string instead of an actual file, but would still like to use the CSV data type, here is an example for node.js.
 
 ```javascript
-var s = new stream.Readable();
+const s = new stream.Readable();
 s.push(fileStr);
 s.push(null);
 
-var job = conn.bulk.createJob(sobject, operation, options);
-var batch = job.createBatch();
+const job = conn.bulk.createJob(sobject, operation, options);
+const batch = job.createBatch();
 batch
 .execute(s)
 .on("queue", function(batchInfo) {
@@ -202,9 +202,9 @@ You can pipe input stream to it afterward.
 
 
 ```javascript
-var batch = conn.bulk.load("Account", "insert");
+const batch = conn.bulk.load("Account", "insert");
 batch.on("response", function(rets) { // fired when batch finished and result retrieved
-  for (var i=0; i < rets.length; i++) {
+  for (const i=0; i < rets.length; i++) {
     if (rets[i].success) {
       console.log("#" + (i+1) + " loaded successfully, id = " + rets[i].id);
     } else {
@@ -254,7 +254,7 @@ conn.bulk.query("SELECT Id, Name, NumberOfEmployees FROM Account")
 ```
 
 ```javascript
-var fs = require('fs');
+const fs = require('fs');
 conn.bulk.query("SELECT Id, Name, NumberOfEmployees FROM Account")
   .stream().pipe(fs.createWriteStream('./accounts.csv'));
 ```
@@ -262,12 +262,12 @@ conn.bulk.query("SELECT Id, Name, NumberOfEmployees FROM Account")
 If you already know the job id and batch id for the bulk query, you can get the batch result ids by calling `Batch#retrieve()`. Retrieval for each result is done by `Batch#result(resultId)`
 
 ```javascript
-var fs = require('fs');
-var batch = conn.bulk.job(jobId).batch(batchId);
+const fs = require('fs');
+const batch = conn.bulk.job(jobId).batch(batchId);
 batch.retrieve(function(err, results) {
   if (err) { return console.error(err); }
-  for (var i=0; i < results.length; i++) {
-    var resultId = result[i].id;
+  for (const i=0; i < results.length; i++) {
+    const resultId = result[i].id;
     batch.result(resultId).stream().pipe(fs.createWriteStream('./result'+i+'.csv'));
   }
 });

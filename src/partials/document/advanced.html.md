@@ -7,15 +7,15 @@
 
 Record stream is a stream system which regards records in its stream, similar to Node.js's standard readable/writable streams.
 
-Query object - usually returned by `Connection#query(soql)` / `SObject#find(conditions, fields)` methods -
+Query object - usually returned by `Connection.query(soql)` / `SObject.find(conditions, fields)` methods -
 is considered as `InputRecordStream` which emits event `record` when received record from server.
 
-Batch object - usually returned by `Bulk-Job#createBatch()` / `Bulk#load(sobjectType, operation, input)` / `SObject#bulkload(operation, input)` methods -
+Batch object - usually returned by `Bulk-Job.createBatch()` / `Bulk.load(sobjectType, operation, input)` / `SObject.bulkload(operation, input)` methods -
 is considered as `OutputRecordStream` and have `send()` and `end()` method to accept incoming record.
 
-You can use `InputRecordStream#pipe(outputRecordStream)` to pipe record stream.
+You can use `InputRecordStream.pipe(outputRecordStream)` to pipe record stream.
 
-RecordStream can be converted to usual Node.js's stream object by calling `RecordStream#stream()` method.
+RecordStream can be converted to usual Node.js's stream object by calling `RecordStream.stream()` method.
 
 By default (and only currently) records are serialized to CSV string.
 
@@ -23,14 +23,14 @@ By default (and only currently) records are serialized to CSV string.
 #### Piping Query Record Stream to Batch Record Stream
 
 The idea of record stream pipeline is the base of bulk operation for queried record.
-For example, the same process of `Query#destroy()` can be expressed as following:
+For example, the same process of `Query.destroy()` can be expressed as following:
 
 
 ```javascript
 //
-// This is much more complex version of Query#destroy().
+// This is much more complex version of Query.destroy().
 //
-var Account = conn.sobject('Account');
+const Account = conn.sobject('Account');
 Account.find({ CreatedDate: { $lt: jsforce.Date.LAST_YEAR }})
        .pipe(Account.deleteBulk())
        .on('response', function(rets){
@@ -41,13 +41,13 @@ Account.find({ CreatedDate: { $lt: jsforce.Date.LAST_YEAR }})
        });
 ```
 
-And `Query#update(mapping)` can be expressed as following:
+And `Query.update(mapping)` can be expressed as following:
 
 ```javascript
 //
-// This is much more complex version of Query#update().
+// This is much more complex version of Query.update().
 //
-var Opp = conn.sobject('Opportunity');
+const Opp = conn.sobject('Opportunity');
 Opp.find({ "Account.Id" : accId },
          { Id: 1, Name: 1, "Account.Name": 1 })
    .pipe(jsforce.RecordStream.map(function(r) {
@@ -63,11 +63,11 @@ Opp.find({ "Account.Id" : accId },
    });
 ```
 
-Following is an example using `Query#stream()` (inherited `RecordStream#stream()`) to convert record stream to Node.js stream,
+Following is an example using `Query.stream()` (inherited `RecordStream.stream()`) to convert record stream to Node.js stream,
 in order to export all queried records to CSV file.
 
 ```javascript
-var csvFileOut = require('fs').createWriteStream('path/to/Account.csv');
+const csvFileOut = require('fs').createWriteStream('path/to/Account.csv');
 conn.query("SELECT Id, Name, Type, BillingState, BillingCity, BillingStreet FROM Account")
     .stream() // Convert to Node.js's usual readable stream.
     .pipe(csvFileOut);
@@ -76,7 +76,7 @@ conn.query("SELECT Id, Name, Type, BillingState, BillingCity, BillingStreet FROM
 #### Record Stream Filtering / Mapping
 
 You can also filter / map queried records to output record stream.
-Static functions like `InputRecordStream#map(mappingFn)` and `InputRecordStream#filter(filterFn)` create a record stream
+Static functions like `InputRecordStream.map(mappingFn)` and `InputRecordStream.filter(filterFn)` create a record stream
 which accepts records from upstream and pass to downstream, applying given filtering / mapping function.
 
 ```javascript
@@ -93,18 +93,18 @@ conn.sobject('Contact')
 // Write down Lead records to CSV file,
 // eliminating duplicated entry with same email address.
 //
-var emails = {};
+const emails = {};
 conn.sobject('Lead')
     .find({}, { Id: 1, Name: 1, Company: 1, Email: 1 })
     .filter(function(r) {
-      var dup = emails[r.Email];
+      const dup = emails[r.Email];
       if (!dup) { emails[r.Email] = true; }
       return !dup;
     })
     .stream().pipe(fs.createWriteStream("Lead.csv"));
 ```
 
-Here is much lower level code to achieve the same result using `InputRecordStream#pipe()`.
+Here is much lower level code to achieve the same result using `InputRecordStream.pipe()`.
 
 
 ```javascript
@@ -121,11 +121,11 @@ conn.sobject('Contact')
 // Write down Lead records to CSV file,
 // eliminating duplicated entry with same email address.
 //
-var emails = {};
+const emails = {};
 conn.sobject('Lead')
     .find({}, { Id: 1, Name: 1, Company: 1, Email: 1 })
     .pipe(jsforce.RecordStream.filter(function(r) {
-      var dup = emails[r.Email];
+      const dup = emails[r.Email];
       if (!dup) { emails[r.Email] = true; }
       return !dup;
     }))
@@ -140,22 +140,22 @@ By using record stream pipeline, you can achieve data migration in a simple code
 //
 // Connection for org which migrating data from
 //
-var conn1 = new jsforce.Connection({
+const conn1 = new jsforce.Connection({
   // ...
 });
 //
 // Connection for org which migrating data to
 //
-var conn2 = new jsforce.Connection({
+const conn2 = new jsforce.Connection({
   // ...
 });
 //
 // Get query record stream from Connetin #1
 // and pipe it to batch record stream from connection #2
 //
-var query = conn1.query("SELECT Id, Name, Type, BillingState, BillingCity, BillingStreet FROM Account");
-var job = conn2.bulk.createJob("Account", "insert");
-var batch = job.createBatch();
+const query = conn1.query("SELECT Id, Name, Type, BillingState, BillingCity, BillingStreet FROM Account");
+const job = conn2.bulk.createJob("Account", "insert");
+const batch = job.createBatch();
 query.pipe(batch);
 batch.on('queue', function() {
   jobId = job.id;

@@ -5,7 +5,7 @@
 
 ### Recently Accessed Records
 
-`SObject#recent()` returns recently accessed records in the SObject.
+`SObject.recent()` returns recently accessed records in the SObject.
 
 ```javascript
 /* @interactive */
@@ -15,7 +15,7 @@ conn.sobject('Account').recent(function(err, res) {
 });
 ```
 
-`Connection#recent()` returns records in all object types which are recently accessed.
+`Connection.recent()` returns records in all object types which are recently accessed.
 
 ```javascript
 /* @interactive */
@@ -27,7 +27,7 @@ conn.recent(function(err, res) {
 
 ### Recently Updated Records
 
-`SObject#updated(startDate, endDate)` returns record IDs which are recently updated.
+`SObject.updated(startDate, endDate)` returns record IDs which are recently updated.
 
 ```javascript
 /* @interactive */
@@ -40,7 +40,7 @@ conn.sobject('Account').updated('2014-02-01', '2014-02-15', function(err, res) {
 
 ### Recently Deleted Records
 
-`SObject#deleted(startDate, endDate)` returns record IDs which are recently deleted.
+`SObject.deleted(startDate, endDate)` returns record IDs which are recently deleted.
 
 ```javascript
 /* @interactive */

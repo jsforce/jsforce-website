@@ -13,11 +13,11 @@ so CRUD operation, query, and describe can be done also for these developer obje
 
 You can create/retrieve/update/delete records in tooling objects (e.g. ApexCode, ApexPage).
 
-To get reference of tooling object, use `Tooling#sobject(sobjectType)`.
+To get reference of tooling object, use `Tooling.sobject(sobjectType)`.
 
 ```javascript
 /* @interactive */
-var apexBody = [
+const apexBody = [
   "public class TestApex {",
   "  public string sayHello() {",
   "    return 'Hello';",
@@ -35,7 +35,7 @@ conn.tooling.sobject('ApexClass').create({
 ### Query Tooling Objects
 
 Querying records in tooling objects is also supported.
-Use `Tooling#query(soql)` or `SObject#find(filters, fields)`.
+Use `Tooling.query(soql)` or `SObject.find(filters, fields)`.
 
 ```javascript
 /* @interactive */
@@ -44,8 +44,8 @@ conn.tooling.sobject('ApexTrigger')
   .execute(function(err, records) {
     if (err) { return console.error(err); }
     console.log("fetched : " + records.length);
-    for (var i=0; i < records.length; i++) {
-      var record = records[i];
+    for (const i=0; i < records.length; i++) {
+      const record = records[i];
       console.log('Id: ' + record.Id);
       console.log('Name: ' + record.Name);
     }
@@ -54,7 +54,7 @@ conn.tooling.sobject('ApexTrigger')
 
 ### Describe Tooling Objects
 
-Describing all tooling objects in the organization is done by calling `Tooling#describeGlobal()`.
+Describing all tooling objects in the organization is done by calling `Tooling.describeGlobal()`.
 
 ```javascript
 /* @interactive */
@@ -65,8 +65,8 @@ conn.tooling.describeGlobal(function(err, res) {
 });
 ```
 
-Describing each object detail is done by calling `SObject#describe()` to tooling object reference,
-or just calling `Tooling#describeSObject(sobjectType)`.
+Describing each object detail is done by calling `SObject.describe()` to tooling object reference,
+or just calling `Tooling.describeSObject(sobjectType)`.
 
 
 ```javascript
@@ -81,12 +81,12 @@ conn.tooling.sobject('ApexPage').describe(function(err, meta) {
 
 ### Execute Anonymous Apex
 
-You can use Tooling API to execute anonymous Apex Code, by passing apex code string text to `Tooling#executeAnonymous`.
+You can use Tooling API to execute anonymous Apex Code, by passing apex code string text to `Tooling.executeAnonymous`.
 
 ```javascript
 /* @interactive */
 // execute anonymous Apex Code
-var apexBody = "System.debug('Hello, World');";
+const apexBody = "System.debug('Hello, World');";
 conn.tooling.executeAnonymous(apexBody, function(err, res) {
   if (err) { return console.error(err); }
   console.log("compiled?: " + res.compiled); // compiled successfully

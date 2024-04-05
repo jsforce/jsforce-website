@@ -7,7 +7,7 @@ Metadata description API for Salesforce object.
 
 ### Describe SObject
 
-You can use `SObject#describe()` to fetch SObject metadata,
+You can use `SObject.describe()` to fetch SObject metadata,
 
 ```javascript
 /* @interactive */
@@ -19,7 +19,7 @@ conn.sobject("Account").describe(function(err, meta) {
 });
 ```
 
-or can use `Connection#describe(sobjectType)` (or its synonym `Connection#describeSObject(sobjectType)`) alternatively.
+or can use `Connection.describe(sobjectType)` (or its synonym `Connection.describeSObject(sobjectType)`) alternatively.
 
 ```javascript
 /* @interactive */
@@ -33,7 +33,7 @@ conn.describe("Account", function(err, meta) {
 
 ### Describe Global
 
-`SObject#describeGlobal()` returns all SObject information registered in Salesforce (without detail information like fields, childRelationships).
+`SObject.describeGlobal()` returns all SObject information registered in Salesforce (without detail information like fields, childRelationships).
 
 ```javascript
 /* @interactive */
@@ -63,7 +63,7 @@ conn.sobject("Account").describe$(function(err, meta) {
 /* @interactive */
 // If you can assume it should have already cached the result,
 // you can use synchronous call to access the result;
-var meta = conn.sobject("Account").describe$();
+const meta = conn.sobject("Account").describe$();
 console.log('Label : ' + meta.label);
 console.log('Num of Fields : ' + meta.fields.length);
 // ...

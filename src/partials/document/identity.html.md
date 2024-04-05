@@ -3,7 +3,7 @@
 
 ## Identity
 
-`Connection#identity()` is available to get current API session user identity information.
+`Connection.identity()` is available to get current API session user identity information.
 
 ```javascript
 /* @interactive */

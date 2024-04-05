@@ -5,14 +5,14 @@
 
 ### Describe Metadata
 
-`Metadata#describe(version)` is the method to list all metadata in an org.
+`Metadata.describe(version)` is the method to list all metadata in an org.
 
 ```javascript
 /* @interactive */
 conn.metadata.describe('39.0', function(err, metadata) {
   if (err) { return console.error('err', err); }
-  for (var i=0; i < metadata.length; i++) {
-    var meta = metadata[i];
+  for (const i=0; i < metadata.length; i++) {
+    const meta = metadata[i];
     console.log("organizationNamespace: " + meta.organizationNamespace);
     console.log("partialSaveAllowed: " + meta.partialSaveAllowed);
     console.log("testRequired: " + meta.testRequired);
@@ -22,14 +22,14 @@ conn.metadata.describe('39.0', function(err, metadata) {
 ```
 ### List Metadata
 
-`Metadata#list(types, version)` is the method to list summary information for all metadata types.
+`Metadata.list(types, version)` is the method to list summary information for all metadata types.
 
 ```javascript
 /* @interactive */
-var types = [{type: 'CustomObject', folder: null}];
+const types = [{type: 'CustomObject', folder: null}];
 conn.metadata.list(types, '39.0', function(err, metadata) {
   if (err) { return console.error('err', err); }
-    var meta = metadata[0];
+    const meta = metadata[0];
     console.log('metadata count: ' + metadata.length);
     console.log('createdById: ' + meta.createdById);
     console.log('createdByName: ' + meta.createdByName);
@@ -48,15 +48,15 @@ conn.metadata.list(types, '39.0', function(err, metadata) {
 
 ### Read Metadata
 
-`Metadata#read(type, fullNames)` is the method to retrieve metadata information which are specified by given names.
+`Metadata.read(type, fullNames)` is the method to retrieve metadata information which are specified by given names.
 
 ```javascript
 /* @interactive */
-var fullNames = [ 'Account', 'Contact' ];
+const fullNames = [ 'Account', 'Contact' ];
 conn.metadata.read('CustomObject', fullNames, function(err, metadata) {
   if (err) { console.error(err); }
-  for (var i=0; i < metadata.length; i++) {
-    var meta = metadata[i];
+  for (const i=0; i < metadata.length; i++) {
+    const meta = metadata[i];
     console.log("Full Name: " + meta.fullName);
     console.log("Fields count: " + meta.fields.length);
     console.log("Sharing Model: " + meta.sharingModel);
@@ -68,13 +68,13 @@ conn.metadata.read('CustomObject', fullNames, function(err, metadata) {
 
 ### Create Metadata
 
-To create new metadata objects, use `Metadata#create(type, metadata)`.
+To create new metadata objects, use `Metadata.create(type, metadata)`.
 Metadata format for each metadata types are written in the Salesforce Metadata API document.
 
 ```javascript
 /* @interactive */
 // creating metadata in array
-var metadata = [{
+const metadata = [{
   fullName: 'TestObject1__c',
   label: 'Test Object 1',
   pluralLabel: 'Test Object 1',
@@ -97,15 +97,15 @@ var metadata = [{
 }];
 conn.metadata.create('CustomObject', metadata, function(err, results) {
   if (err) { console.err(err); }
-  for (var i=0; i < results.length; i++) {
-    var result = results[i];
+  for (const i=0; i < results.length; i++) {
+    const result = results[i];
     console.log('success ? : ' + result.success);
     console.log('fullName : ' + result.fullName);
   }
 });
 ```
 
-There is an alternative method to create metadata, in aynchronous - `Metadata#createAync()`.
+There is an alternative method to create metadata, in aynchronous - `Metadata.createAync()`.
 
 This asynchronous version is different from synchronous one - it returns asynchronous result ids with current statuses,
 which can be used for later execution status query.
@@ -114,11 +114,11 @@ NOTE: This API is depricated from Salesforce as of API version 31.0 in favor of 
 
 ```javascript
 // request creating metadata and receive execution ids & statuses
-var asyncResultIds = [];
+const asyncResultIds = [];
 conn.metadata.createAsync('CustomObject', metadata, function(err, results) {
   if (err) { console.err(err); }
-  for (var i=0; i < results.length; i++) {
-    var result = results[i];
+  for (const i=0; i < results.length; i++) {
+    const result = results[i];
     console.log('id: ' + result.id);
     console.log('done ? : ' + result.done);
     console.log('state : ' + result.state); console.log(results);
@@ -129,14 +129,14 @@ conn.metadata.createAsync('CustomObject', metadata, function(err, results) {
 
 ```
 
-And then you can check creation statuses by `Metadata#checkStatus(asyncResultIds)`,
-and wait their completion by calling `Metadata-AsyncResultLocator#complete()` for returned object.
+And then you can check creation statuses by `Metadata.checkStatus(asyncResultIds)`,
+and wait their completion by calling `Metadata-AsyncResultLocator.complete()` for returned object.
 
 ```javascript
 conn.metadata.checkStatus(asyncResultIds).complete(function(err, results) {
   if (err) { console.error(err); }
-  for (var i=0; i < results.length; i++) {
-    var result = results[i];
+  for (const i=0; i < results.length; i++) {
+    const result = results[i];
     console.log('id: ' + result.id);
     console.log('done ? : ' + result.done);
     console.log('state : ' + result.state);
@@ -144,8 +144,8 @@ conn.metadata.checkStatus(asyncResultIds).complete(function(err, results) {
 });
 ```
 
-Or you can directly apply `Metadata-AsyncResultLocator#complete()` call for the locator object
-returned from `Metadata#createAsync()` call.
+Or you can directly apply `Metadata-AsyncResultLocator.complete()` call for the locator object
+returned from `Metadata.createAsync()` call.
 
 ```javascript
 conn.metadata.createAsync('CustomObject', metadata).complete(function(err, results) {
@@ -154,48 +154,48 @@ conn.metadata.createAsync('CustomObject', metadata).complete(function(err, resul
 });
 ````
 
-NOTE: In version 1.2.x, `Metadata#create()` method was an alias of `Metadata#createAsync()`.
+NOTE: In version 1.2.x, `Metadata.create()` method was an alias of `Metadata.createAsync()`.
 
-From ver 1.3, the method has been changed to point to synchronous call `Metadata#createSync()` which is corresponding to the sync API newly introduced from API 30.0. This is due to the removal of asynchronous metadata call from API 31.0.
+From ver 1.3, the method has been changed to point to synchronous call `Metadata.createSync()` which is corresponding to the sync API newly introduced from API 30.0. This is due to the removal of asynchronous metadata call from API 31.0.
 
-Asynchronous method `Metadata#createAsync()` still works if API version is specified to less than 31.0, but not recommended for active usage.
+Asynchronous method `Metadata.createAsync()` still works if API version is specified to less than 31.0, but not recommended for active usage.
 
 
 ### Update Metadata
 
-`Metadata#update(type, updateMetadata)` can be used for updating existing metadata objects.
+`Metadata.update(type, updateMetadata)` can be used for updating existing metadata objects.
 
 ```
 /* @interactive */
-var metadata = [{
+const metadata = [{
   fullName: 'TestObject1__c.AutoNumberField__c',
   label: 'Auto Number #2',
   length: 50
 }]
 conn.metadata.update('CustomField', metadata, function(err, results) {
   if (err) { console.error(err); }
-  for (var i=0; i < results.length; i++) {
-    var result = results[i];
+  for (const i=0; i < results.length; i++) {
+    const result = results[i];
     console.log('success ? : ' + result.success);
     console.log('fullName : ' + result.fullName);
   }
 });
 ```
 
-NOTE: In version 1.2.x, `Metadata#update()` method was an alias of `Metadata#updateAsync()`.
+NOTE: In version 1.2.x, `Metadata.update()` method was an alias of `Metadata.updateAsync()`.
 
-From ver 1.3, the method has been changed to point to synchronous call `Metadata#updateSync()` which is corresponding to the sync API newly introduced from API 30.0. This is due to the removal of asynchronous metadata call from API 31.0.
+From ver 1.3, the method has been changed to point to synchronous call `Metadata.updateSync()` which is corresponding to the sync API newly introduced from API 30.0. This is due to the removal of asynchronous metadata call from API 31.0.
 
-Asynchronous method `Metadata#updateAsync()` still works if API version is specified to less than 31.0, but not recommended for active usage.
+Asynchronous method `Metadata.updateAsync()` still works if API version is specified to less than 31.0, but not recommended for active usage.
 
 
 ### Upsert Metadata
 
-`Metadata#upsert(type, metadata)` is used for upserting metadata - insert new metadata when it is not available, otherwise update it.
+`Metadata.upsert(type, metadata)` is used for upserting metadata - insert new metadata when it is not available, otherwise update it.
 
 ```javascript
 /* @interactive */
-var metadata = [{
+const metadata = [{
   fullName: 'TestObject2__c',
   label: 'Upserted Object 2',
   pluralLabel: 'Upserted Object 2',
@@ -218,8 +218,8 @@ var metadata = [{
 }];
 conn.metadata.upsert('CustomObject', metadata, function(err, results) {
   if (err) { console.error(err); }
-  for (var i=0; i < results.length; i++) {
-    var result = results[i];
+  for (const i=0; i < results.length; i++) {
+    const result = results[i];
     console.log('success ? : ' + result.success);
     console.log('created ? : ' + result.created);
     console.log('fullName : ' + result.fullName);
@@ -230,14 +230,14 @@ conn.metadata.upsert('CustomObject', metadata, function(err, results) {
 
 ### Rename Metadata
 
-`Metadata#rename(type, oldFullName, newFullName)` is used for renaming metadata.
+`Metadata.rename(type, oldFullName, newFullName)` is used for renaming metadata.
 
 ```javascript
 /* @interactive */
 conn.metadata.rename('CustomObject', 'TestObject3__c', 'UpdatedTestObject3__c', function(err, result) {
   if (err) { console.error(err); }
-  for (var i=0; i < results.length; i++) {
-    var result = results[i];
+  for (const i=0; i < results.length; i++) {
+    const result = results[i];
     console.log('success ? : ' + result.success);
     console.log('fullName : ' + result.fullName);
   }
@@ -247,48 +247,48 @@ conn.metadata.rename('CustomObject', 'TestObject3__c', 'UpdatedTestObject3__c', 
 
 ### Delete Metadata
 
-`Metadata#delete(type, metadata)` can be used for deleting existing metadata objects.
+`Metadata.delete(type, metadata)` can be used for deleting existing metadata objects.
 
 ```javascript
 /* @interactive */
-var fullNames = ['TestObject1__c', 'TestObject2__c'];
+const fullNames = ['TestObject1__c', 'TestObject2__c'];
 conn.metadata.delete('CustomObject', fullNames, function(err, results) {
   if (err) { console.error(err); }
-  for (var i=0; i < results.length; i++) {
-    var result = results[i];
+  for (const i=0; i < results.length; i++) {
+    const result = results[i];
     console.log('success ? : ' + result.success);
     console.log('fullName : ' + result.fullName);
   }
 });
 ```
 
-NOTE: In version 1.2.x, `Metadata#delete()` method was an alias of `Metadata#deleteAsync()`.
+NOTE: In version 1.2.x, `Metadata.delete()` method was an alias of `Metadata.deleteAsync()`.
 
-From ver 1.3, the method has been changed to point to synchronous call `Metadata#deleteSync()` which is corresponding to the sync API newly introduced from API 30.0. This is due to the removal of asynchronous metadata call from API 31.0.
+From ver 1.3, the method has been changed to point to synchronous call `Metadata.deleteSync()` which is corresponding to the sync API newly introduced from API 30.0. This is due to the removal of asynchronous metadata call from API 31.0.
 
-Asynchronous method `Metadata#deleteAsync()` still works if API version is specified to less than 31.0, but not recommended for active usage.
+Asynchronous method `Metadata.deleteAsync()` still works if API version is specified to less than 31.0, but not recommended for active usage.
 
 
 ### Retrieve / Deploy Metadata (File-based)
 
 You can retrieve metadata information which is currently registered in Salesforce,
-`Metadata#retrieve(options)` command can be used.
+`Metadata.retrieve(options)` command can be used.
 
 The structure of hash object argument `options` is same to the message object defined in Salesforce Metadata API.
 
 ```javascript
-var fs = require('fs');
+const fs = require('fs');
 conn.metadata.retrieve({ packageNames: [ 'My Test Package' ] })
              .stream().pipe(fs.createWriteStream("./path/to/MyPackage.zip"));
 ```
 
 If you have metadata definition files in your file system, create zip file from them
-and call `Metadata#deploy(zipIn, options)` to deploy all of them.
+and call `Metadata.deploy(zipIn, options)` to deploy all of them.
 
 
 ```javascript
-var fs = require('fs');
-var zipStream = fs.createReadStream("./path/to/MyPackage.zip");
+const fs = require('fs');
+const zipStream = fs.createReadStream("./path/to/MyPackage.zip");
 conn.metadata.deploy(zipStream, { runTests: [ 'MyApexTriggerTest' ] })
   .complete(function(err, result) {
     if (err) { console.error(err); }
