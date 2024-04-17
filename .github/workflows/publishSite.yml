@@ -2,7 +2,7 @@ name: release
 
 on:
   push:
-  branches: [cd/publish-test]
+    branches: [cd/publish-test]
 
 jobs:
   publish:
