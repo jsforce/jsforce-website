@@ -1,0 +1,36 @@
+name: release
+
+on:
+  push:
+  branches: [cd/publish-test]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.ref }}
+      - uses: actions/setup-node@v3
+        with:
+          node-version: lts/*
+          cache: yarn
+      - name: install deps
+        run: yarn install
+      - name: build docs
+        run: |
+          rm -rf out
+          git worktree prune
+          git fetch origin site:site
+          git worktree add out site
+          NODE_ENV=production yarn docpad generate --out site/tmp
+          cp -r site/tmp/* site/tmp/..
+          rm -rf site/tmp
+
+      - uses: salesforcecli/github-workflows/.github/actions/gitConfig@main
+      - name: send to git
+        run: |
+          cd docs
+          git add .
+          git commit -m 'docs: publishing jsforce-website [skip ci]' --no-verify
+          git push origin site --no-verify
