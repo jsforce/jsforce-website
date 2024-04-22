@@ -14,11 +14,9 @@
   "devDependencies": {
     "docpad-plugin-eco": "^2.1.0",
     "docpad-plugin-less": "^2.4.1",
-    "docpad-plugin-livereload": "^2.7.1",
     "docpad-plugin-marked": "^2.3.0",
     "docpad-plugin-paged": "^2.4.0",
-    "docpad-plugin-partials": "^2.9.2",
-    "docpad-plugin-sunny": "^2.1.0",
+    "docpad-plugin-partials": "2.13.0",
     "moment": "^2.13.0",
     "underscore": "^1.8.3"
   }
