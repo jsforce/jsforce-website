@@ -15,12 +15,10 @@ If you want to retrieve the information for specified resource, `Chatter-Resourc
 
 ```javascript
 /* @interactive */
-conn.chatter.resource('/users/me').retrieve(function(err, res) {
-  if (err) { return console.error(err); }
-  console.log("username: "+ res.username);
-  console.log("email: "+ res.email);
-  console.log("small photo url: "+ res.photo.smallPhotoUrl);
-});
+const res = await conn.chatter.resource('/users/me')
+console.log(`username: ${res.username}`);
+console.log(`email: ${res.email}`);
+console.log(`small photo url: ${res.photo.smallPhotoUrl}`);
 ```
 
 ### Get Collection Resource Information
@@ -30,18 +28,18 @@ All acceptable query parameters are written in Chatter REST API manual.
 
 ```javascript
 /* @interactive */
-conn.chatter.resource('/users', { q: 'Suzuki' }).retrieve(function(err, result) {
-  if (err) { return console.error(err); }
-  console.log("current page URL: " + result.currentPageUrl);
-  console.log("next page URL: " + result.nextPageUrl);
-  console.log("users count: " + result.users.length);
-  for (var i=0; i<result.users.length; i++) {
-    var user = users[i];
-    console.log('User ID: '+user.id);
-    console.log('User URL: '+user.url);
-    console.log('Username: '+user.username);
-  }
-});
+const result = await conn.chatter.resource('/users', { q: 'Suzuki' }).retrieve();
+
+console.log("current page URL: " + result.currentPageUrl);
+console.log("next page URL: " + result.nextPageUrl);
+console.log("users count: " + result.users.length);
+
+for (let i=0; i<result.users.length; i++) {
+  const user = users[i];
+  console.log('User ID: '+ user.id);
+  console.log('User URL: '+ user.url);
+  console.log('Username: '+ user.username);
+}
 ```
 
 ### Post a Feed Item
@@ -50,7 +48,7 @@ To post a feed item or a comment, use `Chatter-Resource#create(data)` for collec
 
 ```javascript
 /* @interactive */
-conn.chatter.resource('/feed-elements').create({
+const result = await conn.chatter.resource('/feed-elements').create({
   body: {
     messageSegments: [{
       type: 'Text',
@@ -59,13 +57,11 @@ conn.chatter.resource('/feed-elements').create({
   },
   feedElementType : 'FeedItem',
   subjectId: 'me'
-}, function(err, result) {
-  if (err) { return console.error(err); }
-  console.log("Id: " + result.id);
-  console.log("URL: " + result.url);
-  console.log("Body: " + result.body.messageSegments[0].text);
-  console.log("Comments URL: " + result.capabilities.comments.page.currentPageUrl);
-});
+})
+console.log(`Id: ${result.id}`);
+console.log(`URL: ${result.url}`);
+console.log(`Body: ${result.body.messageSegments[0].text}`);
+console.log(`Comments URL: ${result.capabilities.comments.page.currentPageUrl}`);
 ```
 
 ### Post a Comment
@@ -74,20 +70,18 @@ You can add a comment by posting message to feed item's comments URL:
 
 ```javascript
 /* @interactive */
-var commentsUrl = '/feed-elements/0D55000001j5qn8CAA/capabilities/comments/items';
-conn.chatter.resource(commentsUrl).create({
+const commentsUrl = '/feed-elements/0D55000001j5qn8CAA/capabilities/comments/items';
+const result = await conn.chatter.resource(commentsUrl).create({
   body: {
     messageSegments: [{
       type: 'Text',
       text: 'This is new comment #1'
     }]
   }
-}, function(err, result) {
-  if (err) { return console.error(err); }
-  console.log("Id: " + result.id);
-  console.log("URL: " + result.url);
-  console.log("Body: " + result.body.messageSegments[0].text);
 });
+console.log(`Id: ${result.id}`);
+console.log(`URL: ${result.url}`);
+console.log(`Body: ${result.body.messageSegments[0].text}`);
 ```
 
 ### Add Like
@@ -96,13 +90,11 @@ You can add likes to feed items/comments by posting empty string to like URL:
 
 ```javascript
 /* @interactive */
-var itemLikesUrl = '/feed-elements/0D55000001j5r2rCAA/capabilities/chatter-likes/items';
-conn.chatter.resource(itemLikesUrl).create("", function(err, result) {
-  if (err) { return console.error(err); }
-  console.log("URL: " + result.url);
-  console.log("Liked Item ID:" + result.likedItem.id);
-});
+const itemLikesUrl = '/feed-elements/0D55000001j5r2rCAA/capabilities/chatter-likes/items';
+const result = await conn.chatter.resource(itemLikesUrl).create("");
 
+console.log(`URL: ${result.url}`);
+console.log(`Liked Item ID:${result.likedItem.id}`);
 ```
 
 ### Batch Operation
@@ -112,7 +104,8 @@ Requests should be CRUD operations for Chatter API resource.
 
 ```javascript
 /* @interactive */
-conn.chatter.batch([
+
+const res = await conn.chatter.batch([
   conn.chatter.resource('/feed-elements').create({
     body: {
       messageSegments: [{
@@ -134,18 +127,17 @@ conn.chatter.batch([
     subjectId: 'me'
   }),
   conn.chatter.resource('/feeds/news/me/feed-elements', { pageSize: 2, sort: "CreatedDateDesc" }),
-], function(err, res) {
-  if (err) { return console.error(err); }
-  console.log("Error? " + res.hasErrors);
-  var results = res.results;
-  console.log("batch request executed: " + results.length);
-  console.log("request #1 - status code: " + results[0].statusCode);
-  console.log("request #1 - result URL: " + results[0].result.url);
-  console.log("request #2 - status code: " + results[1].statusCode);
-  console.log("request #2 - result URL: " + results[1].result.url);
-  console.log("request #3 - status code: " + results[2].statusCode);
-  console.log("request #3 - current Page URL: " + results[2].result.currentPageUrl);
-});
+])
+console.log(`Error? ${res.hasErrors}`);
+const results = res.results;
+console.log(`batch request executed: ${results.length}`);
+console.log(`request #1 - status code: ${results[0].statusCode}`);
+console.log(`request #1 - result URL: ${results[0].result.url}`);
+console.log(`request #2 - status code: ${results[1].statusCode}`);
+console.log(`request #2 - result URL: ${results[1].result.url}`);
+console.log(`request #3 - status code: ${results[2].statusCode}`);
+console.log(`request #3 - current Page URL: ${results[2].result.currentPageUrl}`);
+
 ```
 
 

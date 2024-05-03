@@ -32,6 +32,8 @@ scripts:
 
 <%- @partial('document/bulk') %>
 
+<%- @partial('document/v2-bulk') %>
+
 <%- @partial('document/chatter') %>
 
 <%- @partial('document/metadata') %>
